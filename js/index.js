@@ -34,6 +34,10 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         //app.receivedEvent('deviceready');
+        $("#content-dnd-logo").draggable({
+            revert: true,
+            containment: "#content-categories"
+        });
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

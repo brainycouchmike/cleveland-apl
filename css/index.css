@@ -75,6 +75,7 @@ body {
     height: 6em;
     background: transparent url('/img/header_bg.png') center center repeat-x;
     background-size: 100% auto;
+    z-index: 999;
 }
 
 #header-logo {
@@ -89,12 +90,136 @@ body {
     background-size: 100% auto;
 }
 
+#landing-content {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    padding: 0px;
+    right: 0px;
+    margin-top: 6em;
+}
+
+#content-categories {
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    right: 0em;
+    bottom: 5.65em;
+}
+
+.content-category {
+    width: 50%;
+    height: 50%;
+    float: left;
+    position: relative;
+}
+
+#categories-cats {
+    box-shadow: inset -1px -1px 0 0 #666;
+}
+
+#categories-dogs {
+    box-shadow: inset 1px -1px 0 0 #666;
+}
+
+#categories-small {
+    box-shadow: inset -1px 1px 0 0 #666;
+}
+
+#categories-all {
+    box-shadow: inset 1px 1px 0 0 #666;
+}
+
+.category-title {
+    position: absolute;
+    width: 80%;
+    height: 3em;
+    left: 50%;
+    margin-left: -40%;
+    background: url('/img/animal_round_rect.png') center center no-repeat;
+    background-size: auto 90%;
+}
+
+.content-category.top .category-title {
+    top: 10%;
+}
+
+.content-category.bottom .category-title {
+    bottom: 10%;
+}
+
+.category-title-text {
+    text-align: center;
+    font: bold 1.1em Arial, Helvetica, sans-serif;
+    height: 2em;
+    margin-top: 0.8em;
+    color: #888;
+}
+
+.category-off {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.category-off-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12em;
+    height: 10em;
+    background-size: 200% auto !important;
+    margin-left: -6em;
+    margin-top: -5em;
+    background-position: left center;
+}
+
+.content-category.top .category-off-logo {
+    margin-top: -3.5em;
+}
+
+.content-category.bottom .category-off-logo {
+    margin-top: -6.5em;
+}
+
+#cats-off-logo {
+    background: url('/img/animal_icon_cats.png') no-repeat;
+}
+
+#dogs-off-logo {
+    background: url('/img/animal_icon_dogs.png') no-repeat;
+}
+
+#small-off-logo {
+    background: url('/img/animal_icon_small.png') no-repeat;
+}
+
+#all-off-logo {
+    background: url('/img/animal_icon_all.png') no-repeat;
+}
+
+#content-dnd-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 10em;
+    width: 10em;
+    margin: -8em 0 0 -5em;
+    background: url('/img/heart_cursor.png') center center no-repeat;
+    background-size: 100% auto;
+    z-index: 99;
+}
+
 #landing-footer {
     height: 6em;
     width: 100%;
     background: transparent url('/img/footer.png') center center repeat-x;
     background-size: 100% auto;
     border: none;
+    z-index: 999;
 }
 
 #footer-icons {
