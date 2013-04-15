@@ -1,0 +1,266 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+/* Footer Fix */
+[data-role=page] {
+    height: 100% !important;
+    position: relative !important;
+}
+
+[data-role=footer] {
+    bottom: 0;
+    position: absolute !important;
+    top: auto !important;
+    width: 100%;
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+
+    /*background-color:#E4E4E4;*/
+    /*background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);*/
+    /*background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);*/
+    /*background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);*/
+    /*background-image:-webkit-gradient(*/
+        /*linear,*/
+        /*left top,*/
+        /*left bottom,*/
+        /*color-stop(0, #A7A7A7),*/
+        /*color-stop(0.51, #E4E4E4)*/
+    /*);*/
+
+    background: rgb(253,253,253);
+    background: -moz-linear-gradient(top,  rgb(253,253,253) 0%, rgb(253,253,253) 24%, rgb(244,244,244) 30%, rgb(193,193,193) 50%, rgb(244,244,244) 70%, rgb(253,253,253) 76%, rgb(253,253,253) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(253,253,253)), color-stop(24%,rgb(253,253,253)), color-stop(30%,rgb(244,244,244)), color-stop(50%,rgb(193,193,193)), color-stop(70%,rgb(244,244,244)), color-stop(76%,rgb(253,253,253)), color-stop(100%,rgb(253,253,253)));
+    background: -webkit-linear-gradient(top,  rgb(253,253,253) 0%,rgb(253,253,253) 24%,rgb(244,244,244) 30%,rgb(193,193,193) 50%,rgb(244,244,244) 70%,rgb(253,253,253) 76%,rgb(253,253,253) 100%);
+    background: -o-linear-gradient(top,  rgb(253,253,253) 0%,rgb(253,253,253) 24%,rgb(244,244,244) 30%,rgb(193,193,193) 50%,rgb(244,244,244) 70%,rgb(253,253,253) 76%,rgb(253,253,253) 100%);
+    background: -ms-linear-gradient(top,  rgb(253,253,253) 0%,rgb(253,253,253) 24%,rgb(244,244,244) 30%,rgb(193,193,193) 50%,rgb(244,244,244) 70%,rgb(253,253,253) 76%,rgb(253,253,253) 100%);
+    background: linear-gradient(to bottom,  rgb(253,253,253) 0%,rgb(253,253,253) 24%,rgb(244,244,244) 30%,rgb(193,193,193) 50%,rgb(244,244,244) 70%,rgb(253,253,253) 76%,rgb(253,253,253) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdfdfd', endColorstr='#fdfdfd',GradientType=0 );
+
+    background-attachment:fixed;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+}
+
+/* Portrait layout (default) */
+#landing-header {
+    position: relative;
+    width: 100%;
+    height: 6em;
+    background: transparent url('/img/header_bg.png') center center repeat-x;
+    background-size: 100% auto;
+    z-index: 999;
+}
+
+#header-logo {
+    /* logo dimensions: 189px × 109px */
+    position: absolute;
+    left: 50%;
+    margin-left: -4.725em;
+    width: 9.45em;
+    height: 5.45em;
+    bottom: -1.3625em;
+    background: transparent url('/img/header_logo.png') center center no-repeat;
+    background-size: 100% auto;
+}
+
+#landing-content {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    padding: 0px;
+    right: 0px;
+    margin-top: 6em;
+}
+
+#content-categories {
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    right: 0em;
+    bottom: 5.65em;
+}
+
+.content-category {
+    width: 50%;
+    height: 50%;
+    float: left;
+    position: relative;
+}
+
+#categories-cats {
+    box-shadow: inset -1px -1px 0 0 #666;
+}
+
+#categories-dogs {
+    box-shadow: inset 1px -1px 0 0 #666;
+}
+
+#categories-small {
+    box-shadow: inset -1px 1px 0 0 #666;
+}
+
+#categories-all {
+    box-shadow: inset 1px 1px 0 0 #666;
+}
+
+.category-title {
+    position: absolute;
+    width: 80%;
+    height: 3em;
+    left: 50%;
+    margin-left: -40%;
+    background: url('/img/animal_round_rect.png') center center no-repeat;
+    background-size: auto 90%;
+}
+
+.content-category.top .category-title {
+    top: 10%;
+}
+
+.content-category.bottom .category-title {
+    bottom: 10%;
+}
+
+.category-title-text {
+    text-align: center;
+    font: bold 1.1em Arial, Helvetica, sans-serif;
+    height: 2em;
+    margin-top: 0.8em;
+    color: #888;
+}
+
+.category-off {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.category-off-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12em;
+    height: 10em;
+    background-size: 200% auto !important;
+    margin-left: -6em;
+    margin-top: -5em;
+    background-position: left center;
+}
+
+.content-category.top .category-off-logo {
+    margin-top: -3.5em;
+}
+
+.content-category.bottom .category-off-logo {
+    margin-top: -6.5em;
+}
+
+#cats-off-logo {
+    background: url('/img/animal_icon_cats.png') no-repeat;
+}
+
+#dogs-off-logo {
+    background: url('/img/animal_icon_dogs.png') no-repeat;
+}
+
+#small-off-logo {
+    background: url('/img/animal_icon_small.png') no-repeat;
+}
+
+#all-off-logo {
+    background: url('/img/animal_icon_all.png') no-repeat;
+}
+
+#content-dnd-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 10em;
+    width: 10em;
+    margin: -8em 0 0 -5em;
+    background: url('/img/heart_cursor.png') center center no-repeat;
+    background-size: 100% auto;
+    z-index: 99;
+}
+
+#landing-footer {
+    height: 6em;
+    width: 100%;
+    background: transparent url('/img/footer.png') center center repeat-x;
+    background-size: 100% auto;
+    border: none;
+    z-index: 999;
+}
+
+#footer-icons {
+    width: 20em;
+    height: 4em;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.footer-icon {
+    width: 3em;
+    height: 3em;
+    float: left;
+    display: block;
+    background-size: 100% auto;
+    margin: 1em .5em 0 .5em;
+    background-image: url('/img/menu_icon_sprite.png');
+}
+
+#footer-icons-search {
+    background-position: 0 -12em;
+}
+
+#footer-icons-donate {
+    background-position: 0 0;
+}
+
+#footer-icons-info {
+    background-position: 0 -6em;
+}
+
+#footer-icons-favorites {
+    background-position: 0 -3em;
+}
+
+#footer-icons-more {
+    background-position: 0 -9em;
+}
+
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+
+}
