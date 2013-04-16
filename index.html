@@ -14,14 +14,14 @@
     </head>
     <body>
         <div class="landing" data-role="page">
-            <header id="landing-header" data-role="header">
-                <div id="header-logo"></div>
+            <header class="global-header" data-role="header">
+                <div class="header-logo"></div>
             </header>
-            <div id="landing-content" data-role="content">
+            <div class="global-content" data-role="content">
                 <div id="content-dnd-logo"></div>
                 <div id="content-go-btn"></div>
                 <div id="content-categories">
-                    <div id="categories-cats" class="content-category top">
+                    <div id="categories-cats" class="content-category top" data-species-id="2">
                         <div id="cats-title" class="category-title">
                             <div id="cats-title-text" class="category-title-text">Cats &amp; Kittens</div>
                         </div>
@@ -34,7 +34,7 @@
                             <div id="cats-on-bg" class="category-on-bg"></div>
                         </div>
                     </div>
-                    <div id="categories-dogs" class="content-category top">
+                    <div id="categories-dogs" class="content-category top" data-species-id="1">
                         <div id="dogs-title" class="category-title">
                             <div id="dogs-title-text" class="category-title-text">Dogs &amp; Puppies</div>
                         </div>
@@ -47,7 +47,7 @@
                             <div id="dogs-on-bg" class="category-on-bg"></div>
                         </div>
                     </div>
-                    <div id="categories-small" class="content-category bottom">
+                    <div id="categories-small" class="content-category bottom" data-species-id="5">
                         <div id="small-title" class="category-title">
                             <div id="small-title-text" class="category-title-text">Small Animals</div>
                         </div>
@@ -60,7 +60,7 @@
                             <div id="small-on-bg" class="category-on-bg"></div>
                         </div>
                     </div>
-                    <div id="categories-all" class="content-category bottom">
+                    <div id="categories-all" class="content-category bottom" data-species-id="0">
                         <div id="all-title" class="category-title">
                             <div id="all-title-text" class="category-title-text">All Animals</div>
                         </div>
@@ -76,17 +76,170 @@
                 </div>
 
             </div>
-            <footer id="landing-footer" data-role="footer">
-                <div id="footer-icons">
-                    <a id="footer-icons-search" class="footer-icon"></a>
-                    <a id="footer-icons-donate" class="footer-icon"></a>
-                    <a id="footer-icons-info" class="footer-icon"></a>
-                    <a id="footer-icons-favorites" class="footer-icon"></a>
-                    <a id="footer-icons-more" class="footer-icon"></a>
+
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon"></a>
+                    <a class="footer-icons-donate    footer-icon"></a>
+                    <a class="footer-icons-info      footer-icon"></a>
+                    <a class="footer-icons-favorites footer-icon"></a>
+                    <a class="footer-icons-more      footer-icon"></a>
+                </div>
+            </footer>
+            <form id="hidden_search_form" action="http://www.petango.com/webservices/wsadoption.asmx/AdoptableSearch" method="POST">
+                <!--<input type="hidden" id="search_sex" name="sex" value="A" />
+                <input type="hidden" id="search_agegroup" name="agegroup" value="OverYear" />
+                <input type="hidden" id="search_location" name="location" value="" />
+                <input type="hidden" id="search_colnum" name="colnum" value="2" />
+                <input type="hidden" id="search_authkey" name="authkey" value="23lomcf2c0qa811xz4iy0qbpj9uq0w65n4ch964i141640p811" />
+                <input type="hidden" id="search_css" name="css" value="http://www.clevelandapl.org/CSS/petpointscroller.css" />-->
+<!--
+
+                <input type="hidden" id="search_authkey" name="authkey" value="23lomcf2c0qa811xz4iy0qbpj9uq0w65n4ch964i141640p811" />
+
+
+                <input type="hidden" id="search_stageID" name="stageId" value="" />
+
+                <input type="hidden" id="search_speciesID" name="speciesID" title="Species" value="0"/>
+                &lt;!&ndash;0=All
+                1=Dog
+                2=Cat
+                3=Rabbit
+                4=Horse
+                5=Small&Furry
+                6=Pig
+                7=Reptile
+                8=Bird
+                9=Barnyard
+                1003=Other than Dog and Cat&ndash;&gt;
+
+                ￼<input type="hidden" name="sex" title="Sex" value="A"/>
+                &lt;!&ndash;A=All M=Male F=Female&ndash;&gt;
+
+                ￼<input type="hidden" name="ageGroup" title="Age group"  value="All"/>
+                &lt;!&ndash;All=All
+                OverYear=Over 1 year old
+                UnderYear=Under 1 year old&ndash;&gt;
+
+                ￼<input type="hidden" name="location" title="Animal location"  value=""/>
+
+                ￼<input type="hidden" name="site" title="Location site ID"  value="" /> &lt;!&ndash;value="39763" />&ndash;&gt;
+
+                <input type="hidden" name="onHold" title="Whether animal is on hold" value="N"/>
+                &lt;!&ndash;Y=Yes N=No A=Either&ndash;&gt;
+
+                <input type="hidden" name="orderBy" title="Results order"  value=""/>
+                &lt;!&ndash;‘’   Empty String
+                ‘ID’
+                ‘Name’
+                ‘Breed’
+                ‘Sex’&ndash;&gt;
+
+                <input type="hidden" name="primaryBreed" title="Primary breedID"  value="All"/>                ￼
+                &lt;!&ndash;All or empty=All breeds or breed ID
+                (for example
+                ‘5’=Terrier)&ndash;&gt;
+
+                ￼<input type="hidden" name="secondaryBreed" title="Secondary breed"  value=""/>
+                &lt;!&ndash;All or empty=All breeds or breed ID (
+                for example ‘7’=Shepherd)&ndash;&gt;
+
+                ￼<input type="hidden" name="specialNeeds" title="Animals with special needs"  value="A"/>
+                &lt;!&ndash;Y=Yes
+                N=No
+                A=Either&ndash;&gt;
+
+                <input type="hidden" name="noDogs" title="Animals that cannot live with dogs"  value="A"/>
+                &lt;!&ndash;Y=Yes
+                N=No
+                A=Either&ndash;&gt;
+
+                <input type="hidden" name="noCats" title="Animals that cannot live with small children" value="A"/>
+                &lt;!&ndash;Y=Yes
+                N=No
+                A=Either&ndash;&gt;
+
+                <input type="hidden" name="noKids" title="Animals that cannot live with small children" value="A"/>
+                &lt;!&ndash;Y=Yes
+                N=No
+                A=Either&ndash;&gt;
+-->
+
+
+                <!--
+                <input type="hidden" id="search_authkey" name="authkey" value="23lomcf2c0qa811xz4iy0qbpj9uq0w65n4ch964i141640p811" />
+                <input type="hidden" id="search_speciesID" name="speciesID" value="1" />
+                <input type="hidden" id="search_sex" name="sex" value="M" />
+                <input type="hidden" id="search_ageGroup" name="ageGroup" value="All" />
+                <input type="hidden" id="search_location" name="location" value="Cage1" />
+                <input type="hidden" id="search_site" name="site" value="string" />
+                <input type="hidden" id="search_onHold" name="onHold" value="No" />
+                <input type="hidden" id="search_orderBy" name="orderBy" value="ID" />
+                <input type="hidden" id="search_primaryBreed" name="primaryBreed" value="All" />
+                <input type="hidden" id="search_secondaryBreed" name="secondaryBreed" value="All" />
+                <input type="hidden" id="search_specialNeeds" name="specialNeeds" value="A" />
+                <input type="hidden" id="search_noDogs" name="noDogs" value="A" />
+                <input type="hidden" id="search_noCats" name="noCats" value="A" />
+                <input type="hidden" id="search_noKids" name="noKids" value="A" />
+                <input type="hidden" id="search_stageID" name="stageID" value="" />
+                http://qag.petpoint.com/webservices/wsadoption.asmx/AdoptableSearch?species=All&sex=A&agegroup=All&onhold=A&orderby=ID&colnum=3&AuthKey=23lomcf2c0qa811xz4iy0qbpj9uq0w65n4ch964i141640p811
+                -->
+            </form>
+        </div>
+        <div id="search-results" data-role="page">
+            <header class="global-header" data-role="header">
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <div class="search-results-loading">
+                    <img class="search-results-loading-img" src="" />
+                    <div class="search-results-loading-text">Loading...</div>
+                </div>
+                <div class="search-results-template" data-animal-id="__id__">
+                    <div class="search-results-img-wrap">
+                        <img src="__photo__" class="search-results-img" />
+                        <div class="search-results-img-fade"></div>
+                    </div>
+                    <div class="search-results-name">__name__</div>
+                    <div class="search-results-species search-results-detail">
+                        <div class="search-results-label">Species:</div>
+                        <div>__species__</div>
+                    </div>
+                    <div class="search-results-breed search-results-detail">
+                        <div class="search-results-label">Breed:</div>
+                        <div>__breed__</div>
+                    </div>
+                    <div class="search-results-gender search-results-detail">
+                        <div class="search-results-label">Gender:</div>
+                        <div>__gender__</div>
+                    </div>
+                    <div class="search-results-age search-results-detail">
+                        <div class="search-results-label">Age (months):</div>
+                        <div>__age__</div>
+                    </div>
+                    <div class="search-results-more">view<br>more</div>
+                </div>
+                <div class="search-results-wrap">
+                    <!--
+                    /**
+                     * Search Results Will Be Loaded Here.
+                     */
+                    -->
+                </div>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon"></a>
+                    <a class="footer-icons-donate    footer-icon"></a>
+                    <a class="footer-icons-info      footer-icon"></a>
+                    <a class="footer-icons-favorites footer-icon"></a>
+                    <a class="footer-icons-more      footer-icon"></a>
                 </div>
             </footer>
         </div>
         <script type="text/javascript" src="cordova-2.5.0.js"></script>
+        <script type="text/javascript" src="js/modernizr.js"></script>
+        <script type="text/javascript" src="js/lib.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
