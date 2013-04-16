@@ -406,6 +406,22 @@ body {
     height: 1em;
 }
 
+#search-results .search-result .search-results-more {
+    background: linear-gradient(to right, rgba(98,66,117,0) 0%,rgba(98,66,117,1) 100%);
+    position: absolute;
+    right: -5em;
+    top: 0;
+    height: 100%;
+    width: 5em;
+    text-align: center;
+    padding-top: 3em;
+    padding-right: 5em;
+    font: bold 20px Arial Naue, Helvetica Naue, Arial, Helvetica, sans-serif;
+    color: hsla(278, 18%, 36%, 1);
+    text-shadow: 1px 1px hsla(278, 50%, 82%, 1);
+    font-variant: small-caps;
+}
+
 @media screen and (max-width:400px) {
 
     #search-results .search-result .search-results-name {
@@ -426,20 +442,4 @@ body {
         width: 0em;
         height: 0em;
     }
-}
-
-#search-results .search-result .search-results-more {
-    background: linear-gradient(to right, rgba(98,66,117,0) 0%,rgba(98,66,117,1) 100%);
-    position: absolute;
-    right: -5em;
-    top: 0;
-    height: 100%;
-    width: 5em;
-    text-align: center;
-    padding-top: 3em;
-    padding-right: 5em;
-    font: bold 20px Arial Naue, Helvetica Naue, Arial, Helvetica, sans-serif;
-    color: hsla(278, 18%, 36%, 1);
-    text-shadow: 1px 1px hsla(278, 50%, 82%, 1);
-    font-variant: small-caps;
 }

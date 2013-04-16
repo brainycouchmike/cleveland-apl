@@ -54,3 +54,7 @@ function debounce(func, wait, immediate) {
         return result;
     };
 }
+
+String.prototype.flatSpace = function() {
+    return this.replace(/[\n\r]+/ig,"").replace(/\s+/ig," ");
+}

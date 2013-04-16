@@ -19,6 +19,8 @@
 var jQuery = jQuery || {}, $ = $ || jQuery;
 var app = {
     // Public Properties
+    searchResultsURI: "http://www.petango.com/webservices/wsadoption.asmx/AdoptableSearch",
+    searchDetailsURI: "http://www.petango.com/webservices/wsadoption.asmx/AdoptableDetails",
     PetPointAuthKey: "23lomcf2c0qa811xz4iy0qbpj9uq0w65n4ch964i141640p811",
     searchResults: null,
     searchOffset: 0,
@@ -58,6 +60,8 @@ var app = {
                 app.clearSearchResults();
                 app.onDeviceReady();
             });
+            $("#search-results").bind("pagehide", app.clearSearchResults);
+            $(".search-results-wrap").on("click", ".search-result", app.loadPetDetails);
             /*
             deBouncer($,'smartresize', 'resize', 100);
             deBouncer($,'smartscroll', 'scroll', 100);
@@ -115,7 +119,7 @@ var app = {
             speciesId: species
         }, app.searchDefaults);
         $.ajax({
-            url: $("#hidden_search_form").attr("action"),
+            url: app.searchResultsURI,
             data: searchData,
             dataType: "xml",
             type: "POST",
@@ -213,5 +217,192 @@ var app = {
         app.searchResults = null;
         app.searchOffset  = 0;
         app.searchPerPage = 10;
+    },
+    // Load Pet Details: go to pet result page and load data.
+    loadPetDetails: function() {
+        var $this = $(this),
+            petId = $this.data("animal-id");
+        if(!petId) return false;
+        $.mobile.navigate("#detailed-result");
+        $.ajax({
+            url: app.searchDetailsURI,
+            data: {
+                authkey: app.searchDefaults.authkey,
+                animalID: petId
+            },
+            dataType: "xml",
+            type: "post",
+            success: function(xml) {
+                animal = $("adoptableDetails", xml);
+                animalDetails = app.fillPetDetails(animal);
+                console.log({
+                    "SearchDetailsSuccess": {
+                        "animal": animal,
+                        "animalDetails": animalDetails
+                    }
+                });
+                $(animalDetails).appendTo(".detailed-result-wrap");
+            },
+            error: function() {
+                console.log({
+                    "SearchDetailsError": arguments
+                });
+            }
+        })
+    },
+    // Fill Pet Details: create, fill, and return an array with the pet's details from ajax request.
+    fillPetDetails: function($animal) {
+        var retArr = {};
+        try {
+            retArr = {
+                CompanyID:			        $animal.children("CompanyID").text().flatSpace(),
+                ID:			                $animal.children("ID").text().flatSpace(),
+                AnimalName:			        $animal.children("AnimalName").text().flatSpace(),
+                Species:			        $animal.children("Species").text().flatSpace(),
+                Sex:			            $animal.children("Sex").text().flatSpace(),
+                Altered:			        $animal.children("Altered").text().flatSpace(),
+                PrimaryBreed:			    $animal.children("PrimaryBreed").text().flatSpace(),
+                SecondaryBreed:			    $animal.children("SecondaryBreed").text().flatSpace(),
+                PrimaryColor:			    $animal.children("PrimaryColor").text().flatSpace(),
+                SecondaryColor:			    $animal.children("SecondaryColor").text().flatSpace(),
+                Age:			            $animal.children("Age").text().flatSpace(),
+                Size:			            $animal.children("Size").text().flatSpace(),
+                Housetrained:			    $animal.children("Housetrained").text().flatSpace(),
+                Declawed:			        $animal.children("Declawed").text().flatSpace(),
+                Price:			            $animal.children("Price").text().flatSpace(),
+                LastIntakeDate:			    $animal.children("LastIntakeDate").text().flatSpace(),
+                Location:			        $animal.children("Location").text().flatSpace(),
+                Dsc:			            $animal.children("Dsc").text().flatSpace(),
+                Photos:                     $.makeArray($animal.children("Photo*").text().flatSpace()),
+                OnHold:			            $animal.children("OnHold").text().flatSpace(),
+                SpecialNeeds:			    $animal.children("SpecialNeeds").text().flatSpace(),
+                NoDogs:			            $animal.children("NoDogs").text().flatSpace(),
+                NoCats:			            $animal.children("NoCats").text().flatSpace(),
+                NoKids:			            $animal.children("NoKids").text().flatSpace(),
+                BehaviorResult:			    $animal.children("BehaviorResult").text().flatSpace(),
+                MemoList:                   {},
+                Site:			            $animal.children("Site").text().flatSpace(),
+                DateOfSurrender:			$animal.children("DateOfSurrender").text().flatSpace(),
+                TimeInFormerHome:			$animal.children("TimeInFormerHome").text().flatSpace(),
+                ReasonForSurrender:			$animal.children("ReasonForSurrender").text().flatSpace(),
+                PrevEnvironment:			$animal.children("PrevEnvironment").text().flatSpace(),
+                LivedWithChildren:			$animal.children("LivedWithChildren").text().flatSpace(),
+                LivedWithAnimals:			$animal.children("LivedWithAnimals").text().flatSpace(),
+                LivedWithAnimalTypes:		$animal.children("LivedWithAnimalTypes").text().flatSpace(),
+                BodyWeight:			        $animal.children("BodyWeight").text().flatSpace(),
+                DateOfBirth:			    $animal.children("DateOfBirth").text().flatSpace(),
+                ARN:			            $animal.children("ARN").text().flatSpace(),
+                VideoID:			        $animal.children("VideoID").text().flatSpace(),
+                Stage:			            $animal.children("Stage").text().flatSpace(),
+                AnimalType:			        $animal.children("AnimalType").text().flatSpace(),
+                AgeGroup:			        $animal.children("AgeGroup").text().flatSpace(),
+                WildlifeIntakeInjury:		$animal.children("WildlifeIntakeInjury").text().flatSpace(),
+                WildlifeIntakeCause:		$animal.children("WildlifeIntakeCause").text().flatSpace(),
+                BuddyID:			        $animal.children("BuddyID").text().flatSpace()
+            };
+        } catch(e) {
+            retArr = null;
+        }
+        return retArr;
     }
 };
+
+var example_details = {
+    CompanyID: "859",
+	ID: "19640031",
+	AnimalName: "Chuck",
+	Species: "Dog",
+	Sex: "Male",
+	Altered: "Yes",
+	PrimaryBreed: "Retriever",
+	SecondaryBreed: "Mix",
+	PrimaryColor: "Black",
+	SecondaryColor: "",
+	Age: "2",
+	Size: "S",
+	Housetrained: "Unknown",
+	Declawed: "No",
+	Price: "0.00",
+	LastIntakeDate: "2013-04-12 17:04:00",
+	Location: "Dog Adoption",
+	Dsc: "",
+	Photos: [
+	    "http://www.petango.com/sms/photos/859/20706102-02de-432a-aa10-fcb52cc91eb2.jpg",
+	    "http://www.petango.com/sms/photos/859/eea832c0-a176-4edc-9ab6-dd8ff1754e58.jpg",
+	    "http://www.petango.com/sms/photos/859/abf7919a-a301-4e52-b634-22f209975f42.jpg"
+    ],
+	OnHold: "No",
+	SpecialNeeds: "",
+	NoDogs: "",
+	NoCats: "",
+	NoKids: "",
+	BehaviorResult: "",
+	MemoList: {},
+	Site: "Cleveland Animal Protective League",
+	DateOfSurrender: "",
+	TimeInFormerHome: "",
+	ReasonForSurrender: "",
+	PrevEnvironment: "",
+	LivedWithChildren: "Unknown",
+	LivedWithAnimals: "Unknown",
+	LivedWithAnimalTypes: "",
+	BodyWeight: "",
+	DateOfBirth: "2013-02-12",
+	ARN: "",
+	VideoID: "",
+	Stage: "Available",
+	AnimalType: "Dog",
+	AgeGroup: "Baby",
+	WildlifeIntakeInjury: "",
+	WildlifeIntakeCause: "",
+	BuddyID: "0"
+};
+
+/*
+
+var example_details_getting = {
+    CompanyID: $animal.children("CompanyID").text(),
+    ID: $animal.children("ID").text(),
+    AnimalName: $animal.children("AnimalName").text(),
+    Species: $animal.children("Species").text(),
+    Sex: $animal.children("Sex").text(),
+    Altered: $animal.children("Altered").text(),
+    PrimaryBreed: $animal.children("PrimaryBreed").text(),
+    SecondaryBreed: $animal.children("SecondaryBreed").text(),
+    PrimaryColor: $animal.children("PrimaryColor").text(),
+    SecondaryColor: $animal.children("SecondaryColor").text(),
+    Age: $animal.children("Age").text(),
+    Size: $animal.children("Size").text(),
+    Housetrained: $animal.children("Housetrained").text(),
+    Declawed: $animal.children("Declawed").text(),
+    Price: $animal.children("Price").text(),
+    LastIntakeDate: $animal.children("LastIntakeDate").text(),
+    Location: $animal.children("Location").text(),
+    Dsc: $animal.children("Dsc").text(),
+    Photos: $.makeArray($animal.children("Photo*").text()),
+    OnHold: $animal.children("OnHold").text(),
+    SpecialNeeds: $animal.children("SpecialNeeds").text(),
+    NoDogs: $animal.children("NoDogs").text(),
+    NoCats: $animal.children("NoCats").text(),
+    NoKids: $animal.children("NoKids").text(),
+    BehaviorResult: $animal.children("BehaviorResult").text(),
+    MemoList: {},
+    Site: $animal.children("Site").text(),
+    DateOfSurrender: $animal.children("DateOfSurrender").text(),
+    TimeInFormerHome: $animal.children("TimeInFormerHome").text(),
+    ReasonForSurrender: $animal.children("ReasonForSurrender").text(),
+    PrevEnvironment: $animal.children("PrevEnvironment").text(),
+    LivedWithChildren: $animal.children("LivedWithChildren").text(),
+    LivedWithAnimals: $animal.children("LivedWithAnimals").text(),
+    LivedWithAnimalTypes: $animal.children("LivedWithAnimalTypes").text(),
+    BodyWeight: $animal.children("BodyWeight").text(),
+    DateOfBirth: $animal.children("DateOfBirth").text(),
+    ARN: $animal.children("ARN").text(),
+    VideoID: $animal.children("VideoID").text(),
+    Stage: $animal.children("Stage").text(),
+    AnimalType: $animal.children("AnimalType").text(),
+    AgeGroup: $animal.children("AgeGroup").text(),
+    WildlifeIntakeInjury: $animal.children("WildlifeIntakeInjury").text(),
+    WildlifeIntakeCause: $animal.children("WildlifeIntakeCause").text(),
+    BuddyID: $animal.children("BuddyID").text()
+};*/
