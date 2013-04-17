@@ -13,7 +13,8 @@
         <title>Cleveland APL</title>
     </head>
     <body>
-        <div class="landing" data-role="page">
+        <div id="fb-root"></div>
+        <div id="search-start" data-role="page">
             <header class="global-header" data-role="header">
                 <div class="header-logo"></div>
             </header>
@@ -79,7 +80,7 @@
 
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
-                    <a class="footer-icons-search    footer-icon"></a>
+                    <a class="footer-icons-search    footer-icon" href="#"></a>
                     <a class="footer-icons-donate    footer-icon"></a>
                     <a class="footer-icons-info      footer-icon"></a>
                     <a class="footer-icons-favorites footer-icon"></a>
@@ -229,7 +230,7 @@
             </div>
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
-                    <a class="footer-icons-search    footer-icon"></a>
+                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
                     <a class="footer-icons-donate    footer-icon"></a>
                     <a class="footer-icons-info      footer-icon"></a>
                     <a class="footer-icons-favorites footer-icon"></a>
@@ -240,43 +241,52 @@
         <div id="detailed-result" data-role="page">
             <header class="global-header" data-role="header">
                 <div class="header-logo"></div>
+                <a href="#" data-rel="back" class="header-back-to-search">
+                    <div>«</div>
+                    <span>Back&nbsp;To<br>Search</span>
+                </a>
             </header>
             <div class="global-content" data-role="content">
                 <div class="detailed-result-loading">
                     <img class="detailed-result-loading-img" src="" />
                     <div class="detailed-result-loading-text">Loading...</div>
                 </div>
-                <div class="detailed-result-template" data-animal-id="__id__">
-                    <div class="detailed-result-img-wrap">
-                        <img src="__photo__" class="detailed-result-img" />
-                        <div class="detailed-result-img-fade"></div>
-                    </div>
-                    <div class="detailed-result-name">__name__</div>
-                    <div class="detailed-result-species detailed-result-detail">
-                        <div class="detailed-result-label">Species:</div>
-                        <div>__species__</div>
-                    </div>
-                    <div class="detailed-result-breed detailed-result-detail">
-                        <div class="detailed-result-label">Breed:</div>
-                        <div>__breed__</div>
-                    </div>
-                    <div class="detailed-result-gender detailed-result-detail">
-                        <div class="detailed-result-label">Gender:</div>
-                        <div>__gender__</div>
-                    </div>
-                    <div class="detailed-result-age detailed-result-detail">
-                        <div class="detailed-result-label">Age (months):</div>
-                        <div>__age__</div>
-                    </div>
-                    <div class="detailed-result-more">view<br>more</div>
-                </div>
                 <div class="detailed-result-wrap">
-                    YOU KNOW WHAT IT IS!!!
+                    <div class="detailed-result-top">
+                        <div class="detailed-result-img-wrap">
+                            <table class="detailed-result-img-table">
+                                <tr class="detailed-result-img-row">
+                                    <!-- // Image dynamically loaded here -->
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="detailed-result-top-info">
+                            <div class="detailed-result-name"></div>
+                            <div class="detailed-result-breed"></div>
+                            <div class="detailed-result-availability"></div>
+                        </div>
+                        <div class="fb-like" data-href="http://www.clevelandapl.org/" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-font="arial"></div>
+                    </div>
+                    <div class="detailed-result-bottom">
+                        <div class="detailed-result-bottom-info">
+                            <div class="detailed-result-gender detailed-result-info"></div>
+                            <div class="detailed-result-color detailed-result-info"></div>
+                            <div class="detailed-result-weight detailed-result-info"></div>
+                            <div class="detailed-result-age detailed-result-info"></div>
+                            <div class="detailed-result-petid detailed-result-info"></div>
+                            <div class="detailed-result-intake-date detailed-result-info"></div>
+                            <div class="detailed-result-misc-details"></div>
+                            <div class="detailed-result-desc detailed-result-info"></div>
+                        </div>
+                        <div class="detailed-result-calls-to-action">
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
-                    <a class="footer-icons-search    footer-icon"></a>
+                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
                     <a class="footer-icons-donate    footer-icon"></a>
                     <a class="footer-icons-info      footer-icon"></a>
                     <a class="footer-icons-favorites footer-icon"></a>
@@ -285,7 +295,9 @@
             </footer>
         </div>
         <script type="text/javascript" src="cordova-2.5.0.js"></script>
+        <script type="text/javascript" src="js/jquery.overscroll.js"></script>
         <script type="text/javascript" src="js/modernizr.js"></script>
+        <script type="text/javascript" src="js/date.format.js"></script>
         <script type="text/javascript" src="js/lib.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">

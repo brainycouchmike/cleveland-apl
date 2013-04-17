@@ -90,6 +90,29 @@ body {
     background-size: 100% auto;
 }
 
+.header-back-to-search {
+    display: block;
+    color: #FFF !important;
+    text-decoration: none;
+    font: normal 12px Arial;
+    height: 2em;
+    padding-top: 2em;
+    margin-left: 1em;
+}
+
+.header-back-to-search div {
+    float: left;
+    height: 2em;
+    font-size: 2em;
+    margin-right: .5em;
+}
+
+.header-back-to-search span {
+    text-align: center;
+    display: inline-block;
+    font-variant: small-caps;
+}
+
 .global-content {
     position: absolute;
     top: 0px;
@@ -442,4 +465,74 @@ body {
         width: 0em;
         height: 0em;
     }
+}
+
+/* Pet Details */
+
+#detailed-result .detailed-result-loading {
+    display: none;
+}
+
+#detailed-result.loading .detailed-result-loading {
+    display: block;
+}
+
+#detailed-result .detailed-result-wrap {
+    display: none;
+}
+
+.detailed-result-top {
+    height: 13em;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    background: #782378;
+}
+
+.detailed-result-img-wrap {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    width: 11em;
+    height: 11em;
+}
+
+.detailed-result-img {
+    position: relative;
+    height: 10em;
+    width: auto;
+    max-width: 10em;
+    max-height: 10em;
+    float: left;
+}
+
+.detailed-result-top-info {
+    position: absolute;
+    top: 1.5em;
+    left: 13em;
+    color: #FFF;
+    text-shadow: none;
+}
+
+.detailed-result-name {
+    font: normal 20px Arial;
+}
+
+.fb-like {
+    position: relative;
+    left: 13em;
+    top: -1em;
+}
+
+.detailed-result-bottom-info {
+    padding: 1em 0.5em;
+}
+
+.detailed-result-info {
+    font: bold 1.1em Arial;
+    padding: 0.25em;
+}
+
+.detailed-result-misc-details {
+    margin: 0.5em 1em;
 }

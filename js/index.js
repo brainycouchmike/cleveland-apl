@@ -32,7 +32,7 @@ var app = {
         sex:            "A",    // A=All M=Male F=Female
         ageGroup:       "All",  //All=All,OverYear=Over 1 year old,UnderYear=Under 1 year old
         location:       "",
-        site:           "",     // ?"39763",
+        site:           "",     // 859",
         onHold:         "N",    // Y=Yes N=No A=Either
         orderBy:        "",     // ‘’ Empty String,‘ID’,‘Name’,‘Breed’,‘Sex’
         primaryBreed:   "All",  // All or empty=All breeds or breed ID, (for example ‘5’=Terrier)
@@ -42,6 +42,7 @@ var app = {
         noCats:         "A",
         noKids:         "A"
     },
+    petDetails: null,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -55,13 +56,14 @@ var app = {
         // Bind jQuery Events Here...
         (function($) {
             $("#hidden_search_form").bind("submit", app.procSearch);
-            $(".landing").bind("pagebeforeshow",function() {
+            $("#search-start").bind("pagebeforeshow",function() {
                 $("#content-dnd-logo").removeAttr("class");
                 app.clearSearchResults();
                 app.onDeviceReady();
             });
-            $("#search-results").bind("pagehide", app.clearSearchResults);
+            // $("#search-results").bind("pagehide", app.clearSearchResults);
             $(".search-results-wrap").on("click", ".search-result", app.loadPetDetails);
+            $("#detailed-result").bind("pagehide", app.clearDetailedResult);
             /*
             deBouncer($,'smartresize', 'resize', 100);
             deBouncer($,'smartscroll', 'scroll', 100);
@@ -69,12 +71,35 @@ var app = {
             deBouncer($,'touchpause', 'touchmove', 100);
             */
         })(jQuery);
+
+        window.fbAsyncInit = app.initFacebook;
+    },
+    initFacebook: function() {
+        // init the FB JS SDK
+        FB.init({
+            appId      : '396642740442879',                    // App ID from the app dashboard
+            channelUrl : 'channel.html',                       // Channel file for x-domain comms
+            status     : true,                                 // Check Facebook Login status
+            xfbml      : true                                  // Look for social plugins on the page
+        });
+
+        // Additional initialization code such as adding Event Listeners goes here
+
+        if(typeof(arguments[0])=="function")(arguments[0])(arguments.splice(1));
     },
     // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+
+
+        // Load the SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=396642740442879";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
         (function($) {
             $("#content-dnd-logo").draggable({
                 revert: true,
@@ -87,17 +112,6 @@ var app = {
             });
         })(jQuery);
     },
-    // Update DOM on a Received Event
-    /*receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
-    },*/
     // Initialize search, select category.
     initSearch: function(ev, ui) {
         var $this = $(this);
@@ -137,6 +151,18 @@ var app = {
                 });
             }
         })
+    },
+    // Clear search results
+    clearSearchResults: function() {
+        $("#search-results .search-result").empty().remove();
+        app.searchResults = null;
+        app.searchOffset  = 0;
+        app.searchPerPage = 10;
+    },
+    // Clear detailed result
+    clearDetailedResult: function() {
+        $(".detailed-result-wrap").removeAttr("style");
+        $(".detailed-result-img-wrap").removeOverscroll();
     },
     // Load search results into the DOM based on a hidden template
     loadSearchResults: function() {
@@ -211,18 +237,12 @@ var app = {
             console.log("no search results",app.searchResults);
         }
     },
-    // Clear search results
-    clearSearchResults: function() {
-        $("#search-results .search-result").empty().remove();
-        app.searchResults = null;
-        app.searchOffset  = 0;
-        app.searchPerPage = 10;
-    },
     // Load Pet Details: go to pet result page and load data.
     loadPetDetails: function() {
         var $this = $(this),
             petId = $this.data("animal-id");
         if(!petId) return false;
+        $("#detailed-result").addClass("loading");
         $.mobile.navigate("#detailed-result");
         $.ajax({
             url: app.searchDetailsURI,
@@ -233,15 +253,8 @@ var app = {
             dataType: "xml",
             type: "post",
             success: function(xml) {
-                animal = $("adoptableDetails", xml);
-                animalDetails = app.fillPetDetails(animal);
-                console.log({
-                    "SearchDetailsSuccess": {
-                        "animal": animal,
-                        "animalDetails": animalDetails
-                    }
-                });
-                $(animalDetails).appendTo(".detailed-result-wrap");
+                app.petDetails = $("adoptableDetails", xml);
+                app.fillPetDetails();
             },
             error: function() {
                 console.log({
@@ -250,60 +263,237 @@ var app = {
             }
         })
     },
-    // Fill Pet Details: create, fill, and return an array with the pet's details from ajax request.
-    fillPetDetails: function($animal) {
-        var retArr = {};
-        try {
-            retArr = {
-                CompanyID:			        $animal.children("CompanyID").text().flatSpace(),
-                ID:			                $animal.children("ID").text().flatSpace(),
-                AnimalName:			        $animal.children("AnimalName").text().flatSpace(),
-                Species:			        $animal.children("Species").text().flatSpace(),
-                Sex:			            $animal.children("Sex").text().flatSpace(),
-                Altered:			        $animal.children("Altered").text().flatSpace(),
-                PrimaryBreed:			    $animal.children("PrimaryBreed").text().flatSpace(),
-                SecondaryBreed:			    $animal.children("SecondaryBreed").text().flatSpace(),
-                PrimaryColor:			    $animal.children("PrimaryColor").text().flatSpace(),
-                SecondaryColor:			    $animal.children("SecondaryColor").text().flatSpace(),
-                Age:			            $animal.children("Age").text().flatSpace(),
-                Size:			            $animal.children("Size").text().flatSpace(),
-                Housetrained:			    $animal.children("Housetrained").text().flatSpace(),
-                Declawed:			        $animal.children("Declawed").text().flatSpace(),
-                Price:			            $animal.children("Price").text().flatSpace(),
-                LastIntakeDate:			    $animal.children("LastIntakeDate").text().flatSpace(),
-                Location:			        $animal.children("Location").text().flatSpace(),
-                Dsc:			            $animal.children("Dsc").text().flatSpace(),
-                Photos:                     $.makeArray($animal.children("Photo*").text().flatSpace()),
-                OnHold:			            $animal.children("OnHold").text().flatSpace(),
-                SpecialNeeds:			    $animal.children("SpecialNeeds").text().flatSpace(),
-                NoDogs:			            $animal.children("NoDogs").text().flatSpace(),
-                NoCats:			            $animal.children("NoCats").text().flatSpace(),
-                NoKids:			            $animal.children("NoKids").text().flatSpace(),
-                BehaviorResult:			    $animal.children("BehaviorResult").text().flatSpace(),
-                MemoList:                   {},
-                Site:			            $animal.children("Site").text().flatSpace(),
-                DateOfSurrender:			$animal.children("DateOfSurrender").text().flatSpace(),
-                TimeInFormerHome:			$animal.children("TimeInFormerHome").text().flatSpace(),
-                ReasonForSurrender:			$animal.children("ReasonForSurrender").text().flatSpace(),
-                PrevEnvironment:			$animal.children("PrevEnvironment").text().flatSpace(),
-                LivedWithChildren:			$animal.children("LivedWithChildren").text().flatSpace(),
-                LivedWithAnimals:			$animal.children("LivedWithAnimals").text().flatSpace(),
-                LivedWithAnimalTypes:		$animal.children("LivedWithAnimalTypes").text().flatSpace(),
-                BodyWeight:			        $animal.children("BodyWeight").text().flatSpace(),
-                DateOfBirth:			    $animal.children("DateOfBirth").text().flatSpace(),
-                ARN:			            $animal.children("ARN").text().flatSpace(),
-                VideoID:			        $animal.children("VideoID").text().flatSpace(),
-                Stage:			            $animal.children("Stage").text().flatSpace(),
-                AnimalType:			        $animal.children("AnimalType").text().flatSpace(),
-                AgeGroup:			        $animal.children("AgeGroup").text().flatSpace(),
-                WildlifeIntakeInjury:		$animal.children("WildlifeIntakeInjury").text().flatSpace(),
-                WildlifeIntakeCause:		$animal.children("WildlifeIntakeCause").text().flatSpace(),
-                BuddyID:			        $animal.children("BuddyID").text().flatSpace()
-            };
-        } catch(e) {
-            retArr = null;
+    getPetDetail: function(key) {
+        if(!app.petDetails) return false;
+        var retval  = false;
+        var petProp = app.petDetails.children().filter(function() {
+            return this.tagName.match(new RegExp("^"+key+"\d*", "i"));
+        });
+        if(petProp.length > 1) {
+            retval = [];
+            petProp.each(function() {
+                retval.push($(this).text().flatSpace());
+            });
+        } else
+        if(petProp.length === 1) {
+            retval = petProp.text().flatSpace();
         }
-        return retArr;
+        return retval;
+    },
+    // Fill Pet Details: fill the detail template with values from the animal
+    fillPetDetails: function() {
+        /*
+        var petDetailsArray = [];
+        app.petDetails.children().each(function() {
+            if(this.tagName) petDetailsArray.push(this.tagName);
+        });
+        var petDetailsObj = {};
+        for(var i in petDetailsArray) {
+            if(typeof(petDetailsArray[i])!="string") continue;
+            petDetailsObj[petDetailsArray[i]] = app.getPetDetail(petDetailsArray[i]);
+        }
+        console.log(petDetailsObj);
+        */
+
+
+        /* Top Half */
+
+        /**
+         * Create Photo elements and append to DOM
+         */
+        var photos      = app.getPetDetail("Photo");
+        if(photos) {
+            $(".detailed-result-img-row").empty()
+            for(var i in photos) {
+                if(typeof(photos[i])!="string") continue;
+                $("<img />").attr({
+                    "src": photos[i],
+                    "class": "detailed-result-img"
+                }).wrap("<td/>").parent().appendTo(".detailed-result-img-row");
+            }
+            $(".detailed-result-img-wrap").css("visibility", "hidden");
+        } else {
+            $("<div />").addClass("detailed-result-img-none").appendTo(".detailed-result-img-wrap");
+        }
+
+        /**
+         * Fill pet name
+         * @type {*}
+         */
+        var name = app.getPetDetail("AnimalName");
+        if(name) {
+            $(".detailed-result-name").show().html(name);
+        }else{
+            $(".detailed-result-name").hide().html('');
+        }
+
+        /**
+         * Fill pet breed
+         * @type {XML|string|void}
+         */
+        var primaryBreed   = app.getPetDetail("primaryBreed");
+        var secondaryBreed = app.getPetDetail("secondaryBreed");
+        if(primaryBreed || secondaryBreed) {
+            $(".detailed-result-breed").show().html((primaryBreed ? primaryBreed.replace(", ", ",<br/>") : '') + (secondaryBreed ? (primaryBreed?"<br/>":'')+secondaryBreed:''));
+        } else {
+            $(".detailed-result-breed").hide().html('');
+        }
+
+        /**
+         * Fill Availability stage
+         * @type {*}
+         */
+        var availablity = app.getPetDetail("stage");
+        if(availablity) {
+            $(".detailed-result-availability").show().html(availablity);
+        } else {
+            $(".detailed-result-availability").hide().html('');
+        }
+
+        /* Bottom Half */
+
+        /**
+         * Fill gender and 'altered' fields
+         * @type {*}
+         */
+        var gender  = app.getPetDetail("sex");
+        var altered = app.getPetDetail("altered") == "Yes" ? (
+                gender=="Male" ? (
+                    "Neutered"
+                ) : (
+                    gender=="Female" ? (
+                        "Spayed"
+                    ) : (
+                        "Fixed"
+                    )
+                )
+            ) : (
+                null
+            );
+        if(gender) {
+            $(".detailed-result-gender").show().html(gender + (gender=="Unknown" ? " Gender" : '') + (altered ? " ("+altered+")" : ''));
+        } else {
+            $(".detailed-result-gender").hide().html('');
+        }
+
+        /**
+         * Fill pet color data
+         */
+        var color1 = app.getPetDetail("primaryColor");
+        var color2 = app.getPetDetail("secondaryColor");
+        if(color1) {
+            $(".detailed-result-color").show().html(color1 + (color2 ? " " + color2 : ''));
+        } else {
+            $(".detailed-result-color").hide().html('');
+        }
+
+        /**
+         * Fill pet weight data
+         */
+        var weight = app.getPetDetail("BodyWeight");
+        if(weight) {
+            $(".detailed-result-weight").show().html(weight);
+        } else {
+            $(".detailed-result-weight").hide().html('');
+        }
+
+        /**
+         * Fill pet age
+         */
+        var age = app.getPetDetail("age");
+        if(age) {
+            $(".detailed-result-age").show().html(monthsToYears((typeof(age)==typeof([]) ? age[0] : age)));
+        } else {
+            $(".detailed-result-age").hide().html('');
+        }
+
+        /**
+         * Fill pet identification number
+         */
+        var petId = app.getPetDetail("id");
+        if(petId) {
+            $(".detailed-result-petid").show().html("Pet ID: " + petId);
+        } else {
+            $(".detailed-result-petid").hide().html('');
+        }
+
+        /**
+         * Fill intake date
+         */
+        var intakeDate = new Date(app.getPetDetail("LastIntakeDate"));
+        if(intakeDate) {
+            $(".detailed-result-intake-date").show().html(
+                "Intake Date: " + intakeDate.format("mmmm dS, yyyy")
+            );
+        } else {
+            $(".detailed-result-intake-date").hide().html('');
+        }
+
+        /**
+         * Fill out misc other optional data
+         */
+        var miscDetails = {
+        	houseTrained:     app.getPetDetail("houseTrained") == "Yes" ? "House Trianed" : null,
+        	onHold:           app.getPetDetail("onHold") == "Yes" ? "On Hold" : null,
+            declawed:         app.getPetDetail("declawed") ? (app.getPetDetail("declawed")=="No" ? "Not" : tmpdeclawed) + " Declawed" : null,
+        	noDogs:           app.getPetDetail("noDogs") == "Yes" ? "Cannot Live With Dog(s)" : null,
+        	noCats:           app.getPetDetail("noCats") == "Yes" ? "Cannot Live With Cat(s)" : null,
+        	noKids:           app.getPetDetail("noKids") == "Yes" ? "Cannot Live With Children" : null,
+            specialNeeds:     app.getPetDetail("specialNeeds") ? "Special Needs: " + app.getPetDetail("specialNeeds") : null,
+        	behaviorResult:   app.getPetDetail("behaviorResult") ? "Behavior Report: " + app.getPetDetail("behaviorResult") : null
+        };
+        $(".detailed-result-misc-details").empty();
+        for(var i in miscDetails) {
+            if(!miscDetails[i]) continue;
+            $(".detailed-result-misc-details").append(
+                $("<div />").addClass("detailed-result-misc-details-"+i+" detailed-result-misc-details-item").html(miscDetails[i])
+            );
+        }
+
+        /**
+         * Fill the pet's description
+         */
+        var desc = app.getPetDetail("dsc");
+        if(desc) {
+            $(".detailed-result-desc").show().html(desc.replace(/[\n\r]/g,"<br/>"));
+        } else {
+            $(".detailed-result-desc").hide().html('');
+        }
+
+
+
+        /**
+         * Construct the share URL
+         */
+        https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.petango.com%2FAdopt%2FCat-Domestic-Shorthair-Purebred-19440252
+        var shareLink = "http://www.petango.com/Adopt/" + (app.getPetDetail("AnimalType") + " " + primaryBreed + " " + secondaryBreed + " " + petId ).flatSpace().replace(" ", "-");
+        if(shareLink.validURL()) {
+            $(".fb-like").show().data("href", shareLink);
+            try {
+                FB.XFBML.parse();
+            } catch(e) {
+                app.initFacebook(function() {
+                    try{FB.XFBML.parse();}catch(e){}
+                });
+            }
+        } else {
+            $(".fb-like").hide().data("href", shareLink);
+        }
+
+        $("#detailed-result").removeClass("loading").find(".detailed-result-wrap").fadeIn("fast", function() {
+            if($(".detailed-result-img").length>1) {
+                $(".detailed-result-img-wrap").overscroll({direction: 'horizontal'}).fadeOut(0).css("visibility","visible").fadeIn("fast");
+            }
+
+            var bottomHeight = $("#detailed-result .global-footer").offset().top - $("#detailed-result .detailed-result-bottom").offset().top;
+
+            $(".detailed-result-bottom").css({
+                "height"  : bottomHeight + "px",
+                "overflow-x": "hidden",
+                "overflow-y": "scroll"
+            });
+        });
+
     }
 };
 
@@ -357,52 +547,3 @@ var example_details = {
 	WildlifeIntakeCause: "",
 	BuddyID: "0"
 };
-
-/*
-
-var example_details_getting = {
-    CompanyID: $animal.children("CompanyID").text(),
-    ID: $animal.children("ID").text(),
-    AnimalName: $animal.children("AnimalName").text(),
-    Species: $animal.children("Species").text(),
-    Sex: $animal.children("Sex").text(),
-    Altered: $animal.children("Altered").text(),
-    PrimaryBreed: $animal.children("PrimaryBreed").text(),
-    SecondaryBreed: $animal.children("SecondaryBreed").text(),
-    PrimaryColor: $animal.children("PrimaryColor").text(),
-    SecondaryColor: $animal.children("SecondaryColor").text(),
-    Age: $animal.children("Age").text(),
-    Size: $animal.children("Size").text(),
-    Housetrained: $animal.children("Housetrained").text(),
-    Declawed: $animal.children("Declawed").text(),
-    Price: $animal.children("Price").text(),
-    LastIntakeDate: $animal.children("LastIntakeDate").text(),
-    Location: $animal.children("Location").text(),
-    Dsc: $animal.children("Dsc").text(),
-    Photos: $.makeArray($animal.children("Photo*").text()),
-    OnHold: $animal.children("OnHold").text(),
-    SpecialNeeds: $animal.children("SpecialNeeds").text(),
-    NoDogs: $animal.children("NoDogs").text(),
-    NoCats: $animal.children("NoCats").text(),
-    NoKids: $animal.children("NoKids").text(),
-    BehaviorResult: $animal.children("BehaviorResult").text(),
-    MemoList: {},
-    Site: $animal.children("Site").text(),
-    DateOfSurrender: $animal.children("DateOfSurrender").text(),
-    TimeInFormerHome: $animal.children("TimeInFormerHome").text(),
-    ReasonForSurrender: $animal.children("ReasonForSurrender").text(),
-    PrevEnvironment: $animal.children("PrevEnvironment").text(),
-    LivedWithChildren: $animal.children("LivedWithChildren").text(),
-    LivedWithAnimals: $animal.children("LivedWithAnimals").text(),
-    LivedWithAnimalTypes: $animal.children("LivedWithAnimalTypes").text(),
-    BodyWeight: $animal.children("BodyWeight").text(),
-    DateOfBirth: $animal.children("DateOfBirth").text(),
-    ARN: $animal.children("ARN").text(),
-    VideoID: $animal.children("VideoID").text(),
-    Stage: $animal.children("Stage").text(),
-    AnimalType: $animal.children("AnimalType").text(),
-    AgeGroup: $animal.children("AgeGroup").text(),
-    WildlifeIntakeInjury: $animal.children("WildlifeIntakeInjury").text(),
-    WildlifeIntakeCause: $animal.children("WildlifeIntakeCause").text(),
-    BuddyID: $animal.children("BuddyID").text()
-};*/
