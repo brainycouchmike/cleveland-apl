@@ -125,8 +125,10 @@ var app = {
     procSearch: function(e, species) {
         e.preventDefault();
         var searchData = $.extend( {
-            speciesId: species
+            speciesID: species
         }, app.searchDefaults);
+        console.log(searchData);
+        console.log(app.searchResultsURI);
         $.ajax({
             url: app.searchResultsURI,
             data: searchData,
@@ -137,6 +139,9 @@ var app = {
                 $.mobile.navigate("#search-results");
             },
             success: function(data) {
+                console.log({
+                    "SearchSuccess": arguments
+                });
                 app.searchResults = $("adoptableSearch", data);
                 app.loadSearchResults();
             },
