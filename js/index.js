@@ -52,7 +52,13 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
+        // Bind Device Ready
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        // Bind Touch Handlers
+        document.addEventListener("touchstart", touchHandler, true);
+        document.addEventListener("touchmove", touchHandler, true);
+        document.addEventListener("touchend", touchHandler, true);
+        document.addEventListener("touchcancel", touchHandler, true);
         // Bind jQuery Events Here...
         (function($) {
             $("#hidden_search_form").bind("submit", app.procSearch);
@@ -64,12 +70,6 @@ var app = {
             // $("#search-results").bind("pagehide", app.clearSearchResults);
             $(".search-results-wrap").on("click", ".search-result", app.loadPetDetails);
             $("#detailed-result").bind("pagehide", app.clearDetailedResult);
-            /*
-            deBouncer($,'smartresize', 'resize', 100);
-            deBouncer($,'smartscroll', 'scroll', 100);
-            deBouncer($,'smartmousemove', 'mousemove', 100);
-            deBouncer($,'touchpause', 'touchmove', 100);
-            */
         })(jQuery);
 
         window.fbAsyncInit = app.initFacebook;
