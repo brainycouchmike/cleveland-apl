@@ -56,6 +56,9 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         // Bind jQuery Events Here...
         (function($) {
+            /**
+             * Bind page state actions
+             */
             $("#hidden_search_form").bind("submit", app.procSearch);
             $("#search-start").bind("pagebeforeshow",function() {
                 $("#content-dnd-logo").removeAttr("class");
@@ -63,8 +66,12 @@ var app = {
                 app.onDeviceReady();
             });
             // $("#search-results").bind("pagehide", app.clearSearchResults);
-            $(".search-results-wrap").on("click", ".search-result", app.loadPetDetails);
             $("#detailed-result").bind("pagehide", app.clearDetailedResult);
+
+            /**
+             * Define button bindings
+             */
+            $(".search-results-wrap").on("click", ".search-result", app.loadPetDetails);
         })(jQuery);
 
         window.fbAsyncInit = app.initFacebook;

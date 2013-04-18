@@ -12,7 +12,15 @@
         <script src="js/jquery.ui.touch-punch.js"></script>
         <script type="text/javascript">
             $(document).bind("mobileinit", function() {
-                // Make your jQuery Mobile framework configuration changes here!
+                /**
+                 * Delegate .animate() calls to .transition()
+                 * if the browser can't do CSS transitions.
+                 */
+                if($.support.transition) $.fn.animate = $.fn.transition;
+
+                /**
+                 * Force support of X-Domain requests
+                 */
                 $.support.cors = true;
                 $.mobile.allowCrossDomainPages = true;
             });
