@@ -60,21 +60,58 @@ var app = {
              * Bind page state actions
              */
             $("#hidden_search_form").bind("submit", app.procSearch);
-            $("#search-start").bind("pagebeforeshow",function() {
-                $("#content-dnd-logo").removeAttr("class");
-                app.clearSearchResults();
-                app.onDeviceReady();
-            });
-            // $("#search-results").bind("pagehide", app.clearSearchResults);
+            $("#search-start").bind("pagebeforeshow", app.resetSearchStart);
             $("#detailed-result").bind("pagehide", app.clearDetailedResult);
 
             /**
              * Define button bindings
              */
             $(".search-results-wrap").on("click", ".search-result", app.loadPetDetails);
+
+            $("#search-start .footer-icons-search").on("click", app.resetSearchStart);
+
+            /**
+             * Other misc event bindings
+             */
+            /*$(".detailed-result-img-wrap").bind("click", function() {
+                var curScroll = $(this).scrollLeft();
+                var nextImg = $(".detailed-result-img").filter(function() {
+                    return ($(this).parent().offset().left + $(this).parent().outerWidth() > curScroll);
+                });
+                if(!nextImg.eq(1).length) {
+                    $(this).animate({
+                        scrollLeft: "0px"
+                    }, "fast");
+                } else {
+                    $(this).animate({
+                        scrollLeft: (nextImg.eq(1).parent().offset().left - $(this).offset().left) + "px"
+                    }, "fast");
+                }
+
+
+            });*/
         })(jQuery);
 
         window.fbAsyncInit = app.initFacebook;
+    },
+    // Reset search start
+    resetSearchStart: function() {
+        $("#content-dnd-logo, #content-go-btn").removeAttr("class style");
+        $(".content-category").removeClass("selected");
+        app.clearSearchResults();
+        app.onDeviceReady();
+    },
+    // Clear search results
+    clearSearchResults: function() {
+        $(".search-results-wrap").empty();
+        app.searchResults = null;
+        app.searchOffset  = 0;
+        app.searchPerPage = 10;
+    },
+    // Clear detailed result
+    clearDetailedResult: function() {
+        $(".detailed-result-wrap").removeAttr("style");
+        $(".detailed-result-img-wrap").removeOverscroll();
     },
     initFacebook: function() {
         // init the FB JS SDK
@@ -108,34 +145,51 @@ var app = {
                 containment: "#content-categories"
             });
 
-            $(".category-off").droppable({
+            $(".category").droppable({
                 accept: "#content-dnd-logo",
-                drop: app.initSearch
+                drop: app.selectSearchCategory
             });
         })(jQuery);
     },
-    // Initialize search, select category.
-    initSearch: function(ev, ui) {
-        var $this = $(this);
-        var id    = $this.attr("id");
-        var logo  = ui.draggable;
+    // Handle the selection of a search category
+    selectSearchCategory: function(ev, ui) {
+        var $this   = $(this);
+        var contCat = $this.parents(".content-category");
+        var species = contCat.data("species-id") || 0;
+        var id      = $this.attr("id");
+        var logo    = ui.draggable;
         logo.draggable({
             revert: false,
             destroy: true
-        })
-        .switchClass(null,id, "slow", function() {
-            var species = $this.parents(".content-category").data("species-id") || 0;
-            $("#hidden_search_form").trigger("submit", [species]);
-        });
+        }).
+            switchClass(null,id, "fast", function() {
+                $(this).animate({
+                    width: logo.width()*1.5,
+                    height: logo.height()*1.5,
+                    marginLeft: logo.width()*-0.75,
+                    marginTop: logo.height()*-0.75,
+                    opacity: 0
+                }, "fast", function() {
+                    $(this).removeAttr("style").hide();
+                });
+                contCat.switchClass(null, "selected", "fast");
+                $("#content-go-btn").fadeIn("fast", function() {
+                    $(this).data("species", species).one("click", app.initSearch);
+                })
+            });
     },
+    // Initialize search, select category.
+    initSearch: function(ev) {
+        var species = $(this).data("species");
+        $("#hidden_search_form").trigger("submit", [species]);
+    },
+
     // Process search
     procSearch: function(e, species) {
         e.preventDefault();
-        var searchData = $.extend( {
+        var searchData = $.extend(app.searchDefaults, {
             speciesID: species
-        }, app.searchDefaults);
-        console.log(searchData);
-        console.log(app.searchResultsURI);
+        });
         $.ajax({
             url: app.searchResultsURI,
             data: searchData,
@@ -146,9 +200,6 @@ var app = {
                 $.mobile.navigate("#search-results");
             },
             success: function(data) {
-                console.log({
-                    "SearchSuccess": arguments
-                });
                 app.searchResults = $("adoptableSearch", data);
                 app.loadSearchResults();
             },
@@ -156,23 +207,13 @@ var app = {
                 console.log({
                     "SearchError": arguments
                 });
+                $.mobile.navigate("#search-start");
             }
         })
     },
-    // Clear search results
-    clearSearchResults: function() {
-        $("#search-results .search-result").empty().remove();
-        app.searchResults = null;
-        app.searchOffset  = 0;
-        app.searchPerPage = 10;
-    },
-    // Clear detailed result
-    clearDetailedResult: function() {
-        $(".detailed-result-wrap").removeAttr("style");
-        $(".detailed-result-img-wrap").removeOverscroll();
-    },
     // Load search results into the DOM based on a hidden template
     loadSearchResults: function() {
+
         var numResults =   app.searchResults.length;
         var template   =   $(".search-results-template").
                            clone().
@@ -183,18 +224,18 @@ var app = {
                            parent().
                            html();
 
-        console.log({
+        /*console.log({
             "numResults"   : numResults,
             "searchOffset" : app.searchOffset,
             "resultsLoaded": $(".search-result").length
-        });
+        });*/
 
         if(numResults-app.searchOffset) {
             var resultSet = $(app.searchResults).clone(),
                 resultSet = resultSet.splice(app.searchOffset,app.searchPerPage),
                 $animal, animal, result;
             if(!resultSet) return false;
-            console.log({"resultSet":resultSet});
+            /*console.log({"resultSet":resultSet});*/
 
             $(resultSet).each(function(dex) {
                 $animal   = $(this);
@@ -203,7 +244,7 @@ var app = {
                     __id__      : $animal.children("id").text(),
                     __photo__   : $animal.children("photo").text(),
                     __name__    : $animal.children("name").text(),
-                    __species__ : $animal.children("species").text(),
+                    __species__ : $animal.children("AnimalType").text(),
                     __breed__   : $animal.children("primaryBreed").text().replace(",",",<br><div class='hanging-indent'></div>"),
                     __gender__  : $animal.children("sex").text(),
                     __age__     : $animal.children("age").text()
@@ -213,35 +254,50 @@ var app = {
             });
 
             $("#search-results").removeClass("loading");
+            $("#search-results .search-results-load-more").slideUp("fast", $(".search-results-load-more").remove);
 
             $(".search-result").each(function(i) {
                 if(i<app.searchOffset) return true;
-                $(this).delay(10*(i-app.searchOffset)).fadeIn("fast");
+                //$(this).delay(10*(i-app.searchOffset)).fadeIn("fast");
+                $(this).css({
+                    "opacity": "0",
+                    "display": "block"
+                }).animate({
+                    opacity: "1",
+                    delay: (10 * (i - app.searchOffset))
+                }, "fast");
             });
 
             app.searchOffset = (numResults - app.searchOffset < app.searchPerPage ? numResults : app.searchOffset + app.searchPerPage);
 
-            console.log({
+            /*console.log({
                 "numResults"   : numResults,
                 "searchOffset" : app.searchOffset,
                 "resultsLoaded": $(".search-result").length
-            });
+            });*/
 
             if(app.searchOffset < numResults) {
                 console.log("bind smartscroll");
                 $("#search-results .global-content").bind("scroll", debounce(function() {
-                    console.log("scrolling" + $(this).scrollTop());
-                    var scrollTarget = $("#search-results .search-results-wrap").height() - $("#search-results .global-content").height() +
-                                       ($("#search-results footer").height() * 1.5);
-                    console.log(scrollTarget, $("#search-results .search-results-wrap").height(),$("#search-results .global-content").height(), ($("#search-results footer").height() * 1.5));
+                    var scrollTarget = $("#search-results .search-results-wrap").height()
+                                     - $("#search-results .global-content").height()
+                                     + ($("#search-results footer").height() * 1.5);
                     if($("#search-results .global-content").scrollTop()+50 > scrollTarget) {
                         $(this).unbind("scroll");
+                        $("<div/>").addClass("search-results-load-more").html("Loading More...").slideUp(0).appendTo(".search-results-wrap").slideDown("fast");
                         app.loadSearchResults();
                     }
                 }, 100));
+            } else {
+                $("#search-results .search-results-wrap").append(
+                    $("<div/>").addClass("search-results-load-more").html("No More Results")
+                );
             }
         } else {
             console.log("no search results",app.searchResults);
+            $("#search-results .search-results-wrap").append(
+                $("<div/>").addClass("search-results-load-more").html("No Search Results")
+            );
         }
     },
     // Load Pet Details: go to pet result page and load data.
@@ -318,7 +374,7 @@ var app = {
                     "class": "detailed-result-img"
                 }).wrap("<td/>").parent().appendTo(".detailed-result-img-row");
             }
-            $(".detailed-result-img-wrap").css("visibility", "hidden");
+            /*$(".detailed-result-img-wrap").css("visibility", "hidden");*/
         } else {
             $("<div />").addClass("detailed-result-img-none").appendTo(".detailed-result-img-wrap");
         }
@@ -488,9 +544,9 @@ var app = {
         }
 
         $("#detailed-result").removeClass("loading").find(".detailed-result-wrap").fadeIn("fast", function() {
-            if($(".detailed-result-img").length>1) {
+            /*if($(".detailed-result-img").length>1) {
                 $(".detailed-result-img-wrap").overscroll({direction: 'horizontal'}).fadeOut(0).css("visibility","visible").fadeIn("fast");
-            }
+            }*/
 
             var bottomHeight = $("#detailed-result .global-footer").offset().top - $("#detailed-result .detailed-result-bottom").offset().top;
 
