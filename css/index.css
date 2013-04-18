@@ -357,6 +357,7 @@ body {
     width: 100%;
     position: relative;
     border-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(98,66,117,0)), color-stop(10%,rgba(98,66,117,1)), color-stop(40%,rgba(98,66,117,0.5)), color-stop(50%,rgba(98,66,117,0)), color-stop(60%,rgba(98,66,117,0.5)), color-stop(90%,rgba(98,66,117,1)), color-stop(100%,rgba(98,66,117,0))) 1 0 stretch;
+    border-image: -webkit-linear-gradient(bottom, color-stop(0%,rgba(98,66,117,0)), color-stop(10%,rgba(98,66,117,1)), color-stop(40%,rgba(98,66,117,0.5)), color-stop(50%,rgba(98,66,117,0)), color-stop(60%,rgba(98,66,117,0.5)), color-stop(90%,rgba(98,66,117,1)), color-stop(100%,rgba(98,66,117,0))) 1 0 stretch;
     border-image-slice: 10 0;
     border-image-width: .5em 0;
     border-image-outset: 0;
@@ -431,6 +432,7 @@ body {
 
 #search-results .search-result .search-results-more {
     background: linear-gradient(to right, rgba(98,66,117,0) 0%,rgba(98,66,117,1) 100%);
+    background: -webkit-linear-gradient(to right, rgba(98,66,117,0) 0%,rgba(98,66,117,1) 100%);
     position: absolute;
     right: -5em;
     top: 0;
