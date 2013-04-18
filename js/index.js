@@ -70,6 +70,13 @@ var app = {
 
             $("#search-start .footer-icons-search").on("click", app.resetSearchStart);
 
+            $("#search-start .category").on("click", function(e) {
+                if($(".content-category.selected").length) app.resetSearchStart();
+                var ui = {};
+                ui.draggable = $("#content-dnd-logo");
+                app.selectSearchCategory.apply($(this),[e,ui]);
+            })
+
             /**
              * Other misc event bindings
              */
@@ -284,7 +291,7 @@ var app = {
                                      + ($("#search-results footer").height() * 1.5);
                     if($("#search-results .global-content").scrollTop()+50 > scrollTarget) {
                         $(this).unbind("scroll");
-                        $("<div/>").addClass("search-results-load-more").html("Loading More...").slideUp(0).appendTo(".search-results-wrap").slideDown("fast");
+                        $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
                         app.loadSearchResults();
                     }
                 }, 100));
@@ -305,6 +312,7 @@ var app = {
         var $this = $(this),
             petId = $this.data("animal-id");
         if(!petId) return false;
+        $this.addClass("active").delay(1000).removeClass("active");
         $("#detailed-result").addClass("loading");
         $.mobile.navigate("#detailed-result");
         $.ajax({
