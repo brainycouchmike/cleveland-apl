@@ -54,11 +54,6 @@ var app = {
     bindEvents: function() {
         // Bind Device Ready
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        // Bind Touch Handlers
-        document.addEventListener("touchstart", touchHandler, true);
-        document.addEventListener("touchmove", touchHandler, true);
-        document.addEventListener("touchend", touchHandler, true);
-        document.addEventListener("touchcancel", touchHandler, true);
         // Bind jQuery Events Here...
         (function($) {
             $("#hidden_search_form").bind("submit", app.procSearch);
