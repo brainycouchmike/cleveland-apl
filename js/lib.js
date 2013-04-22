@@ -15,7 +15,7 @@
         return (!pattern.test(this));
     };
 
-    Array.prototype.clean = function(deleteValue) {
+    /*Array.prototype.clean = function(deleteValue) {
         for (var i = 0; i < this.length; i++) {
             if (this[i] == deleteValue) {
                 this.splice(i, 1);
@@ -23,7 +23,7 @@
             }
         }
         return this;
-    };
+    };*/
 
 /**
  * General Library Functions
@@ -126,6 +126,13 @@ function touchHandler(event) {
 
     first.target.dispatchEvent(simulatedEvent);
     event.preventDefault();
+}
+
+function functionName(fun) {
+    var ret = fun.toString();
+    ret = ret.substr('function '.length);
+    ret = ret.substr(0, ret.indexOf('('));
+    return ret;
 }
 
 /**

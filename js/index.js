@@ -43,6 +43,9 @@ var app = {
         noKids:         "A"
     },
     petDetails: null,
+    // database global
+    db: null,
+    lastFavorites: {},
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -62,15 +65,24 @@ var app = {
             $("#hidden_search_form").bind("submit", app.procSearch);
             $("#search-start").bind("pagebeforeshow", app.resetSearchStart);
             $("#detailed-result").bind("pagehide", app.clearDetailedResult);
+            $("#favorites-list").on("pagebeforeshow", app.favoritesList);
 
             /**
              * Define button bindings
              */
-            $(".search-results-wrap").on("click", ".search-result", app.loadPetDetails);
+            $(".search-results-wrap").on("vclick", ".search-result", app.loadPetDetails);
 
-            $("#search-start .footer-icons-search").on("click", app.resetSearchStart);
+            $("#search-start .footer-icons-more").on("vclick", function() {
+                console.log(app.db.addFavorite(~~(Math.random()*10+1)));
+            });
 
-            $("#search-start .category").on("click", function(e) {
+            $("#search-start .footer-icons-favorites").on("vclick", function() {
+                console.log(app.db.getFavorites());//, app.db.getFavorites().length);
+            });
+
+            $("#search-start .footer-icons-search").on("vclick", app.resetSearchStart);
+
+            $("#search-start .category").on("vclick", function(e) {
                 if($(".content-category.selected").length) app.resetSearchStart();
                 var ui = {};
                 ui.draggable = $("#content-dnd-logo");
@@ -120,6 +132,10 @@ var app = {
         $(".detailed-result-wrap").removeAttr("style");
         $(".detailed-result-img-wrap").removeOverscroll();
     },
+    //initialize modules
+    initModules: function() {
+        app.db = new DB();
+    },
     initFacebook: function() {
         // init the FB JS SDK
         FB.init({
@@ -135,6 +151,8 @@ var app = {
     },
     // deviceready Event Handler
     onDeviceReady: function() {
+
+        app.initModules();
 
 
         // Load the SDK asynchronously
@@ -157,6 +175,31 @@ var app = {
                 drop: app.selectSearchCategory
             });
         })(jQuery);
+    },
+    // Favorites pre-show processing
+    favoritesList: function(event, ui) {
+        var $favWrap  = $(".favorites-list-wrap");
+        var favorites = app.db.getFavorites();
+
+        if(!favorites.length) {
+            $favWrap.empty().append(
+                $("<div />").addClass("favorites-list-empty").html(
+                    $("<h1/>").text("You have not added any pets to your favorites.")
+                )
+            );
+        } else {
+            var lastFavoritesKeys = [];
+            if(app.lastFavorites.length) {
+                for(var key in app.lastFavorites) {
+                    lastFavoritesKeys.push(key);
+                }
+            }
+            if(lastFavoritesKeys==favorites) {
+
+            } else {
+                $favWrap.empty();
+            }
+        }
     },
     // Handle the selection of a search category
     selectSearchCategory: function(ev, ui) {
@@ -181,7 +224,7 @@ var app = {
                 });
                 contCat.switchClass(null, "selected", "fast");
                 $("#content-go-btn").fadeIn("fast", function() {
-                    $(this).data("species", species).one("click", app.initSearch);
+                    $(this).data("species", species).one("vclick", app.initSearch);
                 })
             });
     },
