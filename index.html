@@ -105,7 +105,7 @@
                     </div>
                     <div class="search-results-name">__name__</div>
                     <div class="search-results-species search-results-detail">
-                        <div class="search-results-label">Species:</div>
+                        <div class="search-results-label">Category:</div>
                         <div>__species__</div>
                     </div>
                     <div class="search-results-breed search-results-detail">
@@ -117,7 +117,7 @@
                         <div>__gender__</div>
                     </div>
                     <div class="search-results-age search-results-detail">
-                        <div class="search-results-label">Age (months):</div>
+                        <div class="search-results-label">Age:</div>
                         <div>__age__</div>
                     </div>
                     <div class="search-results-more">view<br>more</div>
@@ -142,11 +142,14 @@
         </div>
         <div id="detailed-result" data-role="page">
             <header class="global-header" data-role="header">
+                <a class="detailed-result-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
                 <div class="header-logo"></div>
-                <a href="#" data-rel="back" class="header-back-to-search" data-role="none">
+                <a class="detailed-result-favorite" href="#" data-role="button" data-icon="star" data-iconpos="right" data-theme="c">favorite</a>
+                <!--<a href="#" data-rel="back" class="header-back-to-search" data-role="none">
                     <div>«</div>
                     <span>Back&nbsp;To<br>Search</span>
-                </a>
+                </a>-->
+
             </header>
             <div class="global-content" data-role="content">
                 <div class="detailed-result-loading">
@@ -198,12 +201,37 @@
         </div>
         <div id="favorites-list" data-role="page">
             <header class="global-header" data-role="header" data-add-back-btn="true">
+                <a class="favorites-list-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
                 <div class="header-logo"></div>
             </header>
             <div class="global-content" data-role="content">
                 <div class="favorites-list-loading">
                     <img class="favorites-list-loading-img" src="" />
                     <div class="favorites-list-loading-text">Loading...</div>
+                </div>
+                <div class="favorites-item-template" data-animal-id="__id__">
+                    <div class="favorites-item-img-wrap">
+                        <img src="__photo__" class="favorites-item-img" />
+                        <div class="favorites-item-img-fade"></div>
+                    </div>
+                    <div class="favorites-item-name">__name__</div>
+                    <div class="favorites-item-species favorites-item-detail">
+                        <div class="favorites-item-label">Category:</div>
+                        <div>__species__</div>
+                    </div>
+                    <div class="favorites-item-breed favorites-item-detail">
+                        <div class="favorites-item-label">Breed:</div>
+                        <div>__breed__</div>
+                    </div>
+                    <div class="favorites-item-gender favorites-item-detail">
+                        <div class="favorites-item-label">Gender:</div>
+                        <div>__gender__</div>
+                    </div>
+                    <div class="favorites-item-age favorites-item-detail">
+                        <div class="favorites-item-label">Age:</div>
+                        <div>__age__</div>
+                    </div>
+                    <div class="favorites-item-more">view<br>more</div>
                 </div>
                 <div class="favorites-list-wrap">
                     
@@ -223,13 +251,17 @@
         <script type="text/javascript" src="js/jquery.overscroll.js"></script>
         <script type="text/javascript" src="js/modernizr.js"></script>
         <script type="text/javascript" src="js/date.format.js"></script>
-        <script type="text/javascript" src="js/lawnchair-0.6.1.js"></script>
-        <script type="text/javascript" src="js/lawnchair-adapter-webkit-sqlite-0.6.1.js"></script>
-        <script type="text/javascript" src="js/lawnchair-query-0.6.1.js"></script>
+        <script type="text/javascript" src="js/jquery.xml2json.js"></script>
         <script type="text/javascript" src="js/db.js"></script>
         <script type="text/javascript" src="js/lib.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
+            if(window.location!=window.top.location) {
+                window.top.app = app;
+                window.top.updateApp = function() {
+                    window.top.app = app;
+                };
+            }
             app.initialize();
         </script>
     </body>

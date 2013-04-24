@@ -11,8 +11,8 @@ function DB() {
      * Private Class Vaiables
      */
     var Db  = this;
-    var _objTemplate = "{\"favorites\":[],\"search\":{},\"pets\":{}}";
-    var _obj = {favorites: [], search: {}, pets: {}};
+    var _objTemplate = "{\"favorites\":{},\"search\":{},\"pets\":{}}";
+    var _obj = {favorites: {}, search: {}, pets: {}};
 
     /**
      * Public Class Variables
@@ -37,8 +37,14 @@ function DB() {
         return _obj.favorites;
     };
 
-    this.addFavorite = function(favoriteId) {
-        _obj.favorites.push(favoriteId);
+    this.addFavorite = function(favoriteId, favoriteData) {
+        _obj.favorites[favoriteId] = favoriteData;
+        return Db.save();
+    };
+
+    this.removeFavorite = function(favoriteId) {
+        if(typeof(_obj.favorites[favoriteId])=="undefined") return false;
+        delete _obj.favorites[favoriteId];
         return Db.save();
     };
 

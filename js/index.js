@@ -70,14 +70,27 @@ var app = {
             /**
              * Define button bindings
              */
-            $(".search-results-wrap").on("vclick", ".search-result", app.loadPetDetails);
+            $(".search-results-wrap,.favorites-list-wrap").on("vclick", ".search-result,.favorites-item", app.loadPetDetails);
 
-            $("#search-start .footer-icons-more").on("vclick", function() {
+            /*$("#search-start .footer-icons-more").on("vclick", function() {
                 console.log(app.db.addFavorite(~~(Math.random()*10+1)));
             });
 
             $("#search-start .footer-icons-favorites").on("vclick", function() {
                 console.log(app.db.getFavorites());//, app.db.getFavorites().length);
+            });*/
+
+            $(".detailed-result-favorite").on("vclick", function(e) {
+                var $this = $(this);
+                var petId = $this.parents("#detailed-result").data("pet-id");
+                if(!petId) return false;
+                if($this.data("favorite")) {
+                    console.log("pet is favorited, time to un-favorite.");
+                    app.unfavoritePet(e, petId);
+                } else {
+                    console.log("pet is un-favorited, time to favorite.");
+                    app.favoritePet(e, petId);
+                }
             });
 
             $("#search-start .footer-icons-search").on("vclick", app.resetSearchStart);
@@ -180,8 +193,9 @@ var app = {
     favoritesList: function(event, ui) {
         var $favWrap  = $(".favorites-list-wrap");
         var favorites = app.db.getFavorites();
+        var numFavs   = count(favorites);
 
-        if(!favorites.length) {
+        if(!numFavs) {
             $favWrap.empty().append(
                 $("<div />").addClass("favorites-list-empty").html(
                     $("<h1/>").text("You have not added any pets to your favorites.")
@@ -194,12 +208,75 @@ var app = {
                     lastFavoritesKeys.push(key);
                 }
             }
-            if(lastFavoritesKeys==favorites) {
-
-            } else {
+            if(lastFavoritesKeys!=favorites) {
                 $favWrap.empty();
+                // app.fetchFavorites();
+                app.loadFavorites();
             }
         }
+    },
+    fetchFavorites: function() {
+        var $favWrap  = $(".favorites-list-wrap");
+        $favWrap.empty();
+        var data = $.extend(app.searchDefaults,{
+            animalID: app.db.getFavorites().join(",")
+        });
+        $.ajax({
+            url: app.searchResultsURI,
+            data: data,
+            dataType: "xml",
+            type: "POST",
+            success: function(data) {
+                app.favoriteResults = $("adoptableSearch", data);
+                app.loadFavorites();
+            },
+            error: function() {
+                console.log({
+                    "FavoritesError": arguments
+                });
+                $.mobile.navigate("#search-start");
+            }
+        });
+    },
+    loadFavorites: function() {
+        var favorites = app.db.getFavorites();
+        var template   =   $(".favorites-item-template").
+                            clone().
+                            removeClass("favorites-item-template").
+                            addClass("favorites-item").
+                            css("display", "none").
+                            wrap("<div/>").
+                            parent().
+                            html();
+        var result, animal;
+        for(var petId in favorites) {
+            animal   = favorites[petId];
+            result    = template;
+            animal    = {
+                __id__      : petId,
+                __photo__   : animal.Photo || animal.Photo1,
+                __name__    : animal.AnimalName,
+                __species__ : animal.AnimalType.match(/^[a-zA-Z\s]+$/g) ? animal.AnimalType : animal.Species,
+                __breed__   : animal.PrimaryBreed.replace(",",",<br><div class='hanging-indent'></div>"),
+                __gender__  : animal.Sex,
+                __age__     : monthsToYears(animal.Age)
+            };
+            result    = array_replace(result, animal);
+            $(result).appendTo(".favorites-list-wrap");
+        }
+
+        $("#favorites-list").removeClass("loading");
+
+        $(".favorites-item").each(function(i) {
+            $(this).css({
+                "opacity": "0",
+                "display": "block"
+            }).animate({
+                opacity: "1",
+                delay: (10 * (i - app.searchOffset))
+            }, "fast");
+        });
+
     },
     // Handle the selection of a search category
     selectSearchCategory: function(ev, ui) {
@@ -259,7 +336,7 @@ var app = {
                 });
                 $.mobile.navigate("#search-start");
             }
-        })
+        });
     },
     // Load search results into the DOM based on a hidden template
     loadSearchResults: function() {
@@ -294,10 +371,10 @@ var app = {
                     __id__      : $animal.children("id").text(),
                     __photo__   : $animal.children("photo").text(),
                     __name__    : $animal.children("name").text(),
-                    __species__ : $animal.children("AnimalType").text(),
+                    __species__ : $animal.children("AnimalType").text().match(/^[a-zA-Z\s]+$/g) ? $animal.children("AnimalType").text() : $animal.children("Species").text(),
                     __breed__   : $animal.children("primaryBreed").text().replace(",",",<br><div class='hanging-indent'></div>"),
                     __gender__  : $animal.children("sex").text(),
-                    __age__     : $animal.children("age").text()
+                    __age__     : monthsToYears($animal.children("age").text())
                 };
                 result    = array_replace(result, animal);
                 $(result).appendTo(".search-results-wrap");
@@ -422,6 +499,24 @@ var app = {
         console.log(petDetailsObj);
         */
 
+        /**
+         * Get pet id value
+         */
+        var petId = app.getPetDetail("id");
+
+        /**
+         * Set Pet Id as a data property of the #detailed-result page
+         */
+        $("#detailed-result").data("pet-id", petId);
+
+        /**
+         * Set favorite button state
+         */
+        if(petId in app.db.getFavorites()) {
+            app.updateFavoriteButton(true);
+        } else {
+            app.updateFavoriteButton(false);
+        }
 
         /* Top Half */
 
@@ -537,7 +632,7 @@ var app = {
         /**
          * Fill pet identification number
          */
-        var petId = app.getPetDetail("id");
+        /*var petId = app.getPetDetail("id");*/
         if(petId) {
             $(".detailed-result-petid").show().html("Pet ID: " + petId);
         } else {
@@ -621,6 +716,29 @@ var app = {
             });
         });
 
+    },
+    updateFavoriteButton: function(highlighted) {
+        highlighted = typeof(highlighted)!=="undefined" ? highlighted : false;
+        var theme = highlighted ? 'e' : 'c';
+        $('#detailed-result .detailed-result-favorite')
+            .removeClass(
+                'ui-btn-up-a ui-btn-up-b ui-btn-up-c ui-btn-up-d ui-btn-up-e ' +
+                'ui-btn-hover-a ui-btn-hover-b ui-btn-hover-c ui-btn-hover-d ui-btn-hover-e ' +
+                'ui-btn-down-a ui-btn-down-b ui-btn-down-c ui-btn-down-d ui-btn-down-e'
+            )
+            .addClass('ui-btn-up-' + theme)
+            .attr({
+                'data-theme': theme,
+                'data-favorite': highlighted
+            });
+    },
+    favoritePet: function(event, petId) {
+        app.db.addFavorite(petId, $.xml2json(app.petDetails[0]));
+        app.updateFavoriteButton(true);
+    },
+    unfavoritePet: function(event, petId) {
+        app.db.removeFavorite(petId);
+        app.updateFavoriteButton(false);
     }
 };
 

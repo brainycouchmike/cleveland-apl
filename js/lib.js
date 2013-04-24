@@ -90,7 +90,7 @@
     function monthsToYears(months) {
         var years = ~~(months / 12);
         var extra = ~~(months % 12);
-        return years + " year" + (years>1?"s":'') + (extra ? " " + extra + " month"+(extra>1?"s":''):'');
+        return (years > 0 ? (years + " year" + (years>1?"s":'')) : '') + (extra ? " " + extra + " month"+(extra>1?"s":''):'');
     }
 
     function cleanObject(obj, delVal) {
@@ -133,6 +133,15 @@ function functionName(fun) {
     ret = ret.substr('function '.length);
     ret = ret.substr(0, ret.indexOf('('));
     return ret;
+}
+
+function count(obj) {
+    if(typeof(obj)!==typeof({})) return false;
+    var count = 0;
+    for(var i in obj) {
+        count++
+    }
+    return count;
 }
 
 /**
