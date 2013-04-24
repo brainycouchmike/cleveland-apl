@@ -261,7 +261,7 @@ body {
     left: 50%;
     height: 10em;
     width: 10em;
-    margin: -8em 0 0 -5em;
+    margin: -10em 0 0 -5em;
     background: url('../img/heart_cursor.png') center center no-repeat;
     background-size: 100% auto;
     z-index: 99;
@@ -300,12 +300,23 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    height: 20%;
+    height: auto;
     width: 20%;
-    margin: -28% 0 0 -10%;
-    background: url('../img/btn_go.png') center center no-repeat;
-    background-size: 100% auto;
+    margin: -13% -10%;
+    /*background: url('../img/btn_go.png') center center no-repeat;
+    background-size: 100% auto;*/
     z-index: 5;
+}
+
+#content-go-btn img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
 }
 
 .global-footer {
@@ -321,6 +332,7 @@ body {
     height: 100%;
     overflow: hidden;
     margin: 0 10%;
+    text-align: center;
 }
 
 .footer-icon {
