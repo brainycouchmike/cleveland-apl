@@ -333,14 +333,22 @@ var app = {
                                      - $("#search-results .global-content").height()
                                      + ($("#search-results footer").height() * 1.5);*/
                     var scrollTarget = $(".search-results-wrap").height()
-                                     - ($("#search-results .global-content").scrollTop()
-                                     +  $("#search-results .global-footer").height());
-                    var targetHeight = $("#search-results .global-content").height()
-                                     - $("#search-results .global-footer").height();
+                                     - ($("#search-results .global-content").scrollTop());
+                                     //+  $("#search-results .global-footer").height());
+                    var targetHeight = $("#search-results .global-content").height();
+                                     //- $("#search-results .global-footer").height();
+                    console.log({
+                        "scrollStats": {
+                            "scrollTarget": scrollTarget,
+                            "targetHeight": targetHeight
+                        }
+                    });
                     if(scrollTarget < targetHeight) {
                         $(this).unbind("scroll");
                         $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
-                        app.loadSearchResults();
+                        $("#search-results .global-content").animate({
+                            scrollTop: $(".search-results-wrap").height()
+                        }, "fast", app.loadSearchResults);
                     }
                 }, 100));
             } else {

@@ -116,19 +116,19 @@ body {
     position: absolute;
     top: 15%;
     left: 0px;
-    bottom: 0px;
+    bottom: 15%;
     padding: 0px;
     right: 0px;
     margin-top: 0px;
-    padding-bottom: 26%;
+    /*padding-bottom: 26%;*/
 }
 
 #content-categories {
     position: absolute;
-    top: 0em;
-    left: 0em;
-    right: 0em;
-    bottom: 17%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .content-category {
@@ -261,7 +261,7 @@ body {
     left: 50%;
     height: 10em;
     width: 10em;
-    margin: -10em 0 0 -5em;
+    margin: -5em 0 0 -5em;
     background: url('../img/heart_cursor.png') center center no-repeat;
     background-size: 100% auto;
     z-index: 99;
@@ -283,14 +283,14 @@ body {
 
 #content-dnd-logo.small {
     left: 25% !important;
-    top: 65% !important;
+    top: 75% !important;
     margin-left: -5em;
     margin-top: -5em;
 }
 
 #content-dnd-logo.all {
     left: 75% !important;
-    top: 65% !important;
+    top: 75% !important;
     margin-left: -5em;
     margin-top: -5em;
 }
@@ -303,7 +303,7 @@ body {
     height: auto;
     width: 20%;
     margin-left: -10%;
-    margin-top: -8%;
+    margin-top: 0;
     z-index: 5;
 }
 
