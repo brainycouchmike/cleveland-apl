@@ -302,9 +302,8 @@ body {
     left: 50%;
     height: auto;
     width: 20%;
-    margin: -13% -10%;
-    /*background: url('../img/btn_go.png') center center no-repeat;
-    background-size: 100% auto;*/
+    margin-left: -10%;
+    margin-top: -8%;
     z-index: 5;
 }
 
