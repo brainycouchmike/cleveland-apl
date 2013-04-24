@@ -388,7 +388,7 @@ body {
 #search-results .search-results-wrap {
     position: relative;
     overflow: auto;
-    margin: 20px 0 5em;
+    margin: 20px 0 0;
 }
 
 #search-results .search-result {

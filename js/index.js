@@ -329,10 +329,15 @@ var app = {
             if(app.searchOffset < numResults) {
                 console.log("bind smartscroll");
                 $("#search-results .global-content").bind("scroll", debounce(function() {
-                    var scrollTarget = $("#search-results .search-results-wrap").height()
+                    /*var scrollTarget = $("#search-results .search-results-wrap").height()
                                      - $("#search-results .global-content").height()
-                                     + ($("#search-results footer").height() * 1.5);
-                    if($("#search-results .global-content").scrollTop()+50 > scrollTarget) {
+                                     + ($("#search-results footer").height() * 1.5);*/
+                    var scrollTarget = $(".search-results-wrap").height()
+                                     - ($("#search-results .global-content").scrollTop()
+                                     +  $("#search-results .global-footer").height());
+                    var targetHeight = $("#search-results .global-content").height()
+                                     - $("#search-results .global-footer").height();
+                    if(scrollTarget < targetHeight) {
                         $(this).unbind("scroll");
                         $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
                         app.loadSearchResults();
