@@ -226,15 +226,19 @@ var app = {
                         $next = $this.find("img").filter(":first");
                         revrt = true;
                     }
-                    $this.find("img").animate({
-                        marginLeft: revrt ? "+="+(($imgs.length-1)*100)+"%" : "-=100%"
-                    }, "fast", function() {
-                        $seld.removeClass("selected");
-                        $next.addClass("selected");
-                        $this.jqmData("animating", false);
+                    var nxPos = $imgs.index($next);
+                    $imgs.each(function(dex, elem) {
+                        $(this).animate({
+                            marginLeft: ((revrt) ? ((dex*100)+"%") : ((nxPos - dex)*100+"%"))
+                        }, "fast", function() {
+                            if(dex==0) {
+                                $seld.removeClass("selected");
+                                $next.addClass("selected");
+                                $this.jqmData("animating", false);
+                            }
+                        });
                     });
                     var $dots = $(".detailed-result-img-dot");
-                    var nxPos = $imgs.index($next);
                     var $sDot = $dots.filter(".selected");
                     var $nDot = $dots.eq(nxPos);
                         $sDot.removeClass("selected").attr("src", app.photoDotSrc);
@@ -280,7 +284,7 @@ var app = {
     // Clear detailed result
     clearDetailedResult: function() {
         $(".detailed-result-wrap").removeAttr("style");
-        $(".detailed-result-img-wrap").removeOverscroll();
+        $(".detailed-result-img-wrap").jqmData("animating", false);
         app.updateFavoriteButton(false);
     },
     //initialize modules
@@ -352,29 +356,6 @@ var app = {
                 app.loadFavorites();
             }
         }
-    },
-    fetchFavorites: function() {
-        var $favWrap  = $(".favorites-list-wrap");
-        $favWrap.empty();
-        var data = $.extend(app.searchDefaults,{
-            animalID: app.db.getFavorites().join(",")
-        });
-        $.ajax({
-            url: app.searchResultsURI,
-            data: data,
-            dataType: "xml",
-            type: "POST",
-            success: function(data) {
-                app.favoriteResults = $("adoptableSearch", data);
-                app.loadFavorites();
-            },
-            error: function() {
-                console.log({
-                    "FavoritesError": arguments
-                });
-                $.mobile.navigate("#search-start");
-            }
-        });
     },
     loadFavorites: function() {
         var favorites = app.db.getFavorites();
@@ -689,8 +670,7 @@ var app = {
                     "class":        "detailed-result-img" + (i==0 ? ' selected' : ''),
                     "data-species": ((species.toLowerCase() in {'dog':1,'cat':1}) ? species.toLowerCase() : "other")
                 }).css({
-                    "margin-left": 100*i+"%",
-                    "margin-right": (i==(photos.length-1))?"100%":"auto"
+                    "margin-left": 100*i+"%"
                 }).appendTo(".detailed-result-img-wrap");
                 $("<img />").attr({
                     "src": i==0 ? app.photoDotSrcS : app.photoDotSrc,
@@ -820,7 +800,7 @@ var app = {
         var miscDetails = {
         	houseTrained:     app.getPetDetail("houseTrained") == "Yes" ? "House Trianed" : null,
         	onHold:           app.getPetDetail("onHold") == "Yes" ? "On Hold" : null,
-            declawed:         app.getPetDetail("declawed") ? (app.getPetDetail("declawed")=="No" ? "Not" : tmpdeclawed) + " Declawed" : null,
+            declawed:         app.getPetDetail("declawed") ? (app.getPetDetail("declawed")=="No" ? "Not" : app.getPetDetail("declawed")) + " Declawed" : null,
         	noDogs:           app.getPetDetail("noDogs") == "Yes" ? "Cannot Live With Dog(s)" : null,
         	noCats:           app.getPetDetail("noCats") == "Yes" ? "Cannot Live With Cat(s)" : null,
         	noKids:           app.getPetDetail("noKids") == "Yes" ? "Cannot Live With Children" : null,
