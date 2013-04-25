@@ -46,6 +46,84 @@ var app = {
     // database global
     db: null,
     lastFavorites: {},
+    ignoreReferrer: {
+        "#detailed-result": "#favorites-list"
+    },
+    photoDotSrc:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJl"+
+        "YWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5"+
+        "UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExID"+
+        "Y2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xO"+
+        "Tk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRv"+
+        "YmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA"+
+        "6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNi"+
+        "AoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDRTNGOUY3RkE1MDMxMUUyQjQ5Q0FDQzIwRDE1QkYzNyIgeG1wTU06R"+
+        "G9jdW1lbnRJRD0ieG1wLmRpZDpDRTNGOUY4MEE1MDMxMUUyQjQ5Q0FDQzIwRDE1QkYzNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjpp"+
+        "bnN0YW5jZUlEPSJ4bXAuaWlkOkNFM0Y5RjdEQTUwMzExRTJCNDlDQUNDMjBEMTVCRjM3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkN"+
+        "FM0Y5RjdFQTUwMzExRTJCNDlDQUNDMjBEMTVCRjM3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3"+
+        "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",
+    photoDotSrcS:
+        "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlY"+
+        "WR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5U"+
+        "Y3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY"+
+        "2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOT"+
+        "k5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvY"+
+        "mUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6"+
+        "Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiA"+
+        "oTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDRTNGOUY4M0E1MDMxMUUyQjQ5Q0FDQzIwRDE1QkYzNyIgeG1wTU06RG"+
+        "9jdW1lbnRJRD0ieG1wLmRpZDpDRTNGOUY4NEE1MDMxMUUyQjQ5Q0FDQzIwRDE1QkYzNyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppb"+
+        "nN0YW5jZUlEPSJ4bXAuaWlkOkNFM0Y5RjgxQTUwMzExRTJCNDlDQUNDMjBEMTVCRjM3IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkNF"+
+        "M0Y5RjgyQTUwMzExRTJCNDlDQUNDMjBEMTVCRjM3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3h"+
+        "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"+
+        "JMABsmn5SRpkWAAAAAABJRU5ErkJggg==",
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -62,29 +140,53 @@ var app = {
             /**
              * Bind page state actions
              */
-            $("#hidden_search_form").bind("submit", app.procSearch);
-            $("#search-start").bind("pagebeforeshow", app.resetSearchStart);
-            $("#detailed-result").bind("pagehide", app.clearDetailedResult);
+            $("#hidden_search_form").on("submit", app.procSearch);
+            $("#search-start").on("pagebeforeshow", app.resetSearchStart);
+            $("#detailed-result").on("pagehide", app.clearDetailedResult)
+                                 .on("pagebeforeshow", function() {
+                                     $("#detailed-result .global-header > a").fadeOut("fast");
+                                 });
             $("#favorites-list").on("pagebeforeshow", app.favoritesList);
+
+            $("[data-role='page']").on("pagebeforeshow", function(ev, prevPage) {
+                prevPage = prevPage.prevPage;
+                if(!prevPage.length) return true;
+                var thisId = "#"+$(this).attr('id');
+                var prevId = "#"+prevPage.attr("id");
+                console.log(thisId, prevId, (prevId in app.ignoreReferrer), (app.ignoreReferrer[prevId]==thisId));
+                if((prevId in app.ignoreReferrer) && (app.ignoreReferrer[prevId]==thisId)) return true;
+                $(this).jqmData("referrer", prevId);
+                console.log("referrer updated: "+ prevId);
+                return true;
+            });
 
             /**
              * Define button bindings
              */
-            $(".search-results-wrap,.favorites-list-wrap").on("vclick", ".search-result,.favorites-item", app.loadPetDetails);
+            $(".search-results-wrap,.favorites-list-wrap").on("click", ".search-result,.favorites-item", app.loadPetDetails);
 
-            /*$("#search-start .footer-icons-more").on("vclick", function() {
-                console.log(app.db.addFavorite(~~(Math.random()*10+1)));
+            $("[data-rel='back']").on("click", function(e) {
+                var target = $.mobile.activePage.jqmData("referrer");
+                var backTo = !!$(this).jqmData("back-button-navigated");
+                if(backTo) $(this).jqmData("back-button-navigated", false);
+                if(!target || backTo) return (console.log("normal back button event", target, backTo) || true);
+                e.preventDefault();
+                $(target).jqmData("back-button-navigated", true);
+                $.mobile.navigate(target);
             });
 
+            /*
             $("#search-start .footer-icons-favorites").on("vclick", function() {
                 console.log(app.db.getFavorites());//, app.db.getFavorites().length);
             });*/
 
-            $(".detailed-result-favorite").on("vclick", function(e) {
+            $(".detailed-result-favorite").on("click", function(e) {
                 var $this = $(this);
-                var petId = $this.parents("#detailed-result").data("pet-id");
+                var $page = $this.parents("#detailed-result")
+                var petId = $page.jqmData("pet-id");
+                var isFav = $page.jqmData("favorite");
                 if(!petId) return false;
-                if($this.data("favorite")) {
+                if(isFav) {
                     console.log("pet is favorited, time to un-favorite.");
                     app.unfavoritePet(e, petId);
                 } else {
@@ -93,18 +195,53 @@ var app = {
                 }
             });
 
-            $("#search-start .footer-icons-search").on("vclick", app.resetSearchStart);
+            $("#search-start .footer-icons-search").on("click", app.resetSearchStart);
 
-            $("#search-start .category").on("vclick", function(e) {
+            $("#search-start .category").on("click", function(e) {
                 if($(".content-category.selected").length) app.resetSearchStart();
                 var ui = {};
                 ui.draggable = $("#content-dnd-logo");
                 app.selectSearchCategory.apply($(this),[e,ui]);
-            })
+            });
 
             /**
              * Other misc event bindings
              */
+            $(".detailed-result-img-wrap,.search-results-img-wrap").on("error",".detailed-result-img,.search-results-img", function() {
+                $("img",this).attr('src','http://sms.petpoint.com/sms3/emails/images/Photo-Not-Available-'+($("img",this).attr('data-species')||'other')+'.gif');
+                return false;
+            });
+
+            $(".detailed-result-img-wrap").
+                on("click swipeleft", function() {
+                    var $this = $(this);
+                    if($this.jqmData("animating")) return false;
+                    $this.jqmData("animating", true);
+                    var $imgs = $this.find("img");
+                    if($imgs.length<2) return;
+                    var $seld = $imgs.filter(".selected");
+                    var $next = $seld.next("img");
+                    var revrt = false;
+                    if(!$next.length) {
+                        $next = $this.find("img").filter(":first");
+                        revrt = true;
+                    }
+                    $this.find("img").animate({
+                        marginLeft: revrt ? "+="+(($imgs.length-1)*100)+"%" : "-=100%"
+                    }, "fast", function() {
+                        $seld.removeClass("selected");
+                        $next.addClass("selected");
+                        $this.jqmData("animating", false);
+                    });
+                    var $dots = $(".detailed-result-img-dot");
+                    var nxPos = $imgs.index($next);
+                    var $sDot = $dots.filter(".selected");
+                    var $nDot = $dots.eq(nxPos);
+                        $sDot.removeClass("selected").attr("src", app.photoDotSrc);
+                        $nDot.addClass("selected").attr("src", app.photoDotSrcS);
+                });
+
+
             /*$(".detailed-result-img-wrap").bind("click", function() {
                 var curScroll = $(this).scrollLeft();
                 var nextImg = $(".detailed-result-img").filter(function() {
@@ -144,6 +281,7 @@ var app = {
     clearDetailedResult: function() {
         $(".detailed-result-wrap").removeAttr("style");
         $(".detailed-result-img-wrap").removeOverscroll();
+        app.updateFavoriteButton(false);
     },
     //initialize modules
     initModules: function() {
@@ -198,7 +336,7 @@ var app = {
         if(!numFavs) {
             $favWrap.empty().append(
                 $("<div />").addClass("favorites-list-empty").html(
-                    $("<h1/>").text("You have not added any pets to your favorites.")
+                    $("<h1/>").text("You have not added any pets to your favorites")
                 )
             );
         } else {
@@ -265,7 +403,7 @@ var app = {
             $(result).appendTo(".favorites-list-wrap");
         }
 
-        $("#favorites-list").removeClass("loading");
+        $.mobile.loading('hide');
 
         $(".favorites-item").each(function(i) {
             $(this).css({
@@ -282,7 +420,7 @@ var app = {
     selectSearchCategory: function(ev, ui) {
         var $this   = $(this);
         var contCat = $this.parents(".content-category");
-        var species = contCat.data("species-id") || 0;
+        var species = contCat.jqmData("species-id") || 0;
         var id      = $this.attr("id");
         var logo    = ui.draggable;
         logo.draggable({
@@ -301,13 +439,14 @@ var app = {
                 });
                 contCat.switchClass(null, "selected", "fast");
                 $("#content-go-btn").fadeIn("fast", function() {
-                    $(this).data("species", species).one("vclick", app.initSearch);
+                    $(this).jqmData("species", species).one("vclick", app.initSearch);
                 })
             });
     },
     // Initialize search, select category.
     initSearch: function(ev) {
-        var species = $(this).data("species");
+        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+        var species = $(this).jqmData("species");
         $("#hidden_search_form").trigger("submit", [species]);
     },
 
@@ -323,7 +462,7 @@ var app = {
             dataType: "xml",
             type: "POST",
             beforeSend: function() {
-                $("#search-results").addClass("loading");
+                $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
                 $.mobile.navigate("#search-results");
             },
             success: function(data) {
@@ -360,52 +499,58 @@ var app = {
         if(numResults-app.searchOffset) {
             var resultSet = $(app.searchResults).clone(),
                 resultSet = resultSet.splice(app.searchOffset,app.searchPerPage),
-                $animal, animal, result;
+                $animal, animal, result, species;
             if(!resultSet) return false;
             /*console.log({"resultSet":resultSet});*/
 
             $(resultSet).each(function(dex) {
                 $animal   = $(this);
                 result    = template;
+                species   = $animal.children("AnimalType").text().match(/^[a-zA-Z\s]+$/g) ? $animal.children("AnimalType").text() : $animal.children("Species").text();
                 animal    = {
                     __id__      : $animal.children("id").text(),
                     __photo__   : $animal.children("photo").text(),
                     __name__    : $animal.children("name").text(),
-                    __species__ : $animal.children("AnimalType").text().match(/^[a-zA-Z\s]+$/g) ? $animal.children("AnimalType").text() : $animal.children("Species").text(),
+                    __species__ : species,
                     __breed__   : $animal.children("primaryBreed").text().replace(",",",<br><div class='hanging-indent'></div>"),
                     __gender__  : $animal.children("sex").text(),
                     __age__     : monthsToYears($animal.children("age").text())
                 };
                 result    = array_replace(result, animal);
-                $(result).appendTo(".search-results-wrap");
+                $(result).find("img").attr({
+                    "data-species": ((species.toLowerCase() in {'dog':1,'cat':1}) ? species.toLowerCase() : "other")
+                }).end().appendTo(".search-results-wrap");
             });
 
-            $("#search-results").removeClass("loading");
+
             $("#search-results .search-results-load-more").slideUp("fast", $(".search-results-load-more").remove);
 
             $(".search-result").each(function(i) {
                 if(i<app.searchOffset) return true;
-                //$(this).delay(10*(i-app.searchOffset)).fadeIn("fast");
                 $(this).css({
                     "opacity": "0",
                     "display": "block"
                 }).animate({
                     opacity: "1",
                     delay: (10 * (i - app.searchOffset))
-                }, "fast");
+                }, "fast", function() {
+                    $.mobile.loading('hide');
+                });
             });
 
             app.searchOffset = (numResults - app.searchOffset < app.searchPerPage ? numResults : app.searchOffset + app.searchPerPage);
 
-            /*console.log({
+            /*
+            console.log({
                 "numResults"   : numResults,
                 "searchOffset" : app.searchOffset,
                 "resultsLoaded": $(".search-result").length
-            });*/
+            });
+            */
 
             if(app.searchOffset < numResults) {
                 console.log("bind smartscroll");
-                $("#search-results .global-content").bind("scroll", debounce(function() {
+                $("#search-results .global-content").bind("scrollstop", debounce(function() {
                     /*var scrollTarget = $("#search-results .search-results-wrap").height()
                                      - $("#search-results .global-content").height()
                                      + ($("#search-results footer").height() * 1.5);*/
@@ -414,14 +559,19 @@ var app = {
                                      //+  $("#search-results .global-footer").height());
                     var targetHeight = $("#search-results .global-content").height();
                                      //- $("#search-results .global-footer").height();
+
+                    /*
                     console.log({
                         "scrollStats": {
                             "scrollTarget": scrollTarget,
                             "targetHeight": targetHeight
                         }
                     });
+                    */
+
                     if(scrollTarget < targetHeight) {
-                        $(this).unbind("scroll");
+                        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+                        $(this).unbind("scrollstop");
                         $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
                         $("#search-results .global-content").animate({
                             scrollTop: $(".search-results-wrap").height()
@@ -443,10 +593,10 @@ var app = {
     // Load Pet Details: go to pet result page and load data.
     loadPetDetails: function() {
         var $this = $(this),
-            petId = $this.data("animal-id");
+            petId = $this.jqmData("animal-id");
         if(!petId) return false;
+        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
         $this.addClass("active").delay(1000).removeClass("active");
-        $("#detailed-result").addClass("loading");
         $.mobile.navigate("#detailed-result");
         $.ajax({
             url: app.searchDetailsURI,
@@ -507,7 +657,7 @@ var app = {
         /**
          * Set Pet Id as a data property of the #detailed-result page
          */
-        $("#detailed-result").data("pet-id", petId);
+        $("#detailed-result").jqmData("pet-id", petId);
 
         /**
          * Set favorite button state
@@ -518,22 +668,35 @@ var app = {
             app.updateFavoriteButton(false);
         }
 
+        /**
+         * Get The species for use with a fall-back photo
+         */
+        var species = app.getPetDetail("AnimalType").match(/^[a-zA-Z\s]+$/g) ? app.getPetDetail("AnimalType") : app.getPetDetail("Species");
+
         /* Top Half */
 
         /**
          * Create Photo elements and append to DOM
          */
-        var photos      = app.getPetDetail("Photo");
+        var photos = app.getPetDetail("Photo");
         if(photos) {
-            $(".detailed-result-img-row").empty()
+            $(".detailed-result-img-wrap,"
+            + ".detailed-result-img-dots").empty();
             for(var i in photos) {
-                if(typeof(photos[i])!="string") continue;
+                if(typeof(photos[i])!="string"||!photos[i].length) continue;
                 $("<img />").attr({
-                    "src": photos[i],
-                    "class": "detailed-result-img"
-                }).wrap("<td/>").parent().appendTo(".detailed-result-img-row");
+                    "src":          photos[i],
+                    "class":        "detailed-result-img" + (i==0 ? ' selected' : ''),
+                    "data-species": ((species.toLowerCase() in {'dog':1,'cat':1}) ? species.toLowerCase() : "other")
+                }).css({
+                    "margin-left": 100*i+"%",
+                    "margin-right": (i==(photos.length-1))?"100%":"auto"
+                }).appendTo(".detailed-result-img-wrap");
+                $("<img />").attr({
+                    "src": i==0 ? app.photoDotSrcS : app.photoDotSrc,
+                    "class": "detailed-result-img-dot" + (i==0 ? ' selected' : '')
+                }).wrap("<div class='detailed-result-img-dot-wrap'/>").parent().appendTo(".detailed-result-img-dots");
             }
-            /*$(".detailed-result-img-wrap").css("visibility", "hidden");*/
         } else {
             $("<div />").addClass("detailed-result-img-none").appendTo(".detailed-result-img-wrap");
         }
@@ -690,7 +853,7 @@ var app = {
         https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.petango.com%2FAdopt%2FCat-Domestic-Shorthair-Purebred-19440252
         var shareLink = "http://www.petango.com/Adopt/" + (app.getPetDetail("AnimalType") + " " + primaryBreed + " " + secondaryBreed + " " + petId ).flatSpace().replace(" ", "-");
         if(shareLink.validURL()) {
-            $(".fb-like").show().data("href", shareLink);
+            $(".fb-like").show().jqmData("href", shareLink);
             try {
                 FB.XFBML.parse();
             } catch(e) {
@@ -699,13 +862,18 @@ var app = {
                 });
             }
         } else {
-            $(".fb-like").hide().data("href", shareLink);
+            $(".fb-like").hide().jqmData("href", shareLink);
         }
 
-        $("#detailed-result").removeClass("loading").find(".detailed-result-wrap").fadeIn("fast", function() {
+
+        $("#detailed-result .global-header > a").fadeIn("fast");
+
+        $("#detailed-result .detailed-result-wrap").fadeIn("fast", function() {
             /*if($(".detailed-result-img").length>1) {
                 $(".detailed-result-img-wrap").overscroll({direction: 'horizontal'}).fadeOut(0).css("visibility","visible").fadeIn("fast");
             }*/
+
+            $.mobile.loading('hide');
 
             var bottomHeight = $("#detailed-result .global-footer").offset().top - $("#detailed-result .detailed-result-bottom").offset().top;
 
@@ -718,9 +886,11 @@ var app = {
 
     },
     updateFavoriteButton: function(highlighted) {
-        highlighted = typeof(highlighted)!=="undefined" ? highlighted : false;
+        console.log("updating favorite button. highlighted argument is: " + (highlighted ? "true" : "false"));
+        highlighted = typeof(highlighted)!="undefined" ? highlighted : false;
         var theme = highlighted ? 'e' : 'c';
         $('#detailed-result .detailed-result-favorite')
+            .delay(500)
             .removeClass(
                 'ui-btn-up-a ui-btn-up-b ui-btn-up-c ui-btn-up-d ui-btn-up-e ' +
                 'ui-btn-hover-a ui-btn-hover-b ui-btn-hover-c ui-btn-hover-d ui-btn-hover-e ' +
@@ -728,9 +898,10 @@ var app = {
             )
             .addClass('ui-btn-up-' + theme)
             .attr({
-                'data-theme': theme,
-                'data-favorite': highlighted
-            });
+                'data-theme': theme
+            })
+            .parents("#detailed-result")
+            .jqmData("favorite", highlighted);
     },
     favoritePet: function(event, petId) {
         app.db.addFavorite(petId, $.xml2json(app.petDetails[0]));
@@ -738,7 +909,7 @@ var app = {
     },
     unfavoritePet: function(event, petId) {
         app.db.removeFavorite(petId);
-        app.updateFavoriteButton(false);
+        x2(500, app.updateFavoriteButton, false);
     }
 };
 

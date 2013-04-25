@@ -21,6 +21,14 @@
                  */
                 $.support.cors = true;
                 $.mobile.allowCrossDomainPages = true;
+
+                /**
+                 * Set loader defaults
+                 */
+                $.mobile.loader.prototype.options.text = "loading";
+                $.mobile.loader.prototype.options.textVisible = true;
+                $.mobile.loader.prototype.options.theme = "c";
+                $.mobile.loader.prototype.options.html = "";
             });
         </script>
         <script src="js/jquery.mobile-1.3.0.min.js"></script>
@@ -94,10 +102,6 @@
                 <div class="header-logo"></div>
             </header>
             <div class="global-content" data-role="content">
-                <div class="search-results-loading">
-                    <img class="search-results-loading-img" src="" />
-                    <div class="search-results-loading-text">Loading...</div>
-                </div>
                 <div class="search-results-template" data-animal-id="__id__">
                     <div class="search-results-img-wrap">
                         <img src="__photo__" class="search-results-img" />
@@ -152,19 +156,12 @@
 
             </header>
             <div class="global-content" data-role="content">
-                <div class="detailed-result-loading">
-                    <img class="detailed-result-loading-img" src="" />
-                    <div class="detailed-result-loading-text">Loading...</div>
-                </div>
                 <div class="detailed-result-wrap">
                     <div class="detailed-result-top">
                         <div class="detailed-result-img-wrap">
-                            <table class="detailed-result-img-table">
-                                <tr class="detailed-result-img-row">
-                                    <!-- // Image dynamically loaded here -->
-                                </tr>
-                            </table>
+                            <!-- // Image dynamically loaded here -->
                         </div>
+                        <div class="detailed-result-img-dots"></div>
                         <div class="detailed-result-top-info">
                             <div class="detailed-result-name"></div>
                             <div class="detailed-result-breed"></div>
@@ -205,10 +202,6 @@
                 <div class="header-logo"></div>
             </header>
             <div class="global-content" data-role="content">
-                <div class="favorites-list-loading">
-                    <img class="favorites-list-loading-img" src="" />
-                    <div class="favorites-list-loading-text">Loading...</div>
-                </div>
                 <div class="favorites-item-template" data-animal-id="__id__">
                     <div class="favorites-item-img-wrap">
                         <img src="__photo__" class="favorites-item-img" />
@@ -258,8 +251,18 @@
         <script type="text/javascript">
             if(window.location!=window.top.location) {
                 window.top.app = app;
+                (function($){
+                    window.top.$ = function(sel) {
+                        return $(sel, $(window.top.document).find("iframe").contents() || window.top.document);
+                    }
+                    window.top.$.mobile = $.mobile;
+                })(jQuery);
                 window.top.updateApp = function() {
                     window.top.app = app;
+                    window.top.$ = function(sel) {
+                        return $(sel, $(window.top.document).find("iframe").contents() || window.top.document);
+                    }
+                    window.top.$.mobile = $.mobile;
                 };
             }
             app.initialize();

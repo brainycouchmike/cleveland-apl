@@ -144,6 +144,27 @@ function count(obj) {
     return count;
 }
 
+function x2(delay, func) {
+    var args = $.makeArray(arguments).slice(2) || [];
+    var that = this.caller;
+    func.apply(that, args);
+    setTimeout(function() {
+        func.apply(that,args);
+    }, delay);
+}
+
+function xn(times, delay, func) {
+    var args = $.makeArray(arguments).slice(3) || [];
+    var orgArgs = arguments;
+    orgArgs[0]--;
+    var that = this.caller;
+    func.apply(that, args);
+    if(times==1) return;
+    setTimeout(function() {
+        xn.apply(that,orgArgs);
+    }, delay);
+}
+
 /**
  * Some jQuery stuff
  */
