@@ -22,6 +22,7 @@ var app = {
     searchResultsURI: "http://www.petango.com/webservices/wsadoption.asmx/AdoptableSearch",
     searchDetailsURI: "http://www.petango.com/webservices/wsadoption.asmx/AdoptableDetails",
     PetPointAuthKey: "23lomcf2c0qa811xz4iy0qbpj9uq0w65n4ch964i141640p811",
+    ajaxPromise: null,
     searchResults: null,
     searchOffset: 0,
     searchPerPage: 10,
@@ -138,6 +139,16 @@ var app = {
         // Bind jQuery Events Here...
         (function($) {
             /**
+             * Bind Default AJAX before and after loader
+             */
+            $(document).ajaxSend(function() {
+                $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+            });
+            $(document).ajaxComplete(function() {
+                $.mobile.loading('hide');
+            });
+
+            /**
              * Bind page state actions
              */
             $("#hidden_search_form").on("submit", app.procSearch);
@@ -145,20 +156,45 @@ var app = {
             $("#detailed-result").on("pagehide", app.clearDetailedResult)
                                  .on("pagebeforeshow", function() {
                                      $("#detailed-result .global-header > a").fadeOut("fast");
+                                 })
+                                 .on("pageshow", function(e, data) {
+                                     $.when(app.ajaxPromise).done(function() {
+                                         // setTimeout(function() {
+                                             if($(".detailed-result-wrap:visible,.detailed-result-wrap:animated").length==0) {
+                                                 $.mobile.navigate("#search-start");
+                                             }
+                                         // }, 1000);
+                                     });
                                  });
+            $("#search-results").on("pageshow", function() {
+                $.when(app.ajaxPromise).done(function() {
+                    setTimeout(function() {
+                        if($(".search-result:visible,.search-result:animated").length==0) {
+                            $.mobile.navigate("#search-start");
+                        }
+                    }, 500);
+                });
+            });
+
             $("#favorites-list").on("pagebeforeshow", app.favoritesList);
 
-            $("[data-role='page']").on("pagebeforeshow", function(ev, prevPage) {
-                prevPage = prevPage.prevPage;
-                if(!prevPage.length) return true;
-                var thisId = "#"+$(this).attr('id');
-                var prevId = "#"+prevPage.attr("id");
-                console.log(thisId, prevId, (prevId in app.ignoreReferrer), (app.ignoreReferrer[prevId]==thisId));
-                if((prevId in app.ignoreReferrer) && (app.ignoreReferrer[prevId]==thisId)) return true;
-                $(this).jqmData("referrer", prevId);
-                console.log("referrer updated: "+ prevId);
-                return true;
-            });
+            $("[data-role='page']").
+                on("pagebeforeshow", function(ev, prevPage) {
+                    prevPage = prevPage.prevPage;
+                    if(!prevPage.length) return true;
+                    var thisId = "#"+$(this).attr('id');
+                    var prevId = "#"+prevPage.attr("id");
+                    console.log(thisId, prevId, (prevId in app.ignoreReferrer), (app.ignoreReferrer[prevId]==thisId));
+                    if((prevId in app.ignoreReferrer) && (app.ignoreReferrer[prevId]==thisId)) return true;
+                    $(this).jqmData("referrer", prevId);
+                    console.log("referrer updated: "+ prevId);
+                    return true;
+                }).
+                on("pagechange", function(event, data) {
+                    if(data.state.keepLoading) {
+                        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+                    }
+                });
 
             /**
              * Define button bindings
@@ -437,18 +473,22 @@ var app = {
         var searchData = $.extend(app.searchDefaults, {
             speciesID: species
         });
-        $.ajax({
+        app.ajaxPromise = $.ajax({
             url: app.searchResultsURI,
             data: searchData,
             dataType: "xml",
             type: "POST",
             beforeSend: function() {
                 $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
-                $.mobile.navigate("#search-results");
+                $.mobile.navigate("#search-results", {keepLoading: true});
             },
             success: function(data) {
                 app.searchResults = $("adoptableSearch", data);
-                app.loadSearchResults();
+                if(app.searchResults) {
+                    app.loadSearchResults();
+                } else {
+                    $.mobile.navigate("#search-start");
+                }
             },
             error: function() {
                 console.log({
@@ -456,7 +496,7 @@ var app = {
                 });
                 $.mobile.navigate("#search-start");
             }
-        });
+        }).promise();
     },
     // Load search results into the DOM based on a hidden template
     loadSearchResults: function() {
@@ -531,15 +571,10 @@ var app = {
 
             if(app.searchOffset < numResults) {
                 console.log("bind smartscroll");
-                $("#search-results .global-content").bind("scrollstop", debounce(function() {
-                    /*var scrollTarget = $("#search-results .search-results-wrap").height()
-                                     - $("#search-results .global-content").height()
-                                     + ($("#search-results footer").height() * 1.5);*/
+                $("#search-results .global-content").bind("scroll", debounce(function() {
                     var scrollTarget = $(".search-results-wrap").height()
                                      - ($("#search-results .global-content").scrollTop());
-                                     //+  $("#search-results .global-footer").height());
                     var targetHeight = $("#search-results .global-content").height();
-                                     //- $("#search-results .global-footer").height();
 
                     /*
                     console.log({
@@ -552,7 +587,7 @@ var app = {
 
                     if(scrollTarget < targetHeight) {
                         $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
-                        $(this).unbind("scrollstop");
+                        $(this).unbind("scroll");
                         $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
                         $("#search-results .global-content").animate({
                             scrollTop: $(".search-results-wrap").height()
@@ -578,8 +613,9 @@ var app = {
         if(!petId) return false;
         $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
         $this.addClass("active").delay(1000).removeClass("active");
-        $.mobile.navigate("#detailed-result");
-        $.ajax({
+        $.mobile.navigate("#detailed-result",{loadPetDetails:true});
+        $("#detailed-result").addClass("AJAXing");
+        app.ajaxPromise = $.ajax({
             url: app.searchDetailsURI,
             data: {
                 authkey: app.searchDefaults.authkey,
@@ -587,16 +623,20 @@ var app = {
             },
             dataType: "xml",
             type: "post",
+            beforeSend: function() {
+                $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+            },
             success: function(xml) {
                 app.petDetails = $("adoptableDetails", xml);
                 app.fillPetDetails();
+                $("#detailed-result").removeClass("AJAXing");
             },
             error: function() {
                 console.log({
                     "SearchDetailsError": arguments
                 });
             }
-        })
+        }).promise();
     },
     getPetDetail: function(key) {
         if(!app.petDetails) return false;

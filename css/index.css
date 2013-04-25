@@ -423,7 +423,7 @@ body {
 #favorites-list .favorites-item .favorites-item-img,
 #search-results .search-result .search-results-img {
     position: absolute;
-    width: auto;
+    width: 100%;
     height: auto;
     top: 0;
     bottom: 0;
@@ -549,12 +549,23 @@ body {
 
 #favorites-list .global-header .favorites-list-back {
     top: 35% !important;
+    margin-left: 5% !important;
+    margin-right: 20% !important;
 }
 
 /* Pet Details */
 
 .detailed-result-favorite, .detailed-result-back {
     top: 35% !important;
+}
+.detailed-result-back {
+    margin-left: 5% !important;
+    margin-right: 20% !important;
+}
+
+.detailed-result-favorite {
+    margin-right: 5% !important;
+    margin-left: 20% !important;
 }
 
 #detailed-result .detailed-result-loading {
