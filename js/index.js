@@ -19,6 +19,7 @@
 var jQuery = jQuery || {}, $ = $ || jQuery;
 var app = {
     // Public Properties
+    inited: false,
     searchResultsURI: "http://www.petango.com/webservices/wsadoption.asmx/AdoptableSearch",
     searchDetailsURI: "http://www.petango.com/webservices/wsadoption.asmx/AdoptableDetails",
     PetPointAuthKey: "23lomcf2c0qa811xz4iy0qbpj9uq0w65n4ch964i141640p811",
@@ -179,7 +180,7 @@ var app = {
             $("#favorites-list").on("pagebeforeshow", app.favoritesList);
 
             $("[data-role='page']").
-                on("pagebeforeshow", function(ev, prevPage) {
+                /*on("pagebeforeshow", function(ev, prevPage) {
                     prevPage = prevPage.prevPage;
                     if(!prevPage.length) return true;
                     var thisId = "#"+$(this).attr('id');
@@ -189,7 +190,7 @@ var app = {
                     $(this).jqmData("referrer", prevId);
                     console.log("referrer updated: "+ prevId);
                     return true;
-                }).
+                }).*/
                 on("pagechange ", function(event, data) {
                     if(data.state.keepLoading) {
                         $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
@@ -201,7 +202,7 @@ var app = {
              */
             $(".search-results-wrap,.favorites-list-wrap").on("click", ".search-result,.favorites-item", app.loadPetDetails);
 
-            $("[data-rel='back']").on("click", function(e) {
+            /*$("[data-rel='back']").on("click", function(e) {
                 var target = $.mobile.activePage.jqmData("referrer");
                 var backTo = !!$(this).jqmData("back-button-navigated");
                 if(backTo) $(this).jqmData("back-button-navigated", false);
@@ -209,7 +210,7 @@ var app = {
                 e.preventDefault();
                 $(target).jqmData("back-button-navigated", true);
                 $.mobile.navigate(target);
-            });
+            });*/
 
             /*
             $("#search-start .footer-icons-favorites").on("vclick", function() {
@@ -325,7 +326,20 @@ var app = {
     },
     //initialize modules
     initModules: function() {
+
+        app.inited = true;
+
         app.db = new DB();
+
+        // Load the Facebook SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=396642740442879";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
     },
     initFacebook: function() {
         // init the FB JS SDK
@@ -343,17 +357,16 @@ var app = {
     // deviceready Event Handler
     onDeviceReady: function() {
 
-        app.initModules();
+        /**
+         * Specify code to only be run once
+         */
+        if(!app.inited) {
+            app.initModules();
+        }
 
-
-        // Load the SDK asynchronously
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=396642740442879";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+        /**
+         * Code we may want to run again
+         */
 
         (function($) {
             $("#content-dnd-logo").draggable({
@@ -527,7 +540,7 @@ var app = {
                 destroy: true
             }).
             animate(newProps[id], "fast", function() {
-                $(this).animate({
+                $(this).delay(500).animate({
                     width:  docX * 0.45,
                     height: docY * 0.45,
                     left: parseFloat($(this).css("left")) - newMarL,
@@ -538,7 +551,7 @@ var app = {
                 });
                 contCat.switchClass(null, "selected", "fast");
                 $("#content-go-btn").fadeIn("fast", function() {
-                    $(this).jqmData("species", species).one("vclick", app.initSearch);
+                    $(this).jqmData("species", species).one("click", app.initSearch);
                 })
             });
     },
