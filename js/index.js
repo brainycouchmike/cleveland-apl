@@ -773,6 +773,13 @@ var app = {
         var petId = app.getPetDetail("id");
 
         /**
+         * Update cached favorite
+         */
+        if(petId in app.db.getFavorites()) {
+            app.favoritePet(null, petId);
+        }
+
+        /**
          * Set Pet Id as a data property of the #detailed-result page
          */
         $("#detailed-result").jqmData("pet-id", petId);

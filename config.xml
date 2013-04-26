@@ -55,20 +55,20 @@
     -->
 
     <!-- Define app icon for each platform. -->
-    <icon src="img/heart_cursor.png" />
-    <icon src="img/heart_cursor.png"   gap:platform="android"    gap:density="ldpi" />
-    <icon src="img/heart_cursor.png"   gap:platform="android"    gap:density="mdpi" />
-    <icon src="img/heart_cursor.png"   gap:platform="android"    gap:density="hdpi" />
-    <icon src="img/heart_cursor.png"   gap:platform="android"    gap:density="xhdpi" />
-    <icon src="img/heart_cursor.png"   gap:platform="blackberry" />
-    <icon src="img/heart_cursor.png"   gap:platform="blackberry" gap:state="hover"/>
-    <icon src="img/heart_cursor.png"   gap:platform="ios"        width="57" height="57" />
-    <icon src="img/heart_cursor.png"   gap:platform="ios"        width="72" height="72" />
-    <icon src="img/heart_cursor.png"   gap:platform="ios"        width="114" height="114" />
-    <icon src="img/heart_cursor.png"   gap:platform="ios"        width="144" height="144" />
-    <icon src="img/heart_cursor.png"   gap:platform="webos" />
-    <icon src="img/heart_cursor.png"   gap:platform="winphone" />
-    <icon src="img/heart_cursor.png"   gap:platform="winphone"   gap:role="background" />
+    <icon src="img/app_logo.png" />
+    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="ldpi" />
+    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="mdpi" />
+    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="hdpi" />
+    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="xhdpi" />
+    <icon src="img/app_logo.png"   gap:platform="blackberry" />
+    <icon src="img/app_logo.png"   gap:platform="blackberry" gap:state="hover"/>
+    <icon src="img/app_logo.png"   gap:platform="ios"        width="57" height="57" />
+    <icon src="img/app_logo.png"   gap:platform="ios"        width="72" height="72" />
+    <icon src="img/app_logo.png"   gap:platform="ios"        width="114" height="114" />
+    <icon src="img/app_logo.png"   gap:platform="ios"        width="144" height="144" />
+    <icon src="img/app_logo.png"   gap:platform="webos" />
+    <icon src="img/app_logo.png"   gap:platform="winphone" />
+    <icon src="img/app_logo.png"   gap:platform="winphone"   gap:role="background" />
 
     <!-- Define app splash screen for each platform. -->
     <gap:splash src="img/splash.png"  gap:platform="android" gap:density="ldpi" />
