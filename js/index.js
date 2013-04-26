@@ -434,52 +434,113 @@ var app = {
 
     },
     // Handle the selection of a search category
-    selectSearchCategory: function(ev, ui) {
+    /*selectSearchCategory: function(ev, ui) {
         var $this   = $(this);
         var contCat = $this.parents(".content-category");
         var species = contCat.jqmData("species-id") || 0;
         var id      = $this.attr("id");
         var logo    = ui.draggable;
+        *//*var logoClone = logo.clone().css("visibility", "hidden").addClass(id).appendTo(logo.parent());
+         var newProps = {
+         top: logoClone.position().top + "px",
+         left: logoClone.position().left + "px"
+         };
+         console.log(newProps);
+         logoClone.remove();*//*
+        var newProps = {
+            "cats": {
+                top:  "9.5%",
+                left: "9.5%"
+            },
+            "dogs": {
+                top:  "9.5%",
+                left: "59.5%"
+            },
+            "small": {
+                top:  "59.5%",
+                left: "9.5%"
+            },
+            "all": {
+                top:  "59.5%",
+                left: "59.5%"
+            }
+        };
         logo.draggable({
             revert: false,
             destroy: true
         });
-        var logoClone = logo.clone().css("visibility", "hidden").addClass(id).appendTo(logo.parent());
-        var newProps = {
-            top: logoClone.position().top + "px",
-            left: logoClone.position().left + "px"
-        };
-        console.log(newProps);
-        logoClone.remove();
         logo.animate(newProps, "fast", function() {
             // return console.log("killin it");
             console.log({
-                aniProps: {
-                    width:  logo.width()  * 1.5,
-                    height: logo.height() * 1.5,
-                    curLeft: parseFloat(newProps.left),
-                    curTop:  parseFloat(newProps.top),
-                    difLeft: (logo.width()  * 0.25),
-                    difTop:  (logo.height() * 0.25),
-                    left:   parseFloat(newProps.left) - (logo.width()  * 0.25),
-                    top:    parseFloat(newProps.top)  - (logo.height() * 0.25),
-                    opacity: 0
-                }
+                aniProps: $.extend(
+                    newProps[id],
+                    {
+                        width:   "45%",
+                        height:  "45%",
+                        opacity: "45%"
+                    }
+                )
             });
-            $(this).animate({
-                width:  logo.width()  * 2,
-                height: logo.height() * 2,
-                left:   parseFloat(newProps.left) - (logo.width()  * 0.5),
-                top:    parseFloat(newProps.top)  - (logo.height() * 0.5),
-                opacity: 0
-            }, "fast", function() {
-                $(this).removeAttr("style").hide();
+            $(this).animate(newProps[id], "fast", function() {
+                $(this).hide().removeAttr("style");
             });
             contCat.switchClass(null, "selected", "fast");
             $("#content-go-btn").fadeIn("fast", function() {
                 $(this).jqmData("species", species).one("click", app.initSearch);
             })
         });
+    },*/
+    selectSearchCategory: function(ev, ui) {
+        var $this   = $(this);
+        var contCat = $this.parents(".content-category");
+        var species = contCat.jqmData("species-id") || 0;
+        var id      = $this.attr("id");
+        var logo    = ui.draggable;
+        var docX    = logo.parent().width();
+        var docY    = logo.parent().height();
+        var newWid  = docX * 0.45;
+        var newHei  = docY * 0.45;
+        var newMarT = (newHei - logo.height()) / 2;
+        var newMarL = (newWid - logo.width()) / 2;
+        var newProps = {
+            "cats": {
+                top:  0.095 * docY,
+                left: 0.095 * docX
+            },
+            "dogs": {
+                top:  0.095 * docY,
+                left: 0.595 * docX
+            },
+            "small": {
+                top:  0.595 * docY,
+                left: 0.095 * docX
+            },
+            "all": {
+                top:  0.595 * docY,
+                left: 0.595 * docX
+            }
+        };
+        // Animate the logo thing.
+        logo.
+            draggable({
+                revert: false,
+                destroy: true
+            }).
+            animate(newProps[id], "fast", function() {
+                $(this).animate({
+                    width:  docX * 0.45,
+                    height: docY * 0.45,
+                    left: parseFloat($(this).css("left")) - newMarL,
+                    top: parseFloat($(this).css("top")) - newMarT,
+                    opacity: 0
+                }, "fast", function() {
+                    $(this).removeAttr("style").hide();
+                });
+                contCat.switchClass(null, "selected", "fast");
+                $("#content-go-btn").fadeIn("fast", function() {
+                    $(this).jqmData("species", species).one("vclick", app.initSearch);
+                })
+            });
     },
     // Initialize search, select category.
     initSearch: function(ev) {
