@@ -526,6 +526,14 @@ body {
     text-shadow: 1px 1px 0px #CCC;
 }
 
+.favorites-list-empty {
+    margin: 1em 2em;
+    text-align: center;
+    font: bold 1.1em Arial, Helvetica, sans-serif;
+    text-transform: capitalize;
+    font-variant: small-caps;
+}
+
 @media screen and (max-width:400px) {
 
     #favorites-list .favorites-item .favorites-item-name,

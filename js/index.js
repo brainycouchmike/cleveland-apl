@@ -128,15 +128,17 @@ var app = {
         "JMABsmn5SRpkWAAAAAABJRU5ErkJggg==",
     // Application Constructor
     initialize: function() {
-        this.bindEvents();
+        this.waitForReady();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
+    waitForReady: function() {
         // Bind Device Ready
         document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    bindEvents: function() {
         // Bind jQuery Events Here...
         (function($) {
             /**
@@ -309,7 +311,16 @@ var app = {
         $("#content-dnd-logo, #content-go-btn").removeAttr("class style");
         $(".content-category").removeClass("selected");
         app.clearSearchResults();
-        app.onDeviceReady();
+        $("#content-dnd-logo").draggable({
+            revert: true,
+            containment: "#content-categories"
+        });
+
+        $(".category").droppable({
+            accept: "#content-dnd-logo",
+            drop: app.selectSearchCategory
+        });
+        $.mobile.loading("hide");
     },
     // Clear search results
     clearSearchResults: function() {
@@ -327,9 +338,11 @@ var app = {
     //initialize modules
     initModules: function() {
 
-        app.inited = true;
+        console.log("init modules");
 
         app.db = new DB();
+
+        console.log({"app.db": app.db});
 
         // Load the Facebook SDK asynchronously
         (function(d, s, id) {
@@ -356,29 +369,17 @@ var app = {
     },
     // deviceready Event Handler
     onDeviceReady: function() {
-
+        console.log("app.onDeviceReady");
         /**
          * Specify code to only be run once
          */
-        if(!app.inited) {
+        if(app.inited!==true) {
+            console.log('run init methods');
+            app.inited = true;
             app.initModules();
+            app.bindEvents();
+            app.resetSearchStart();
         }
-
-        /**
-         * Code we may want to run again
-         */
-
-        (function($) {
-            $("#content-dnd-logo").draggable({
-                revert: true,
-                containment: "#content-categories"
-            });
-
-            $(".category").droppable({
-                accept: "#content-dnd-logo",
-                drop: app.selectSearchCategory
-            });
-        })(jQuery);
     },
     // Favorites pre-show processing
     favoritesList: function(event, ui) {
