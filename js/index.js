@@ -190,7 +190,7 @@ var app = {
                     console.log("referrer updated: "+ prevId);
                     return true;
                 }).
-                on("pagechange", function(event, data) {
+                on("pagechange ", function(event, data) {
                     if(data.state.keepLoading) {
                         $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
                     }
@@ -443,22 +443,43 @@ var app = {
         logo.draggable({
             revert: false,
             destroy: true
-        }).
-            switchClass(null,id, "fast", function() {
-                $(this).animate({
-                    width: logo.width()*1.5,
-                    height: logo.height()*1.5,
-                    marginLeft: logo.width()*-0.75,
-                    marginTop: logo.height()*-0.75,
+        });
+        var logoClone = logo.clone().css("visibility", "hidden").addClass(id).appendTo(logo.parent());
+        var newProps = {
+            top: logoClone.position().top + "px",
+            left: logoClone.position().left + "px"
+        };
+        console.log(newProps);
+        logoClone.remove();
+        logo.animate(newProps, "fast", function() {
+            // return console.log("killin it");
+            console.log({
+                aniProps: {
+                    width:  logo.width()  * 1.5,
+                    height: logo.height() * 1.5,
+                    curLeft: parseFloat(newProps.left),
+                    curTop:  parseFloat(newProps.top),
+                    difLeft: (logo.width()  * 0.25),
+                    difTop:  (logo.height() * 0.25),
+                    left:   parseFloat(newProps.left) - (logo.width()  * 0.25),
+                    top:    parseFloat(newProps.top)  - (logo.height() * 0.25),
                     opacity: 0
-                }, "fast", function() {
-                    $(this).removeAttr("style").hide();
-                });
-                contCat.switchClass(null, "selected", "fast");
-                $("#content-go-btn").fadeIn("fast", function() {
-                    $(this).jqmData("species", species).one("vclick", app.initSearch);
-                })
+                }
             });
+            $(this).animate({
+                width:  logo.width()  * 2,
+                height: logo.height() * 2,
+                left:   parseFloat(newProps.left) - (logo.width()  * 0.5),
+                top:    parseFloat(newProps.top)  - (logo.height() * 0.5),
+                opacity: 0
+            }, "fast", function() {
+                $(this).removeAttr("style").hide();
+            });
+            contCat.switchClass(null, "selected", "fast");
+            $("#content-go-btn").fadeIn("fast", function() {
+                $(this).jqmData("species", species).one("click", app.initSearch);
+            })
+        });
     },
     // Initialize search, select category.
     initSearch: function(ev) {
@@ -635,6 +656,8 @@ var app = {
                 console.log({
                     "SearchDetailsError": arguments
                 });
+                $.mobile.loading( 'show', { theme: "c", text: "error, redirecting", textVisible: true});
+                $.mobile.back();
             }
         }).promise();
     },
