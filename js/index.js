@@ -17,13 +17,19 @@
  * under the License.
  */
 var jQuery = jQuery || {}, $ = $ || jQuery;
-var app = {
+var app = app || {};
+app = $.extend(true, {}, app, {
     // Public Properties
     inited: false,
+    deviceReadyDeferred: app.deviceReadyDeferred || null,
+    jqmReadyDeferred: app.jqmReadyDeferred || null,
     searchResultsURI: "http://www.petango.com/webservices/wsadoption.asmx/AdoptableSearch",
     searchDetailsURI: "http://www.petango.com/webservices/wsadoption.asmx/AdoptableDetails",
     PetPointAuthKey: "23lomcf2c0qa811xz4iy0qbpj9uq0w65n4ch964i141640p811",
-    ajaxPromise: null,
+    promise: {
+        search: null,
+        detail: null
+    },
     searchResults: null,
     searchOffset: 0,
     searchPerPage: 10,
@@ -126,19 +132,110 @@ var app = {
         "TDt0eP91EPRMQOwMTnA8v9CkL/SwO/eGWFOSNpz+w57g3fcmGA0x8ZkqoyP/+z3BQxT8LIxoacGbskSEli98KXcl/BA8czx609vzfy0pKey"+
         "b7k109iazdU0rRsNEvSdjQTC0KGEj35nlMADmaiRcjVDwOL2l/eGb4hgSIEnlB2RnsgQO5mI7cAnYgQCUljBniLjCancI8/196wb/t3b8/8"+
         "JMABsmn5SRpkWAAAAAABJRU5ErkJggg==",
+    setReady:function() {
+        console.log("deviceReadyEventHandler");
+        app.deviceReadyDeferred.resolve();
+    },
     // Application Constructor
     initialize: function() {
-        this.waitForReady();
+        (function($) {
+            $.when(app.deviceReadyDeferred, app.jqmReadyDeferred).then(app.onDeviceReady);
+        })(jQuery);
+        document.addEventListener("deviceReady", app.setReady, false);
+    },
+    // deviceready Event Handler
+    onDeviceReady: function() {
+        console.log({"app.onDeviceReady": this});
+        /**
+         * Specify code to only be run once
+         */
+        if(!app.inited) {
+            app.inited = true;
+            app.initModules();
+            app.bindEvents();
+            app.resetSearchStart();
+        }
+    },
+    // Reset search start
+    resetSearchStart: function() {
+        console.log("resetSearchStart");
+        $("#content-dnd-logo").switchClass("cats dogs small all", null,"fast", function() {
+            $(this).removeAttr("class").removeAttr("style");
+        });
+        $(" #content-go-btn").fadeOut("fast", function() {
+            $(this).removeAttr("class").removeAttr("style");
+        });
+        $(".content-category").removeClass("selected");
+        app.clearSearchResults();
+        $("#content-dnd-logo").draggable({
+            revert: true,
+            containment: "#content-categories"
+        }).css("opacity", 1);
+
+        $(".category").droppable({
+            accept: "#content-dnd-logo",
+            drop: app.selectSearchCategory
+        });
+        $.mobile.loading("hide");
+    },
+    // Clear search results
+    clearSearchResults: function() {
+        $(".search-results-wrap").empty();
+        app.searchResults = null;
+        app.searchOffset  = 0;
+        app.searchPerPage = 10;
+    },
+    // Clear detailed result
+    clearDetailedResult: function() {
+        $(".detailed-result-wrap").removeAttr("style");
+        $(".detailed-result-img-wrap").jqmData("animating", false);
+        app.updateFavoriteButton(false);
+    },
+    //initialize modules
+    initModules: function() {
+
+        console.log("init modules");
+
+        app.db = new DB();
+
+        console.log({"app.db": app.db});
+
+        // Load the Facebook SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=396642740442879";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    },
+    initFacebook: function() {
+        // init the FB JS SDK
+        FB.init({
+            appId      : '396642740442879',                    // App ID from the app dashboard
+            channelUrl : 'channel.html',                       // Channel file for x-domain comms
+            status     : true,                                 // Check Facebook Login status
+            xfbml      : true                                  // Look for social plugins on the page
+        });
+
+        // Additional initialization code such as adding Event Listeners goes here
+
+        if(typeof(arguments[0])=="function")(arguments[0])(arguments.splice(1));
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    waitForReady: function() {
-        // Bind Device Ready
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
     bindEvents: function() {
+        console.log({
+            "onDeviceReady": typeof(this.onDeviceReady),
+            "app.inited": app.inited
+        });
+        // Bind Device Ready
+        // document.addEventListener('deviceready', this.onDeviceReady, false);
+        // Bind Facebook init
+        window.fbAsyncInit = app.initFacebook;
         // Bind jQuery Events Here...
         (function($) {
             /**
@@ -161,28 +258,28 @@ var app = {
                                      $("#detailed-result .global-header > a").fadeOut("fast");
                                  })
                                  .on("pageshow", function(e, data) {
-                                     $.when(app.ajaxPromise).done(function() {
-                                         // setTimeout(function() {
+                                     $.when(app.promise.detail).done(function() {
+                                         setTimeout(function() {
                                              if($(".detailed-result-wrap:visible,.detailed-result-wrap:animated").length==0) {
                                                  $.mobile.navigate("#search-start");
                                              }
-                                         // }, 1000);
+                                         }, 1000);
                                      });
                                  });
             $("#search-results").on("pageshow", function() {
-                $.when(app.ajaxPromise).done(function() {
+                $.when(app.promise.search).done(function() {
                     setTimeout(function() {
                         if($(".search-result:visible,.search-result:animated").length==0) {
                             $.mobile.navigate("#search-start");
                         }
-                    }, 500);
+                    }, 1000);
                 });
             });
 
             $("#favorites-list").on("pagebeforeshow", app.favoritesList);
 
             $("[data-role='page']").
-                /*on("pagebeforeshow", function(ev, prevPage) {
+                on("pagebeforeshow", function(ev, prevPage) {
                     prevPage = prevPage.prevPage;
                     if(!prevPage.length) return true;
                     var thisId = "#"+$(this).attr('id');
@@ -192,12 +289,12 @@ var app = {
                     $(this).jqmData("referrer", prevId);
                     console.log("referrer updated: "+ prevId);
                     return true;
-                }).*/
-                on("pagechange ", function(event, data) {
-                    if(data.state.keepLoading) {
-                        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
-                    }
-                });
+                });//.
+//                on("pagechange ", function(event, data) {
+//                    if(data.state.keepLoading) {
+//                        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+//                    }
+//                });
 
             /**
              * Define button bindings
@@ -234,7 +331,7 @@ var app = {
                 }
             });
 
-            $("#search-start .footer-icons-search").on("click", app.resetSearchStart);
+            $(".global-footer").on("click", ".footer-icons-search", app.resetSearchStart);
 
             $("#search-start .category").on("click", function(e) {
                 if($(".content-category.selected").length) app.resetSearchStart();
@@ -303,83 +400,6 @@ var app = {
 
             });*/
         })(jQuery);
-
-        window.fbAsyncInit = app.initFacebook;
-    },
-    // Reset search start
-    resetSearchStart: function() {
-        $("#content-dnd-logo, #content-go-btn").removeAttr("class style");
-        $(".content-category").removeClass("selected");
-        app.clearSearchResults();
-        $("#content-dnd-logo").draggable({
-            revert: true,
-            containment: "#content-categories"
-        });
-
-        $(".category").droppable({
-            accept: "#content-dnd-logo",
-            drop: app.selectSearchCategory
-        });
-        $.mobile.loading("hide");
-    },
-    // Clear search results
-    clearSearchResults: function() {
-        $(".search-results-wrap").empty();
-        app.searchResults = null;
-        app.searchOffset  = 0;
-        app.searchPerPage = 10;
-    },
-    // Clear detailed result
-    clearDetailedResult: function() {
-        $(".detailed-result-wrap").removeAttr("style");
-        $(".detailed-result-img-wrap").jqmData("animating", false);
-        app.updateFavoriteButton(false);
-    },
-    //initialize modules
-    initModules: function() {
-
-        console.log("init modules");
-
-        app.db = new DB();
-
-        console.log({"app.db": app.db});
-
-        // Load the Facebook SDK asynchronously
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=396642740442879";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-    },
-    initFacebook: function() {
-        // init the FB JS SDK
-        FB.init({
-            appId      : '396642740442879',                    // App ID from the app dashboard
-            channelUrl : 'channel.html',                       // Channel file for x-domain comms
-            status     : true,                                 // Check Facebook Login status
-            xfbml      : true                                  // Look for social plugins on the page
-        });
-
-        // Additional initialization code such as adding Event Listeners goes here
-
-        if(typeof(arguments[0])=="function")(arguments[0])(arguments.splice(1));
-    },
-    // deviceready Event Handler
-    onDeviceReady: function() {
-        console.log("app.onDeviceReady");
-        /**
-         * Specify code to only be run once
-         */
-        if(app.inited!==true) {
-            console.log('run init methods');
-            app.inited = true;
-            app.initModules();
-            app.bindEvents();
-            app.resetSearchStart();
-        }
     },
     // Favorites pre-show processing
     favoritesList: function(event, ui) {
@@ -541,7 +561,7 @@ var app = {
                 destroy: true
             }).
             animate(newProps[id], "fast", function() {
-                $(this).delay(500).animate({
+                $(this).delay(50).animate({
                     width:  docX * 0.45,
                     height: docY * 0.45,
                     left: parseFloat($(this).css("left")) - newMarL,
@@ -550,7 +570,7 @@ var app = {
                 }, "fast", function() {
                     $(this).removeAttr("style").hide();
                 });
-                contCat.switchClass(null, "selected", "fast");
+                contCat.delay(100).switchClass(null, "selected", "fast");
                 $("#content-go-btn").fadeIn("fast", function() {
                     $(this).jqmData("species", species).one("click", app.initSearch);
                 })
@@ -562,14 +582,13 @@ var app = {
         var species = $(this).jqmData("species");
         $("#hidden_search_form").trigger("submit", [species]);
     },
-
     // Process search
     procSearch: function(e, species) {
         e.preventDefault();
         var searchData = $.extend(app.searchDefaults, {
             speciesID: species
         });
-        app.ajaxPromise = $.ajax({
+        app.promise.search = $.ajax({
             url: app.searchResultsURI,
             data: searchData,
             dataType: "xml",
@@ -642,9 +661,11 @@ var app = {
 
             $("#search-results .search-results-load-more").slideUp("fast", $(".search-results-load-more").remove);
 
+            var loadPromise = [];
+
             $(".search-result").each(function(i) {
                 if(i<app.searchOffset) return true;
-                $(this).css({
+                loadPromise.push($(this).css({
                     "opacity": "0",
                     "display": "block"
                 }).animate({
@@ -652,49 +673,52 @@ var app = {
                     delay: (10 * (i - app.searchOffset))
                 }, "fast", function() {
                     $.mobile.loading('hide');
+                }));
+            });
+
+            $.when.apply($, loadPromise).done(function() {
+
+                app.searchOffset = (numResults - app.searchOffset < app.searchPerPage ? numResults : app.searchOffset + app.searchPerPage);
+
+                /*
+                console.log({
+                    "numResults"   : numResults,
+                    "searchOffset" : app.searchOffset,
+                    "resultsLoaded": $(".search-result").length
                 });
-            });
+                */
 
-            app.searchOffset = (numResults - app.searchOffset < app.searchPerPage ? numResults : app.searchOffset + app.searchPerPage);
+                if(app.searchOffset < numResults) {
+                    console.log("bind smartscroll");
+                    $("#search-results .global-content").bind("scroll", debounce(function() {
+                        var scrollTarget = $(".search-results-wrap").height()
+                                         - ($("#search-results .global-content").scrollTop());
+                        var targetHeight = $("#search-results .global-content").height();
 
-            /*
-            console.log({
-                "numResults"   : numResults,
-                "searchOffset" : app.searchOffset,
-                "resultsLoaded": $(".search-result").length
-            });
-            */
+                        /*
+                        console.log({
+                            "scrollStats": {
+                                "scrollTarget": scrollTarget,
+                                "targetHeight": targetHeight
+                            }
+                        });
+                        */
 
-            if(app.searchOffset < numResults) {
-                console.log("bind smartscroll");
-                $("#search-results .global-content").bind("scroll", debounce(function() {
-                    var scrollTarget = $(".search-results-wrap").height()
-                                     - ($("#search-results .global-content").scrollTop());
-                    var targetHeight = $("#search-results .global-content").height();
-
-                    /*
-                    console.log({
-                        "scrollStats": {
-                            "scrollTarget": scrollTarget,
-                            "targetHeight": targetHeight
+                        if(scrollTarget < targetHeight) {
+                            $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+                            $(this).unbind("scroll");
+                            $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
+                            $("#search-results .global-content").animate({
+                                scrollTop: $(".search-results-wrap").height()
+                            }, "fast", app.loadSearchResults);
                         }
-                    });
-                    */
-
-                    if(scrollTarget < targetHeight) {
-                        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
-                        $(this).unbind("scroll");
-                        $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
-                        $("#search-results .global-content").animate({
-                            scrollTop: $(".search-results-wrap").height()
-                        }, "fast", app.loadSearchResults);
-                    }
-                }, 100));
-            } else {
-                $("#search-results .search-results-wrap").append(
-                    $("<div/>").addClass("search-results-load-more").html("No More Results")
-                );
-            }
+                    }, 100));
+                } else {
+                    $("#search-results .search-results-wrap").append(
+                        $("<div/>").addClass("search-results-load-more").html("No More Results")
+                    );
+                }
+            });
         } else {
             console.log("no search results",app.searchResults);
             $("#search-results .search-results-wrap").append(
@@ -711,7 +735,9 @@ var app = {
         $this.addClass("active").delay(1000).removeClass("active");
         $.mobile.navigate("#detailed-result",{loadPetDetails:true});
         $("#detailed-result").addClass("AJAXing");
-        app.ajaxPromise = $.ajax({
+        $("#detailed-result .global-header > a").fadeOut(0);
+        $("#detailed-result .detailed-result-wrap").fadeOut(0);
+        app.promise.detail = $.ajax({
             url: app.searchDetailsURI,
             data: {
                 authkey: app.searchDefaults.authkey,
@@ -776,9 +802,11 @@ var app = {
         /**
          * Update cached favorite
          */
-        if(petId in app.db.getFavorites()) {
-            app.favoritePet(null, petId);
-        }
+        try{
+            if(petId in app.db.getFavorites()) {
+                app.favoritePet(null, petId);
+            }
+        } catch(ex) {}
 
         /**
          * Set Pet Id as a data property of the #detailed-result page
@@ -788,16 +816,24 @@ var app = {
         /**
          * Set favorite button state
          */
-        if(petId in app.db.getFavorites()) {
-            app.updateFavoriteButton(true);
-        } else {
+        try {
+            if (petId in app.db.getFavorites()) {
+                app.updateFavoriteButton(true);
+            } else {
+                app.updateFavoriteButton(false);
+            }
+        } catch (ex) {
             app.updateFavoriteButton(false);
         }
+
+        console.log("fillPetDetails:1");
 
         /**
          * Get The species for use with a fall-back photo
          */
         var species = app.getPetDetail("AnimalType").match(/^[a-zA-Z\s]+$/g) ? app.getPetDetail("AnimalType") : app.getPetDetail("Species");
+
+        console.log("fillPetDetails:2");
 
         /* Top Half */
 
@@ -826,16 +862,24 @@ var app = {
             $("<div />").addClass("detailed-result-img-none").appendTo(".detailed-result-img-wrap");
         }
 
+        console.log("fillPetDetails:3");
+
         /**
          * Fill pet name
          * @type {*}
          */
         var name = app.getPetDetail("AnimalName");
-        if(name) {
-            $(".detailed-result-name").show().html(name);
-        }else{
+        try {
+            if(name) {
+                $(".detailed-result-name").show().html(name);
+            }else{
+                $(".detailed-result-name").hide().html('');
+            }
+        } catch(ex) {
             $(".detailed-result-name").hide().html('');
         }
+
+        console.log("fillPetDetails:4");
 
         /**
          * Fill pet breed
@@ -843,22 +887,34 @@ var app = {
          */
         var primaryBreed   = app.getPetDetail("primaryBreed");
         var secondaryBreed = app.getPetDetail("secondaryBreed");
-        if(primaryBreed || secondaryBreed) {
-            $(".detailed-result-breed").show().html((primaryBreed ? primaryBreed.replace(", ", ",<br/>") : '') + (secondaryBreed ? (primaryBreed?"<br/>":'')+secondaryBreed:''));
-        } else {
+        try {
+            if(primaryBreed || secondaryBreed) {
+                $(".detailed-result-breed").show().html((primaryBreed ? primaryBreed.replace(", ", ",<br/>") : '') + (secondaryBreed ? (primaryBreed?"<br/>":'')+secondaryBreed:''));
+            } else {
+                $(".detailed-result-breed").hide().html('');
+            }
+        } catch(ex) {
             $(".detailed-result-breed").hide().html('');
         }
+
+        console.log("fillPetDetails:5");
 
         /**
          * Fill Availability stage
          * @type {*}
          */
         var availablity = app.getPetDetail("stage");
-        if(availablity) {
-            $(".detailed-result-availability").show().html(availablity);
-        } else {
+        try {
+            if (availablity) {
+                $(".detailed-result-availability").show().html(availablity);
+            } else {
+                $(".detailed-result-availability").hide().html('');
+            }
+        } catch (ex) {
             $(".detailed-result-availability").hide().html('');
         }
+
+        console.log("fillPetDetails:6");
 
         /* Bottom Half */
 
@@ -866,109 +922,156 @@ var app = {
          * Fill gender and 'altered' fields
          * @type {*}
          */
-        var gender  = app.getPetDetail("sex");
+        var gender = app.getPetDetail("sex");
         var altered = app.getPetDetail("altered") == "Yes" ? (
-                gender=="Male" ? (
-                    "Neutered"
+            gender == "Male" ? (
+                "Neutered"
                 ) : (
-                    gender=="Female" ? (
-                        "Spayed"
+                gender == "Female" ? (
+                    "Spayed"
                     ) : (
-                        "Fixed"
+                    "Fixed"
                     )
                 )
             ) : (
-                null
+            null
             );
-        if(gender) {
-            $(".detailed-result-gender").show().html(gender + (gender=="Unknown" ? " Gender" : '') + (altered ? " ("+altered+")" : ''));
-        } else {
+        try {
+            if (gender) {
+                $(".detailed-result-gender").show().html(gender + (gender == "Unknown" ? " Gender" : '') + (altered ? " (" + altered + ")" : ''));
+            } else {
+                $(".detailed-result-gender").hide().html('');
+            }
+        } catch (ex) {
             $(".detailed-result-gender").hide().html('');
         }
+
+        console.log("fillPetDetails:7");
 
         /**
          * Fill pet color data
          */
         var color1 = app.getPetDetail("primaryColor");
         var color2 = app.getPetDetail("secondaryColor");
-        if(color1) {
-            $(".detailed-result-color").show().html(color1 + (color2 ? " " + color2 : ''));
-        } else {
+        try {
+            if (color1) {
+                $(".detailed-result-color").show().html(color1 + (color2 ? " " + color2 : ''));
+            } else {
+                $(".detailed-result-color").hide().html('');
+            }
+        } catch (ex) {
             $(".detailed-result-color").hide().html('');
         }
+
+        console.log("fillPetDetails:8");
 
         /**
          * Fill pet weight data
          */
         var weight = app.getPetDetail("BodyWeight");
-        if(weight) {
-            $(".detailed-result-weight").show().html(weight);
-        } else {
+        try {
+            if (weight) {
+                $(".detailed-result-weight").show().html(weight);
+            } else {
+                $(".detailed-result-weight").hide().html('');
+            }
+        } catch (ex) {
             $(".detailed-result-weight").hide().html('');
         }
+
+        console.log("fillPetDetails:9");
 
         /**
          * Fill pet age
          */
         var age = app.getPetDetail("age");
-        if(age) {
-            $(".detailed-result-age").show().html(monthsToYears((typeof(age)==typeof([]) ? age[0] : age)));
-        } else {
+        try {
+            if (age) {
+                $(".detailed-result-age").show().html(monthsToYears((typeof(age) == typeof([]) ? age[0] : age)));
+            } else {
+                $(".detailed-result-age").hide().html('');
+            }
+        } catch (ex) {
             $(".detailed-result-age").hide().html('');
         }
+
+        console.log("fillPetDetails:10");
 
         /**
          * Fill pet identification number
          */
-        /*var petId = app.getPetDetail("id");*/
-        if(petId) {
-            $(".detailed-result-petid").show().html("Pet ID: " + petId);
-        } else {
+        try {
+            if (petId) {
+                $(".detailed-result-petid").show().html("Pet ID: " + petId);
+            } else {
+                $(".detailed-result-petid").hide().html('');
+            }
+        } catch (ex) {
             $(".detailed-result-petid").hide().html('');
         }
+
+        console.log("fillPetDetails:11");
 
         /**
          * Fill intake date
          */
-        var intakeDate = new Date(app.getPetDetail("LastIntakeDate"));
-        if(intakeDate) {
-            $(".detailed-result-intake-date").show().html(
-                "Intake Date: " + intakeDate.format("mmmm dS, yyyy")
-            );
-        } else {
+        try {
+            var intakeDate = new Date(app.getPetDetail("LastIntakeDate"));
+            if(intakeDate) {
+                $(".detailed-result-intake-date").show().html(
+                    "Intake Date: " + intakeDate.format("mmmm dS, yyyy")
+                );
+            } else {
+                $(".detailed-result-intake-date").hide().html('');
+            }
+        } catch(ex) {
             $(".detailed-result-intake-date").hide().html('');
         }
+
+        console.log("fillPetDetails:12");
 
         /**
          * Fill out misc other optional data
          */
-        var miscDetails = {
-        	houseTrained:     app.getPetDetail("houseTrained") == "Yes" ? "House Trianed" : null,
-        	onHold:           app.getPetDetail("onHold") == "Yes" ? "On Hold" : null,
-            declawed:         app.getPetDetail("declawed") ? (app.getPetDetail("declawed")=="No" ? "Not" : app.getPetDetail("declawed")) + " Declawed" : null,
-        	noDogs:           app.getPetDetail("noDogs") == "Yes" ? "Cannot Live With Dog(s)" : null,
-        	noCats:           app.getPetDetail("noCats") == "Yes" ? "Cannot Live With Cat(s)" : null,
-        	noKids:           app.getPetDetail("noKids") == "Yes" ? "Cannot Live With Children" : null,
-            specialNeeds:     app.getPetDetail("specialNeeds") ? "Special Needs: " + app.getPetDetail("specialNeeds") : null,
-        	behaviorResult:   app.getPetDetail("behaviorResult") ? "Behavior Report: " + app.getPetDetail("behaviorResult") : null
-        };
-        $(".detailed-result-misc-details").empty();
-        for(var i in miscDetails) {
-            if(!miscDetails[i]) continue;
-            $(".detailed-result-misc-details").append(
-                $("<div />").addClass("detailed-result-misc-details-"+i+" detailed-result-misc-details-item").html(miscDetails[i])
-            );
+        try {
+            var miscDetails = {
+                houseTrained:     app.getPetDetail("houseTrained") == "Yes" ? "House Trianed" : null,
+                onHold:           app.getPetDetail("onHold") == "Yes" ? "On Hold" : null,
+                declawed:         app.getPetDetail("declawed") ? (app.getPetDetail("declawed")=="No" ? "Not" : app.getPetDetail("declawed")) + " Declawed" : null,
+                noDogs:           app.getPetDetail("noDogs") == "Yes" ? "Cannot Live With Dog(s)" : null,
+                noCats:           app.getPetDetail("noCats") == "Yes" ? "Cannot Live With Cat(s)" : null,
+                noKids:           app.getPetDetail("noKids") == "Yes" ? "Cannot Live With Children" : null,
+                specialNeeds:     app.getPetDetail("specialNeeds") ? "Special Needs: " + app.getPetDetail("specialNeeds") : null,
+                behaviorResult:   app.getPetDetail("behaviorResult") ? "Behavior Report: " + app.getPetDetail("behaviorResult") : null
+            };
+            $(".detailed-result-misc-details").empty();
+            for(var i in miscDetails) {
+                if(!miscDetails[i]) continue;
+                $(".detailed-result-misc-details").append(
+                    $("<div />").addClass("detailed-result-misc-details-"+i+" detailed-result-misc-details-item").html(miscDetails[i])
+                );
+            }
+        } catch(ex) {
+            $(".detailed-result-misc-details").empty();
         }
+
+        console.log("fillPetDetails:13");
 
         /**
          * Fill the pet's description
          */
         var desc = app.getPetDetail("dsc");
-        if(desc) {
-            $(".detailed-result-desc").show().html(desc.replace(/[\n\r]/g,"<br/>"));
-        } else {
+        try {
+            if (desc) {
+                $(".detailed-result-desc").show().html(desc.replace(/[\n\r]/g, "<br/>"));
+            } else {
+                $(".detailed-result-desc").hide().html('');
+            }
+        } catch (ex) {
             $(".detailed-result-desc").hide().html('');
         }
+
+        console.log("fillPetDetails:14");
 
 
 
@@ -976,29 +1079,41 @@ var app = {
          * Construct the share URL
          */
         https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.petango.com%2FAdopt%2FCat-Domestic-Shorthair-Purebred-19440252
-        var shareLink = "http://www.petango.com/Adopt/" + (app.getPetDetail("AnimalType") + " " + primaryBreed + " " + secondaryBreed + " " + petId ).flatSpace().replace(" ", "-");
-        if(shareLink.validURL()) {
-            $(".fb-like").show().jqmData("href", shareLink);
-            try {
-                FB.XFBML.parse();
-            } catch(e) {
-                app.initFacebook(function() {
-                    try{FB.XFBML.parse();}catch(e){}
-                });
+        try{
+            var shareLink = "http://www.petango.com/Adopt/" + (app.getPetDetail("AnimalType") + " " + primaryBreed + " " + secondaryBreed + " " + petId ).flatSpace().replace(" ", "-");
+            if(shareLink.validURL()) {
+                $(".fb-like").show().jqmData("href", shareLink);
+                try {
+                    FB.XFBML.parse();
+                } catch(e) {
+                    app.initFacebook(function() {
+                        try{FB.XFBML.parse();}catch(e){}
+                    });
+                }
+            } else {
+                $(".fb-like").hide().jqmData("href", shareLink);
             }
-        } else {
-            $(".fb-like").hide().jqmData("href", shareLink);
+        } catch(ex) {
+            $(".fb-like").hide();
         }
+
+        console.log("fillPetDetails:15");
 
 
         $("#detailed-result .global-header > a").fadeIn("fast");
 
+        console.log("fillPetDetails:16");
+
         $("#detailed-result .detailed-result-wrap").fadeIn("fast", function() {
+
+            console.log("fillPetDetails:18");
             /*if($(".detailed-result-img").length>1) {
                 $(".detailed-result-img-wrap").overscroll({direction: 'horizontal'}).fadeOut(0).css("visibility","visible").fadeIn("fast");
             }*/
 
             $.mobile.loading('hide');
+
+            console.log("fillPetDetails:19");
 
             var bottomHeight = $("#detailed-result .global-footer").offset().top - $("#detailed-result .detailed-result-bottom").offset().top;
 
@@ -1007,7 +1122,12 @@ var app = {
                 "overflow-x": "hidden",
                 "overflow-y": "scroll"
             });
+
+            console.log("fillPetDetails:20");
         });
+
+
+        console.log("fillPetDetails:17");
 
     },
     updateFavoriteButton: function(highlighted) {
@@ -1036,7 +1156,7 @@ var app = {
         app.db.removeFavorite(petId);
         x2(500, app.updateFavoriteButton, false);
     }
-};
+});
 
 var example_details = {
     CompanyID: "859",
