@@ -359,6 +359,8 @@ app = $.extend(true, {}, app, {
             $(".global-footer").on("click", ".footer-icons-search", app.resetSearchStart);
 
             $("#search-start .category").on("click", function(e) {
+                if($("#search-start").hasClass("selectingCategory")) return false;
+                $("#search-start").addClass("selectingCategory");
                 if($(".content-category.selected").length) app.resetSearchStart();
                 var ui = {};
                 ui.draggable = $("#content-dnd-logo");
@@ -580,6 +582,7 @@ app = $.extend(true, {}, app, {
                 contCat.delay(100).switchClass(null, "selected", "fast");
                 $("#content-go-btn").fadeIn("fast", function() {
                     $(this).jqmData("species", species).one("click", app.initSearch);
+                    $("#search-start").removeClass("selectingCategory");
                 })
             });
     },
@@ -657,7 +660,14 @@ app = $.extend(true, {}, app, {
             }
         }
 
-        if(numResults-app.searchOffset) {
+        if(numResults-app.searchOffset>0) {
+
+            if($("#search-results-wrap").hasClass("loadingResults")) {
+                $.when.apply($, app.promise.searchLoad).done(app.loadSearchResults);
+                return false;
+            }
+            $("#search-results-wrap").addClass("loadingResults");
+
             var resultSet = $(app.searchResults).clone(),
                 resultSet = resultSet.splice(app.searchOffset,app.searchPerPage),
                 $animal, animal, result, species;
@@ -700,6 +710,8 @@ app = $.extend(true, {}, app, {
             });
 
             $.when.apply($, app.promise.searchLoad).done(function() {
+
+                $("#search-result-wrap").removeClass("loadingResults");
 
                 app.searchOffset = (numResults - app.searchOffset < app.searchPerPage ? numResults : app.searchOffset + app.searchPerPage);
 

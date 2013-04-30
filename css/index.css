@@ -32,7 +32,7 @@
 }*/
 
 * {
-    -webkit-tap-highlight-color: rgba(255,255,255,0.4); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
 html,
@@ -447,6 +447,7 @@ body {
     padding: 0.4em 0px;
     margin: 1px 0;
     border-width: 3px 0px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.5); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
 #favorites-list .favorites-item .favorites-item-img-wrap,
