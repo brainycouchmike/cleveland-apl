@@ -28,7 +28,9 @@ app = $.extend(true, {}, app, {
     PetPointAuthKey: "23lomcf2c0qa811xz4iy0qbpj9uq0w65n4ch964i141640p811",
     promise: {
         search: null,
-        detail: null
+        searchLoad: [],
+        detail: null,
+        detailLoad: []
     },
     searchResults: null,
     searchOffset: 0,
@@ -145,20 +147,22 @@ app = $.extend(true, {}, app, {
     },
     // deviceready Event Handler
     onDeviceReady: function() {
-        console.log({"app.onDeviceReady": this});
+        // console.log({"app.onDeviceReady": this});
         /**
          * Specify code to only be run once
          */
         if(!app.inited) {
-            app.inited = true;
+            // Bind Facebook init
+            window.fbAsyncInit = app.initFacebook;
             app.initModules();
             app.bindEvents();
             app.resetSearchStart();
+            app.inited = true;
         }
     },
     // Reset search start
     resetSearchStart: function() {
-        console.log("resetSearchStart");
+        // console.log("resetSearchStart");
         $("#content-dnd-logo").switchClass("cats dogs small all", null,"fast", function() {
             $(this).removeAttr("class").removeAttr("style");
         });
@@ -194,11 +198,11 @@ app = $.extend(true, {}, app, {
     //initialize modules
     initModules: function() {
 
-        console.log("init modules");
+        // console.log("init modules");
 
         app.db = new DB();
 
-        console.log({"app.db": app.db});
+        // console.log({"app.db": app.db});
 
         // Load the Facebook SDK asynchronously
         (function(d, s, id) {
@@ -210,14 +214,22 @@ app = $.extend(true, {}, app, {
         }(document, 'script', 'facebook-jssdk'));
 
     },
+    facebookInited: false,
     initFacebook: function() {
+        if(!app.facebookInited) {
         // init the FB JS SDK
-        FB.init({
-            appId      : '396642740442879',                    // App ID from the app dashboard
-            channelUrl : 'channel.html',                       // Channel file for x-domain comms
-            status     : true,                                 // Check Facebook Login status
-            xfbml      : true                                  // Look for social plugins on the page
-        });
+            FB.init({
+                appId      : '396642740442879',                    // App ID from the app dashboard
+                channelUrl : 'channel.html',                       // Channel file for x-domain comms
+                status     : true,                                 // Check Facebook Login status
+                xfbml      : true                                  // Look for social plugins on the page
+            });
+            app.facebookInited = true;
+        } else {
+            try {
+                FB.XFBML.parse();
+            } catch(ex) {}
+        }
 
         // Additional initialization code such as adding Event Listeners goes here
 
@@ -234,8 +246,7 @@ app = $.extend(true, {}, app, {
         });
         // Bind Device Ready
         // document.addEventListener('deviceready', this.onDeviceReady, false);
-        // Bind Facebook init
-        window.fbAsyncInit = app.initFacebook;
+
         // Bind jQuery Events Here...
         (function($) {
             /**
@@ -284,10 +295,10 @@ app = $.extend(true, {}, app, {
                     if(!prevPage.length) return true;
                     var thisId = "#"+$(this).attr('id');
                     var prevId = "#"+prevPage.attr("id");
-                    console.log(thisId, prevId, (prevId in app.ignoreReferrer), (app.ignoreReferrer[prevId]==thisId));
+                    // console.log(thisId, prevId, (prevId in app.ignoreReferrer), (app.ignoreReferrer[prevId]==thisId));
                     if((prevId in app.ignoreReferrer) && (app.ignoreReferrer[prevId]==thisId)) return true;
                     $(this).jqmData("referrer", prevId);
-                    console.log("referrer updated: "+ prevId);
+                    // console.log("referrer updated: "+ prevId);
                     return true;
                 });//.
 //                on("pagechange ", function(event, data) {
@@ -323,10 +334,10 @@ app = $.extend(true, {}, app, {
                 var isFav = $page.jqmData("favorite");
                 if(!petId) return false;
                 if(isFav) {
-                    console.log("pet is favorited, time to un-favorite.");
+                    // console.log("pet is favorited, time to un-favorite.");
                     app.unfavoritePet(e, petId);
                 } else {
-                    console.log("pet is un-favorited, time to favorite.");
+                    // console.log("pet is un-favorited, time to favorite.");
                     app.favoritePet(e, petId);
                 }
             });
@@ -632,6 +643,24 @@ app = $.extend(true, {}, app, {
             "resultsLoaded": $(".search-result").length
         });*/
 
+        /**
+         * Make sure stuff isn't still loading.
+         */
+        if(app.promise.search.state()=="pending") {
+            $.when(app.promise.search).done(app.loadSearchResults);
+            return false;
+        }
+        if(app.promise.searchLoad.length) {
+            var loadingSearch = false;
+            $.each(app.promise.searchLoad, function() {
+                loadingSearch = loadingSearch && (this.state() == "pending");
+            });
+            if(loadingSearch) {
+                $.when.apply($, app.promise.searchLoad).done(app.loadSearchResults);
+                return false;
+            }
+        }
+
         if(numResults-app.searchOffset) {
             var resultSet = $(app.searchResults).clone(),
                 resultSet = resultSet.splice(app.searchOffset,app.searchPerPage),
@@ -661,11 +690,9 @@ app = $.extend(true, {}, app, {
 
             $("#search-results .search-results-load-more").slideUp("fast", $(".search-results-load-more").remove);
 
-            var loadPromise = [];
-
             $(".search-result").each(function(i) {
                 if(i<app.searchOffset) return true;
-                loadPromise.push($(this).css({
+                app.promise.searchLoad.push($(this).css({
                     "opacity": "0",
                     "display": "block"
                 }).animate({
@@ -676,7 +703,7 @@ app = $.extend(true, {}, app, {
                 }));
             });
 
-            $.when.apply($, loadPromise).done(function() {
+            $.when.apply($, app.promise.searchLoad).done(function() {
 
                 app.searchOffset = (numResults - app.searchOffset < app.searchPerPage ? numResults : app.searchOffset + app.searchPerPage);
 
@@ -689,7 +716,7 @@ app = $.extend(true, {}, app, {
                 */
 
                 if(app.searchOffset < numResults) {
-                    console.log("bind smartscroll");
+                    // console.log("bind smartscroll");
                     $("#search-results .global-content").bind("scroll", debounce(function() {
                         var scrollTarget = $(".search-results-wrap").height()
                                          - ($("#search-results .global-content").scrollTop());
@@ -761,6 +788,7 @@ app = $.extend(true, {}, app, {
                 $.mobile.back();
             }
         }).promise();
+
     },
     getPetDetail: function(key) {
         if(!app.petDetails) return false;
@@ -826,14 +854,14 @@ app = $.extend(true, {}, app, {
             app.updateFavoriteButton(false);
         }
 
-        console.log("fillPetDetails:1");
+        // console.log("fillPetDetails:1");
 
         /**
          * Get The species for use with a fall-back photo
          */
         var species = app.getPetDetail("AnimalType").match(/^[a-zA-Z\s]+$/g) ? app.getPetDetail("AnimalType") : app.getPetDetail("Species");
 
-        console.log("fillPetDetails:2");
+        // console.log("fillPetDetails:2");
 
         /* Top Half */
 
@@ -862,7 +890,7 @@ app = $.extend(true, {}, app, {
             $("<div />").addClass("detailed-result-img-none").appendTo(".detailed-result-img-wrap");
         }
 
-        console.log("fillPetDetails:3");
+        // console.log("fillPetDetails:3");
 
         /**
          * Fill pet name
@@ -879,7 +907,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-name").hide().html('');
         }
 
-        console.log("fillPetDetails:4");
+        // console.log("fillPetDetails:4");
 
         /**
          * Fill pet breed
@@ -897,7 +925,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-breed").hide().html('');
         }
 
-        console.log("fillPetDetails:5");
+        // console.log("fillPetDetails:5");
 
         /**
          * Fill Availability stage
@@ -914,7 +942,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-availability").hide().html('');
         }
 
-        console.log("fillPetDetails:6");
+        // console.log("fillPetDetails:6");
 
         /* Bottom Half */
 
@@ -946,7 +974,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-gender").hide().html('');
         }
 
-        console.log("fillPetDetails:7");
+        // console.log("fillPetDetails:7");
 
         /**
          * Fill pet color data
@@ -963,7 +991,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-color").hide().html('');
         }
 
-        console.log("fillPetDetails:8");
+        // console.log("fillPetDetails:8");
 
         /**
          * Fill pet weight data
@@ -979,7 +1007,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-weight").hide().html('');
         }
 
-        console.log("fillPetDetails:9");
+        // console.log("fillPetDetails:9");
 
         /**
          * Fill pet age
@@ -995,7 +1023,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-age").hide().html('');
         }
 
-        console.log("fillPetDetails:10");
+        // console.log("fillPetDetails:10");
 
         /**
          * Fill pet identification number
@@ -1010,7 +1038,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-petid").hide().html('');
         }
 
-        console.log("fillPetDetails:11");
+        // console.log("fillPetDetails:11");
 
         /**
          * Fill intake date
@@ -1028,7 +1056,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-intake-date").hide().html('');
         }
 
-        console.log("fillPetDetails:12");
+        // console.log("fillPetDetails:12");
 
         /**
          * Fill out misc other optional data
@@ -1055,7 +1083,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-misc-details").empty();
         }
 
-        console.log("fillPetDetails:13");
+        // console.log("fillPetDetails:13");
 
         /**
          * Fill the pet's description
@@ -1071,7 +1099,7 @@ app = $.extend(true, {}, app, {
             $(".detailed-result-desc").hide().html('');
         }
 
-        console.log("fillPetDetails:14");
+        // console.log("fillPetDetails:14");
 
 
 
@@ -1097,23 +1125,23 @@ app = $.extend(true, {}, app, {
             $(".fb-like").hide();
         }
 
-        console.log("fillPetDetails:15");
+        // console.log("fillPetDetails:15");
 
 
         $("#detailed-result .global-header > a").fadeIn("fast");
 
-        console.log("fillPetDetails:16");
+        // console.log("fillPetDetails:16");
 
         $("#detailed-result .detailed-result-wrap").fadeIn("fast", function() {
 
-            console.log("fillPetDetails:18");
+            // console.log("fillPetDetails:18");
             /*if($(".detailed-result-img").length>1) {
                 $(".detailed-result-img-wrap").overscroll({direction: 'horizontal'}).fadeOut(0).css("visibility","visible").fadeIn("fast");
             }*/
 
             $.mobile.loading('hide');
 
-            console.log("fillPetDetails:19");
+            // console.log("fillPetDetails:19");
 
             var bottomHeight = $("#detailed-result .global-footer").offset().top - $("#detailed-result .detailed-result-bottom").offset().top;
 
@@ -1123,11 +1151,11 @@ app = $.extend(true, {}, app, {
                 "overflow-y": "scroll"
             });
 
-            console.log("fillPetDetails:20");
+            // console.log("fillPetDetails:20");
         });
 
 
-        console.log("fillPetDetails:17");
+        // console.log("fillPetDetails:17");
 
     },
     updateFavoriteButton: function(highlighted) {
