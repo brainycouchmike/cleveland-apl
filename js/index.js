@@ -276,6 +276,9 @@ app = $.extend(true, {}, app, {
                                              }
                                          }, 1000);
                                      });
+                                     $(".footer-icon", this).removeClass("selected").filter(
+                                         $(this).jqmData("referrer")=="#favorites-list"?".footer-icons-favorites":".footer-icons-search"
+                                     ).addClass("selected");
                                  });
             $("#search-results").on("pageshow", function() {
                 $.when(app.promise.search).done(function() {
@@ -1108,9 +1111,14 @@ app = $.extend(true, {}, app, {
          */
         https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.petango.com%2FAdopt%2FCat-Domestic-Shorthair-Purebred-19440252
         try{
-            var shareLink = "http://www.petango.com/Adopt/" + (app.getPetDetail("AnimalType") + " " + primaryBreed + " " + secondaryBreed + " " + petId ).flatSpace().replace(" ", "-");
+            var shareLink = "http://www.petango.com/Adopt/" + (app.getPetDetail("AnimalType") + " " + primaryBreed + " " + secondaryBreed + " " + petId ).flatSpace().toLowerCase().replace(",","").replace(/\s/g, "-");
             if(shareLink.validURL()) {
-                $(".fb-like").show().jqmData("href", shareLink);
+                console.log({"shareLinkValid":shareLink});
+                $(".fb-like").show().attr({
+                    "data-href": shareLink,
+                    "fb-xfbml-state": "unrendered"
+                });
+                $(".detailed-result-petango").attr("href", shareLink);
                 try {
                     FB.XFBML.parse();
                 } catch(e) {
@@ -1119,7 +1127,9 @@ app = $.extend(true, {}, app, {
                     });
                 }
             } else {
+                console.log({"shareLinkNotValid":shareLink});
                 $(".fb-like").hide().jqmData("href", shareLink);
+                $(".detailed-result-petango").attr("href", "http://www.petango.com/");
             }
         } catch(ex) {
             $(".fb-like").hide();

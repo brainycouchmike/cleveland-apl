@@ -120,6 +120,12 @@ body {
     font-variant: small-caps;
 }
 
+.global-header > a[data-rel='back'] {
+    top: 35% !important;
+    margin-left: 5% !important;
+    margin-right: 20% !important;
+}
+
 .global-content {
     position: absolute;
     top: 15%;
@@ -352,6 +358,14 @@ body {
     margin: 4% 2%;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.footer-icon.selected {
+    -webkit-filter: opacity(0.8);
+    box-shadow: inset 0px -20px 20px -8px rgba(200,200,200,0.5);
+    border-radius: 0px 0px 20% 20% / 0px 0px 15% 15%;
+    background-size: 90%;
+    background-position: center 45%;
 }
 
 .footer-icons-search {
@@ -672,13 +686,39 @@ body {
 }
 
 .fb-like {
-    position: relative;
-    left: 45%;
-    top: -1em;
+    position: absolute !important;
+    right: 5%;
+    bottom: 5%;
 }
 
 .detailed-result-bottom-info {
     padding: 1em 0.5em;
+}
+
+.detailed-result-petango {
+    position: relative;
+    right: 5%;
+    width: 30%;
+    height: auto;
+    max-width: 30%;
+    float: right;
+}
+
+.petango_logo {
+    width: 100%;
+    height: auto;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+.detailed-result-donate {
+    float: right;
+    position: relative;
+    clear: both;
+    width: 30%;
+    right: 5%;
 }
 
 .detailed-result-info {

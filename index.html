@@ -52,8 +52,12 @@
                 window.top.app = app;
                 window.top.updateApp = function() {
                     (function($){
-                        window.top.$ = function(sel) {
-                            return $(sel, $(window.top.document).find("iframe").contents() || window.top.document);
+                        window.top.$ = function(sel, cont) {
+                            var context = $(window.top.document).find("iframe").contents();
+                            if(cont) {
+                                context = context.find(cont);
+                            }
+                            return $(sel, context || window.top.document);
                         }
                         window.top.$.mobile = $.mobile;
                     })(jQuery);
@@ -116,11 +120,11 @@
 
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
-                    <a class="footer-icons-search    footer-icon" href="#"></a>
-                    <a class="footer-icons-donate    footer-icon"></a>
-                    <a class="footer-icons-info      footer-icon"></a>
+                    <a class="footer-icons-search    footer-icon selected" href="#"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
                     <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
-                    <a class="footer-icons-more      footer-icon"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
                 </div>
             </footer>
             <form id="hidden_search_form" action="http://www.petango.com/webservices/wsadoption.asmx/AdoptableSearch" method="POST"></form>
@@ -164,11 +168,11 @@
             </div>
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
-                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
-                    <a class="footer-icons-donate    footer-icon"></a>
-                    <a class="footer-icons-info      footer-icon"></a>
+                    <a class="footer-icons-search    footer-icon selected" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
                     <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
-                    <a class="footer-icons-more      footer-icon"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
                 </div>
             </footer>
         </div>
@@ -199,6 +203,10 @@
                     </div>
                     <div class="detailed-result-bottom">
                         <div class="detailed-result-bottom-info">
+                            <a href="http://www.petango.com/" data-role="none" rel="external" data-rel="external" class="detailed-result-petango" onclick="window.open(this.href,'_system'); return false;">
+                                <img src="img/powered-by-petango.gif" class="petango_logo">
+                            </a>
+                            <a class="detailed-result-donate" href="#donate" data-role="button" data-mini="true" data-theme="b">Donate</a>
                             <div class="detailed-result-gender detailed-result-info"></div>
                             <div class="detailed-result-color detailed-result-info"></div>
                             <div class="detailed-result-weight detailed-result-info"></div>
@@ -216,11 +224,11 @@
             </div>
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
-                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
-                    <a class="footer-icons-donate    footer-icon"></a>
-                    <a class="footer-icons-info      footer-icon"></a>
+                    <a class="footer-icons-search    footer-icon selected" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
                     <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
-                    <a class="footer-icons-more      footer-icon"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
                 </div>
             </footer>
         </div>
@@ -261,12 +269,82 @@
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
                     <a class="footer-icons-search    footer-icon" href="#search-start"></a>
-                    <a class="footer-icons-donate    footer-icon"></a>
-                    <a class="footer-icons-info      footer-icon"></a>
-                    <a class="footer-icons-favorites footer-icon" href="#"></a>
-                    <a class="footer-icons-more      footer-icon"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
+                    <a class="footer-icons-favorites footer-icon selected" href="#"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
                 </div>
             </footer>
         </div>
+        <div id="donate" data-role="page">
+            <header class="global-header" data-role="header" data-add-back-btn="true">
+                <a class="donate-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <h1>Donate some money, b!</h1>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon selected" href="#"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
+                    <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
+                </div>
+            </footer>
+        </div>
+        <div id="info" data-role="page">
+            <header class="global-header" data-role="header" data-add-back-btn="true">
+                <a class="info-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <h1>Some info, yo.</h1>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon selected" href="#"></a>
+                    <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
+                </div>
+            </footer>
+        </div>
+        <div id="more" data-role="page">
+            <header class="global-header" data-role="header" data-add-back-btn="true">
+                <a class="more-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <h1>more menu, what about it?</h1>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
+                    <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
+                    <a class="footer-icons-more      footer-icon selected" href="#"></a>
+                </div>
+            </footer>
+        </div>
+        <!-- Begin comScore Tag -->
+        <script>
+            var _comscore = _comscore || [];
+            _comscore.push({ c1: "2", c2: "6745171" });
+            (function() {
+                var s = document.createElement("script"), el =
+                        document.getElementsByTagName("script")[0]; s.async = true;
+                s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") +
+                        ".scorecardresearch.com/beacon.js";
+                el.parentNode.insertBefore(s, el);
+            })();
+        </script>
+        <noscript>
+            <img src="http://b.scorecardresearch.com/p?c1=2&c2=6745171&cv=2.0&cj=1" />
+        </noscript>
+        <!-- End comScore Tag -->
     </body>
 </html>
