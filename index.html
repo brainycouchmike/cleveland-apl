@@ -35,6 +35,9 @@
                 $.mobile.loader.prototype.options.textVisible = true;
                 $.mobile.loader.prototype.options.theme = "c";
                 $.mobile.loader.prototype.options.html = "";
+                $(document).on("pageinit", function() {
+                    $.mobile.loading('show');
+                });
             });
         </script>
         <script type="text/javascript" src="js/jquery.mobile-1.3.0.js"></script>

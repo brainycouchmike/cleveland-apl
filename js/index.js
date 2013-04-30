@@ -155,6 +155,7 @@ app = $.extend(true, {}, app, {
     // deviceready Event Handler
     onDeviceReady: function() {
         // console.log({"app.onDeviceReady": this});
+        // $.mobile.loading('hide');
         /**
          * Specify code to only be run once
          */
@@ -407,6 +408,8 @@ app = $.extend(true, {}, app, {
                         $sDot.removeClass("selected").attr("src", app.photoDotSrc);
                         $nDot.addClass("selected").attr("src", app.photoDotSrcS);
                 });
+
+            $.mobile.loading('hide');
 
         })(jQuery);
     },
@@ -728,7 +731,7 @@ app = $.extend(true, {}, app, {
                     $("#search-results .global-content").bind("scroll", debounce(function() {
                         var scrollTarget = $(".search-results-wrap").height()
                                          - ($("#search-results .global-content").scrollTop());
-                        var targetHeight = $("#search-results .global-content").height();
+                        var targetHeight = $("#search-results .global-content").height() + 50 // add 50 for padding;
 
                         /*
                         console.log({
