@@ -378,7 +378,7 @@ body {
 
 .footer-icon.selected {
     -webkit-filter: opacity(0.8);
-    box-shadow: inset 0px -20px 20px -8px rgba(200,200,200,0.5);
+    box-shadow: inset 0px -20px 20px -10px rgba(200,200,200,0.4);
     border-radius: 0px 0px 20% 20% / 0px 0px 15% 15%;
     background-size: 90%;
     background-position: center 45%;

@@ -164,6 +164,21 @@ function xn(times, delay, func) {
     }, delay);
 }
 
+function x2if(condition, delay, func) {
+    var args = $.makeArray(arguments).slice(2) || [];
+    var that = this.caller;
+    func.apply(that, args);
+    if(eval(condition)) {
+        setTimeout(function() {
+            func.apply(that,args);
+        }, delay);
+    }
+}
+
+function xnif(condition, times, delay, func) {
+
+}
+
 /**
  * Some jQuery stuff
  */

@@ -62,9 +62,10 @@
         </script>
         <!-- End comScore Tag -->
     </head>
-    <body onload="if(!app.inited){app.bindDeviceReady();console.log('fallback:bindDeviceReady');}">
-        <!-- Begin comScore Tag -->
-        <noscript>
+    <!--onload="if(!app.inited){app.bindDeviceReady();console.log('fallback:bindDeviceReady');}"-->
+    <body>
+    <!-- Begin comScore Tag -->
+    <noscript>
             <img src="http://b.scorecardresearch.com/p?c1=2&c2=6745171&cv=2.0&cj=1" />
         </noscript>
         <!-- End comScore Tag -->
@@ -331,7 +332,7 @@
         </div>
         <script type="text/javascript">
             try {
-                if(window!=window.top) {
+                /*if(window!=window.top) {
                     window.top.app = app;
                     window.top.updateApp = function() {
                         (function($){
@@ -347,11 +348,11 @@
                     };
                     window.top.updateApp();
                 }
-                console.log(window!=window.top?'App in iFrame':'App in parent frame');
+                console.log(window!=window.top?'App in iFrame':'App in parent frame');*/
                 app.initialize();
-                if(window!=window.top){
+                /*if(window!=window.top){
                     app.setReady();
-                }
+                }*/
             } catch(ex) {
                 console.log(ex);
             }

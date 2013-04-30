@@ -1172,15 +1172,21 @@ app = $.extend(true, {}, app, {
 
             $.mobile.loading('hide');
 
+            var bottomHeight = 0;
+
             // console.log("fillPetDetails:19");
+            var setBottomHeight = function() {
 
-            var bottomHeight = $("#detailed-result .global-footer").offset().top - $("#detailed-result .detailed-result-bottom").offset().top;
+                bottomHeight = $("#detailed-result .global-footer").offset().top - ($("#detailed-result .detailed-result-top").offset().top + $("#detailed-result .detailed-result-top").height());
 
-            $(".detailed-result-bottom").css({
-                "height"  : bottomHeight + "px",
-                "overflow-x": "hidden",
-                "overflow-y": "scroll"
-            });
+                $(".detailed-result-bottom").css({
+                    "height"  : bottomHeight + "px",
+                    "overflow-x": "hidden",
+                    "overflow-y": "scroll"
+                });
+            }
+
+            x2if("bottomHeight==0", 500, setBottomHeight);
 
             // console.log("fillPetDetails:20");
         });
