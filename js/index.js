@@ -268,11 +268,6 @@ app = $.extend(true, {}, app, {
             });
 
             /**
-             * Add overscroll effect to search results and favorites list
-             */
-            $(".search-results-wrap, .favorites-list-wrap, .detailed-result-bottom").overscroll({direction: 'vertical'});
-
-            /**
              * Bind page state actions
              */
             $("#hidden_search_form").on("submit", app.procSearch);
