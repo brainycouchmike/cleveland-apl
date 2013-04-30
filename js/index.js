@@ -58,7 +58,7 @@ app = $.extend(true, {}, app, {
     lastFavorites: {},
     ignoreReferrer: {
         "#detailed-result": "#favorites-list",
-        "#favorites-list":  "#detailed-result",
+        /*"#favorites-list":  "#detailed-result",*/
         "#more":            "#detailed-result",
         "#info":            "#detailed-result",
         "#donate":          "#detailed-result"
@@ -228,7 +228,7 @@ app = $.extend(true, {}, app, {
         // init the FB JS SDK
             FB.init({
                 appId      : '396642740442879',                    // App ID from the app dashboard
-                channelUrl : 'channel.html',                       // Channel file for x-domain comms
+                channelUrl : '../channel.html',                       // Channel file for x-domain comms
                 status     : true,                                 // Check Facebook Login status
                 xfbml      : true                                  // Look for social plugins on the page
             });
@@ -268,6 +268,11 @@ app = $.extend(true, {}, app, {
             });
 
             /**
+             * Add overscroll effect to search results and favorites list
+             */
+            $(".search-results-wrap, .favorites-list-wrap, .detailed-result-bottom").overscroll({direction: 'vertical'});
+
+            /**
              * Bind page state actions
              */
             $("#hidden_search_form").on("submit", app.procSearch);
@@ -281,6 +286,19 @@ app = $.extend(true, {}, app, {
                                          setTimeout(function() {
                                              if($(".detailed-result-wrap:visible,.detailed-result-wrap:animated").length==0) {
                                                  app.fillPetDetails(); //$.mobile.navigate("#search-start");
+                                             } else {
+                                                 if(!$("#detailed-result .global-header > a").is(":visible")) {
+                                                     try {
+                                                         if (app.getPetDetail("ID") in app.db.getFavorites()) {
+                                                             app.updateFavoriteButton(true);
+                                                         } else {
+                                                             app.updateFavoriteButton(false);
+                                                         }
+                                                     } catch (ex) {
+                                                         app.updateFavoriteButton(false);
+                                                     }
+                                                 }
+                                                 $("#detailed-result .global-header > a").fadeIn("fast");
                                              }
                                          }, 1000);
                                      });
