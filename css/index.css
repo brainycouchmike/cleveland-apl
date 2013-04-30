@@ -16,6 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+/*@viewport,
+@-o-viewport,
+@-webkit-viewport,
+@-moz-viewport,
+@-ms-viewport {
+    width: device-width;
+    height: 100% !important;
+    zoom: 1;
+    max-zoom: 1;
+    min-zoom: 1;
+    user-zoom: fixed;
+    target-densitydpi: device-dpi;
+}*/
+
 * {
     -webkit-tap-highlight-color: rgba(255,255,255,0.4); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
@@ -212,6 +227,7 @@ body {
 
 .content-category.selected .category {
     background-image: url('../img/background_on.png');
+    background-size: 200% 200%;
 }
 
 .content-category .category-logo {

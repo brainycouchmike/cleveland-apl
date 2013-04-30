@@ -57,7 +57,11 @@ app = $.extend(true, {}, app, {
     db: null,
     lastFavorites: {},
     ignoreReferrer: {
-        "#detailed-result": "#favorites-list"
+        "#detailed-result": "#favorites-list",
+        "#favorites-list":  "#detailed-result",
+        "#more":            "#detailed-result",
+        "#info":            "#detailed-result",
+        "#donate":          "#detailed-result"
     },
     photoDotSrc:
         "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJl"+
@@ -143,6 +147,9 @@ app = $.extend(true, {}, app, {
         (function($) {
             $.when(app.deviceReadyDeferred, app.jqmReadyDeferred).then(app.onDeviceReady);
         })(jQuery);
+        this.bindDeviceReady();
+    },
+    bindDeviceReady: function() {
         document.addEventListener("deviceReady", app.setReady, false);
     },
     // deviceready Event Handler
@@ -272,7 +279,7 @@ app = $.extend(true, {}, app, {
                                      $.when(app.promise.detail).done(function() {
                                          setTimeout(function() {
                                              if($(".detailed-result-wrap:visible,.detailed-result-wrap:animated").length==0) {
-                                                 $.mobile.navigate("#search-start");
+                                                 app.fillPetDetails(); //$.mobile.navigate("#search-start");
                                              }
                                          }, 1000);
                                      });
@@ -284,7 +291,7 @@ app = $.extend(true, {}, app, {
                 $.when(app.promise.search).done(function() {
                     setTimeout(function() {
                         if($(".search-result:visible,.search-result:animated").length==0) {
-                            $.mobile.navigate("#search-start");
+                            $.mobile.changePage("#search-start");
                         }
                     }, 1000);
                 });
@@ -315,6 +322,15 @@ app = $.extend(true, {}, app, {
              */
             $(".search-results-wrap,.favorites-list-wrap").on("click", ".search-result,.favorites-item", app.loadPetDetails);
 
+            $("#detailed-result a[data-rel='back']").on("click", function(e) {
+                var target = $.mobile.activePage.jqmData("referrer");
+                if(!target) return true;
+                e.preventDefault();
+                $.mobile.changePage(target, {
+                    reverse: true
+                });
+            });
+
             /*$("[data-rel='back']").on("click", function(e) {
                 var target = $.mobile.activePage.jqmData("referrer");
                 var backTo = !!$(this).jqmData("back-button-navigated");
@@ -325,14 +341,9 @@ app = $.extend(true, {}, app, {
                 $.mobile.navigate(target);
             });*/
 
-            /*
-            $("#search-start .footer-icons-favorites").on("vclick", function() {
-                console.log(app.db.getFavorites());//, app.db.getFavorites().length);
-            });*/
-
             $(".detailed-result-favorite").on("click", function(e) {
                 var $this = $(this);
-                var $page = $this.parents("#detailed-result")
+                var $page = $this.parents("#detailed-result");
                 var petId = $page.jqmData("pet-id");
                 var isFav = $page.jqmData("favorite");
                 if(!petId) return false;
@@ -395,24 +406,6 @@ app = $.extend(true, {}, app, {
                         $nDot.addClass("selected").attr("src", app.photoDotSrcS);
                 });
 
-
-            /*$(".detailed-result-img-wrap").bind("click", function() {
-                var curScroll = $(this).scrollLeft();
-                var nextImg = $(".detailed-result-img").filter(function() {
-                    return ($(this).parent().offset().left + $(this).parent().outerWidth() > curScroll);
-                });
-                if(!nextImg.eq(1).length) {
-                    $(this).animate({
-                        scrollLeft: "0px"
-                    }, "fast");
-                } else {
-                    $(this).animate({
-                        scrollLeft: (nextImg.eq(1).parent().offset().left - $(this).offset().left) + "px"
-                    }, "fast");
-                }
-
-
-            });*/
         })(jQuery);
     },
     // Favorites pre-show processing
@@ -609,21 +602,21 @@ app = $.extend(true, {}, app, {
             type: "POST",
             beforeSend: function() {
                 $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
-                $.mobile.navigate("#search-results", {keepLoading: true});
+                $.mobile.changePage("#search-results", {keepLoading: true});
             },
             success: function(data) {
                 app.searchResults = $("adoptableSearch", data);
                 if(app.searchResults) {
-                    app.loadSearchResults();
+                    $.when(app.promise.search).done(app.loadSearchResults);
                 } else {
-                    $.mobile.navigate("#search-start");
+                    $.mobile.changePage("#search-start");
                 }
             },
             error: function() {
                 console.log({
                     "SearchError": arguments
                 });
-                $.mobile.navigate("#search-start");
+                $.mobile.changePage("#search-start");
             }
         }).promise();
     },
@@ -763,7 +756,7 @@ app = $.extend(true, {}, app, {
         if(!petId) return false;
         $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
         $this.addClass("active").delay(1000).removeClass("active");
-        $.mobile.navigate("#detailed-result",{loadPetDetails:true});
+        $.mobile.changePage("#detailed-result",{loadPetDetails:true});
         $("#detailed-result").addClass("AJAXing");
         $("#detailed-result .global-header > a").fadeOut(0);
         $("#detailed-result .detailed-result-wrap").fadeOut(0);
