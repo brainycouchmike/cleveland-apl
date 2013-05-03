@@ -203,13 +203,7 @@ app = $.extend(true, {}, app, {
     // Clear search results
     clearSearchResults: function() {
         $(".search-results-wrap").empty();
-        /*try {
-            if(typeof($.fn.removeOverscroll)!="undefined") {
-                $("#search-results .global-content").removeOverscroll();
-            }
-        } catch(ex) {
-            console.log(ex.toString());
-        }*/
+        $("#search-results .global-content").unbind("scroll.loadMore");
         app.searchResults = null;
         app.searchOffset  = 0;
         app.searchPerPage = 10;
@@ -218,6 +212,7 @@ app = $.extend(true, {}, app, {
     clearDetailedResult: function() {
         $(".detailed-result-wrap").removeAttr("style");
         $(".detailed-result-img-wrap").jqmData("animating", false);
+        $(".detailed-result-error").remove();
         app.updateFavoriteButton(false);
     },
     //initialize modules
@@ -297,7 +292,7 @@ app = $.extend(true, {}, app, {
             $("#hidden_search_form").on("submit", app.procSearch);
             $("#search-start").on("pagebeforeshow", app.resetSearchStart);
             $("#detailed-result").on("pagehide", app.clearDetailedResult)
-                                 .on("pagebeforeshow", function() {
+                                 .on("pagebeforeshow", function(ev, data) {
                                      $("#detailed-result .global-header > a").fadeOut("fast");
                                  })
                                  .on("pageshow", function(e, data) {
@@ -328,14 +323,6 @@ app = $.extend(true, {}, app, {
             $("#search-results").on("pageshow", function() {
                 $.when(app.promise.search).done(function() {
                     $.when.apply($, app.promise.searchLoad).done(function() {
-                        /*try {
-                            if(typeof($.fn.overscroll)!="undefined") {
-                                $("#search-results .global-content").overscroll({direction: 'vertical', showThumbs: false});
-                            }
-                            console.log("search results overscroll");
-                        } catch(ex) {
-                            console.log(ex.toString());
-                        }*/
                         if($(".search-result:visible,.search-result:animated").length==0) {
                             $.mobile.changePage("#search-start");
                         }
@@ -440,7 +427,7 @@ app = $.extend(true, {}, app, {
             });
 
             $(".detailed-result-img-wrap").
-                on("tap swipeleft", function() {
+                on("click swipeleft", function() {
                     var $this = $(this);
                     if($this.jqmData("animating")) return false;
                     $this.jqmData("animating", true);
@@ -667,6 +654,7 @@ app = $.extend(true, {}, app, {
         if(app.promise.search && app.promise.search.state()!="resolved") {
             return false;
         }
+        app.lastSearchSpecies = species;
         app.promise.search = $.ajax({
             url: app.searchResultsURI,
             data: searchData,
@@ -708,7 +696,7 @@ app = $.extend(true, {}, app, {
                 });
                 if(app.searchResults!=null && app.searchResults.length>0) {
                     try {
-                        app.loadSearchResults();
+                        app.loadSearchResults(species);
                     } catch(ex) {
                         console.log("app.loadSearchResults Error: " + ex.toString());
                     }
@@ -727,22 +715,6 @@ app = $.extend(true, {}, app, {
     // Load search results into the DOM based on a hidden template
     loadSearchResults: function() {
 
-        var numResults =   app.searchResults.length;
-        var template   =   $(".search-results-template").
-                           clone().
-                           removeClass("search-results-template").
-                           addClass("search-result").
-                           css("display", "none").
-                           wrap("<div/>").
-                           parent().
-                           html();
-
-        /*console.log({
-            "numResults"   : numResults,
-            "searchOffset" : app.searchOffset,
-            "resultsLoaded": $(".search-result").length
-        });*/
-
         /**
          * Make sure stuff isn't still loading.
          */
@@ -760,6 +732,27 @@ app = $.extend(true, {}, app, {
                 return false;
             }
         }
+
+        if(app.searchResults==null) {
+            var lastSpecies = arguments[0] || app.lastSearchSpecies;
+            return app.procSearch({preventDefault:function(){}}, lastSpecies);
+        }
+
+        var numResults =   app.searchResults.length;
+        var template   =   $(".search-results-template").
+                           clone().
+                           removeClass("search-results-template").
+                           addClass("search-result").
+                           css("display", "none").
+                           wrap("<div/>").
+                           parent().
+                           html();
+
+        /*console.log({
+            "numResults"   : numResults,
+            "searchOffset" : app.searchOffset,
+            "resultsLoaded": $(".search-result").length
+        });*/
 
         if(numResults>0) {
 
@@ -876,7 +869,8 @@ app = $.extend(true, {}, app, {
     // Load Pet Details: go to pet result page and load data.
     loadPetDetails: function() {
         var $this = $(this),
-            petId = $this.jqmData("animal-id");
+            petId = $this.jqmData("animal-id"),
+            finished = false;
         if(!petId) return false;
         $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
         $this.addClass("active").delay(1000).removeClass("active");
@@ -900,12 +894,26 @@ app = $.extend(true, {}, app, {
                 app.fillPetDetails();
                 $("#detailed-result").removeClass("AJAXing");
             },
-            error: function() {
+            error: function(obj, textError, errorDetail) {
                 console.log({
-                    "SearchDetailsError": arguments
+                    "SearchDetailsError": arguments,
+                    promise: app.promise.detail.state(),
+                    "finished": finished,
+                    "$this": $this
                 });
-                $.mobile.loading( 'show', { theme: "c", text: "error, redirecting", textVisible: true});
-                $.mobile.back();
+                // $.mobile.loading( 'show', { theme: "c", text: "error, redirecting", textVisible: true});
+                if(textError=="parsererror" && (errorDetail.message.match(/^Invalid\sXML\:/).length)) {
+                    $("#detailed-result .detailed-result-wrap").after(
+                        $("<div/>").addClass("detailed-result-error").html(
+                            $("<h1/>").html("This pet has been removed").wrap('<span/>').parent().html() +
+                            $("<p/>").html("Due to this pet no longer being available, it has been removed from your favorites. Sorry for the inconvenience.").wrap('<span/>').parent().html()
+                        ).fadeIn("slow")
+                    );
+                    $("#detailed-result .global-header a[data-rel='back']").fadeIn("fast");
+                    app.db.removeFavorite(petId);
+                } else {
+                    $.mobile.back();
+                }
             }
         }).promise();
 

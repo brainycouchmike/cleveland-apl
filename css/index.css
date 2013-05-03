@@ -749,3 +749,9 @@ body {
 .detailed-result-misc-details {
     margin: 0.5em 1em;
 }
+
+.detailed-result-error {
+    display: none;
+    margin: 45% 0;
+    text-align: center;
+}
