@@ -33,6 +33,7 @@ app = $.extend(true, {}, app, {
         detailLoad: []
     },
     searchResults: [],
+    searchResultsRaw: null,
     searchOffset: 0,
     searchPerPage: 10,
     searchDefaults: {
@@ -159,18 +160,18 @@ app = $.extend(true, {}, app, {
         /**
          * Specify code to only be run once
          */
-        try {
-            if(!app.inited) {
-                // Bind Facebook init
-                window.fbAsyncInit = app.initFacebook;
-                app.initModules();
-                app.bindEvents();
-                app.resetSearchStart();
-                app.inited = true;
-            }
-        } catch(ex) {
-            console.log(ex.toString());
+
+        //console.log(app.jqmReadyDeferred.state(), typeof($.mobile), $.mobile, $.mobile.loader);
+
+        if(!app.inited) {
+            // Bind Facebook init
+            try {window.fbAsyncInit = app.initFacebook;} catch(ex) {console.log(ex.toString());}
+            try {app.initModules();} catch(ex) {console.log(ex.toString());}
+            try {app.bindEvents();} catch(ex) {console.log(ex.toString());}
+            try {app.resetSearchStart();} catch(ex) {console.log(ex.toString());}
+            try {app.inited = true;} catch(ex) {console.log(ex.toString());}
         }
+
     },
     // Reset search start
     resetSearchStart: function() {
@@ -192,10 +193,10 @@ app = $.extend(true, {}, app, {
             accept: "#content-dnd-logo",
             drop: app.selectSearchCategory
         });
-        $.mobile.loading("hide");
+        try { $.mobile.loading('hide'); } catch(ex) { console.log(ex.toString()); }
         setTimeout(function() {
             if($.mobile.activePage.attr("id")=="search-start") {
-                $.mobile.loading("hide");
+                try { $.mobile.loading('hide'); } catch(ex) { console.log(ex.toString()); }
             }
         }, 500);
     },
@@ -383,9 +384,9 @@ app = $.extend(true, {}, app, {
             /**
              * Define button bindings
              */
-            $(".search-results-wrap,.favorites-list-wrap").on("click", ".search-result,.favorites-item", app.loadPetDetails);
+            $(".search-results-wrap,.favorites-list-wrap").on("tap", ".search-result,.favorites-item", app.loadPetDetails);
 
-            $("#detailed-result a[data-rel='back']").on("click", function(e) {
+            $("#detailed-result a[data-rel='back']").on("tap", function(e) {
                 var target = $.mobile.activePage.jqmData("referrer");
                 if(!target) return true;
                 e.preventDefault();
@@ -394,7 +395,7 @@ app = $.extend(true, {}, app, {
                 });
             });
 
-            /*$("[data-rel='back']").on("click", function(e) {
+            /*$("[data-rel='back']").on("tap", function(e) {
                 var target = $.mobile.activePage.jqmData("referrer");
                 var backTo = !!$(this).jqmData("back-button-navigated");
                 if(backTo) $(this).jqmData("back-button-navigated", false);
@@ -404,7 +405,7 @@ app = $.extend(true, {}, app, {
                 $.mobile.navigate(target);
             });*/
 
-            $(".detailed-result-favorite").on("click", function(e) {
+            $(".detailed-result-favorite").on("tap", function(e) {
                 var $this = $(this);
                 var $page = $this.parents("#detailed-result");
                 var petId = $page.jqmData("pet-id");
@@ -419,9 +420,9 @@ app = $.extend(true, {}, app, {
                 }
             });
 
-            $(".global-footer").on("click", ".footer-icons-search", app.resetSearchStart);
+            $(".global-footer").on("tap", ".footer-icons-search", app.resetSearchStart);
 
-            $("#search-start .category").on("click", function(e) {
+            $("#search-start .category").on("tap", function(e) {
                 if($("#search-start").hasClass("selectingCategory")) return false;
                 $("#search-start").addClass("selectingCategory");
                 if($(".content-category.selected").length) app.resetSearchStart();
@@ -439,7 +440,7 @@ app = $.extend(true, {}, app, {
             });
 
             $(".detailed-result-img-wrap").
-                on("click swipeleft", function() {
+                on("tap swipeleft", function() {
                     var $this = $(this);
                     if($this.jqmData("animating")) return false;
                     $this.jqmData("animating", true);
@@ -470,8 +471,8 @@ app = $.extend(true, {}, app, {
                         $sDot.removeClass("selected").attr("src", app.photoDotSrc);
                         $nDot.addClass("selected").attr("src", app.photoDotSrcS);
                 });
-
-            $.mobile.loading('hide');
+//            console.log(typeof($.mobile), $.mobile, typeof($.mobile.loader), $.mobile.loader);
+            try { $.mobile.loading('hide'); } catch(ex) { console.log(ex.toString()); }
 
         })(jQuery);
     },
@@ -594,7 +595,7 @@ app = $.extend(true, {}, app, {
             });
             contCat.switchClass(null, "selected", "fast");
             $("#content-go-btn").fadeIn("fast", function() {
-                $(this).jqmData("species", species).one("click", app.initSearch);
+                $(this).jqmData("species", species).one("tap", app.initSearch);
             })
         });
     },*/
@@ -646,7 +647,7 @@ app = $.extend(true, {}, app, {
                 });
                 contCat.delay(100).switchClass(null, "selected", "fast");
                 $("#content-go-btn").fadeIn("fast", function() {
-                    $(this).jqmData("species", species).one("click", app.initSearch);
+                    $(this).jqmData("species", species).one("tap", app.initSearch);
                     $("#search-start").removeClass("selectingCategory");
                 })
             });
@@ -663,6 +664,9 @@ app = $.extend(true, {}, app, {
         var searchData = $.extend(app.searchDefaults, {
             speciesID: species
         });
+        if(app.promise.search && app.promise.search.state()!="resolved") {
+            return false;
+        }
         app.promise.search = $.ajax({
             url: app.searchResultsURI,
             data: searchData,
@@ -696,7 +700,12 @@ app = $.extend(true, {}, app, {
                 });
                 console.log("after iteration", app.searchResults);*/
                 // console.log(data);
-                app.searchResults = $.makeArray($("adoptableSearch", data));
+                app.searchResultsRaw = data;
+                app.searchResults = $.makeArray(data.getElementsByTagName("adoptableSearch"));
+                console.log({
+                    "app.searchResultsRawLength": app.searchResultsRaw.getElementsByTagName("adoptableSearch").length,
+                    "app.searchResultsLength":    app.searchResults.length
+                });
                 if(app.searchResults!=null && app.searchResults.length>0) {
                     try {
                         app.loadSearchResults();
@@ -752,7 +761,7 @@ app = $.extend(true, {}, app, {
             }
         }
 
-        if(!!numResults && ((numResults-app.searchOffset)>0)) {
+        if(numResults>0) {
 
             if($("#search-results-wrap").hasClass("loadingResults")) {
                 $.when.apply($, app.promise.searchLoad).done(app.loadSearchResults);
@@ -760,7 +769,18 @@ app = $.extend(true, {}, app, {
             }
             $("#search-results-wrap").addClass("loadingResults");
 
-            var resultSet = app.searchResults, //).clone(),
+            if(!(app.searchOffset < numResults)) {
+                $("#search-results .search-results-load-more").slideUp("fast", function() {
+                    $(".search-results-load-more").remove();
+                    try {$.mobile.loading("hide");} catch(ex) {console.log(ex.toString());}
+                    $("#search-results .search-results-wrap").append(
+                        $("<div/>").addClass("search-results-load-more").html("No More Results")
+                    );
+                });
+                return false;
+            }
+
+            var resultSet = $(app.searchResults).clone().get(),
                 resultSet = resultSet.splice(app.searchOffset,app.searchPerPage),
                 $animal, animal, result, species;
             if(!resultSet) return false;
@@ -817,7 +837,7 @@ app = $.extend(true, {}, app, {
 
                 if(app.searchOffset < numResults) {
                     // console.log("bind smartscroll");
-                    $("#search-results .global-content").bind("scrollstop", /*debounce(*/function() {
+                    $("#search-results .global-content").bind("scroll.loadMore", debounce(function() {
                         var scrollTarget = $(".search-results-wrap").height()
                                          - ($("#search-results .global-content").scrollTop());
                         var targetHeight = $("#search-results .global-content").height() + 50 // add 50 for padding;
@@ -833,13 +853,13 @@ app = $.extend(true, {}, app, {
 
                         if(scrollTarget < targetHeight) {
                             $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
-                            $("#search-results .global-content").unbind("scrollstop");
+                            $("#search-results .global-content").unbind("scroll.loadMore");
                             $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
                             $("#search-results .global-content").animate({
                                 scrollTop: $(".search-results-wrap").height()
                             }, "fast", app.loadSearchResults);
                         }
-                    }/*, 100)*/);
+                    }, 100));
                 } else {
                     $("#search-results .search-results-wrap").append(
                         $("<div/>").addClass("search-results-load-more").html("No More Results")

@@ -151,6 +151,7 @@ body {
     right: 0px;
     margin-top: 0px;
     /*padding-bottom: 26%;*/
+    -webkit-overflow-scrolling: touch;
 }
 
 #content-categories {
@@ -305,6 +306,7 @@ body {
     image-rendering: -o-crisp-edges;
     image-rendering: -webkit-optimize-contrast;
     -ms-interpolation-mode: nearest-neighbor;
+    -webkit-transform: translate3d(0px,0px,0px);
 }
 
 #content-dnd-logo.cats {
