@@ -32,7 +32,7 @@ app = $.extend(true, {}, app, {
         detail: null,
         detailLoad: []
     },
-    searchResults: null,
+    searchResults: [],
     searchOffset: 0,
     searchPerPage: 10,
     searchDefaults: {
@@ -159,13 +159,17 @@ app = $.extend(true, {}, app, {
         /**
          * Specify code to only be run once
          */
-        if(!app.inited) {
-            // Bind Facebook init
-            window.fbAsyncInit = app.initFacebook;
-            app.initModules();
-            app.bindEvents();
-            app.resetSearchStart();
-            app.inited = true;
+        try {
+            if(!app.inited) {
+                // Bind Facebook init
+                window.fbAsyncInit = app.initFacebook;
+                app.initModules();
+                app.bindEvents();
+                app.resetSearchStart();
+                app.inited = true;
+            }
+        } catch(ex) {
+            console.log(ex.toString());
         }
     },
     // Reset search start
@@ -199,7 +203,9 @@ app = $.extend(true, {}, app, {
     clearSearchResults: function() {
         $(".search-results-wrap").empty();
         try {
-            $("#search-results .global-content").removeOverscroll();
+            if(typeof($.fn.removeOverscroll)!="undefined") {
+                $("#search-results .global-content").removeOverscroll();
+            }
         } catch(ex) {
             console.log(ex.toString());
         }
@@ -320,12 +326,19 @@ app = $.extend(true, {}, app, {
                                  });
             $("#search-results").on("pageshow", function() {
                 $.when(app.promise.search).done(function() {
-                    $("#search-results .global-content").overscroll({direction: 'vertical'});
-                    setTimeout(function() {
+                    $.when.apply($, app.promise.searchLoad).done(function() {
+                        try {
+                            if(typeof($.fn.overscroll)!="undefined") {
+                                $("#search-results .global-content").overscroll({direction: 'vertical', showThumbs: false});
+                            }
+                            console.log("search results overscroll");
+                        } catch(ex) {
+                            console.log(ex.toString());
+                        }
                         if($(".search-result:visible,.search-result:animated").length==0) {
                             $.mobile.changePage("#search-start");
                         }
-                    }, 1000);
+                    });
                 });
             });
 
@@ -660,9 +673,36 @@ app = $.extend(true, {}, app, {
                 $.mobile.changePage("#search-results", {keepLoading: true});
             },
             success: function(data) {
-                app.searchResults = $("adoptableSearch", data);
-                if(app.searchResults) {
-                    $.when(app.promise.search).done(app.loadSearchResults);
+                /*app.searchResults     = [];
+                var defferResultsLoad = $.Deferred();
+                var $searchResults    = $("adoptableSearch", data);
+                var numResults        = $searchResults.length;
+                $.when(app.promise.search, defferResultsLoad).done(function() {
+                    console.log("search results load promise");
+                    console.log(app.searchResults, defferResultsLoad.state(), $searchResults, numResults);
+                    if(app.searchResults!=null) {
+                        app.loadSearchResults();
+                    } else {
+                        $.mobile.changePage("#search-start");
+                    }
+                });
+                console.log("about to iterate over the searchResults");
+                $searchResults.each(function(dex) {
+                    app.searchResults.push(this);
+                    console.log(app.searchResults);
+                    if(dex==(numResults-1)) {
+                        defferResultsLoad.resolve();
+                    }
+                });
+                console.log("after iteration", app.searchResults);*/
+                // console.log(data);
+                app.searchResults = $.makeArray($("adoptableSearch", data));
+                if(app.searchResults!=null && app.searchResults.length>0) {
+                    try {
+                        app.loadSearchResults();
+                    } catch(ex) {
+                        console.log("app.loadSearchResults Error: " + ex.toString());
+                    }
                 } else {
                     $.mobile.changePage("#search-start");
                 }
@@ -720,7 +760,7 @@ app = $.extend(true, {}, app, {
             }
             $("#search-results-wrap").addClass("loadingResults");
 
-            var resultSet = $(app.searchResults).clone(),
+            var resultSet = app.searchResults, //).clone(),
                 resultSet = resultSet.splice(app.searchOffset,app.searchPerPage),
                 $animal, animal, result, species;
             if(!resultSet) return false;
@@ -1200,11 +1240,6 @@ app = $.extend(true, {}, app, {
         // console.log("fillPetDetails:16");
 
         $("#detailed-result .detailed-result-wrap").fadeIn("fast", function() {
-
-            // console.log("fillPetDetails:18");
-            /*if($(".detailed-result-img").length>1) {
-                $(".detailed-result-img-wrap").overscroll({direction: 'horizontal'}).fadeOut(0).css("visibility","visible").fadeIn("fast");
-            }*/
 
             $.mobile.loading('hide');
 
