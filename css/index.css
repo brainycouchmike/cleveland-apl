@@ -135,6 +135,7 @@ body {
     font-variant: small-caps;
 }
 
+.global-header > a[data-role="button"][data-icon="arrow-l"],
 .global-header > a[data-rel='back'] {
     top: 35% !important;
     margin-left: 5% !important;

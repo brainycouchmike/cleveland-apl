@@ -189,10 +189,20 @@ app = $.extend(true, {}, app, {
             drop: app.selectSearchCategory
         });
         $.mobile.loading("hide");
+        setTimeout(function() {
+            if($.mobile.activePage.attr("id")=="search-start") {
+                $.mobile.loading("hide");
+            }
+        }, 500);
     },
     // Clear search results
     clearSearchResults: function() {
         $(".search-results-wrap").empty();
+        try {
+            $("#search-results .global-content").removeOverscroll();
+        } catch(ex) {
+            console.log(ex.toString());
+        }
         app.searchResults = null;
         app.searchOffset  = 0;
         app.searchPerPage = 10;
@@ -220,6 +230,13 @@ app = $.extend(true, {}, app, {
             js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=396642740442879";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+        $.getScript("js/jquery.overscroll.min.js", function(data, textStatus, jqxhr) {
+            /*console.log(data); //data returned
+            console.log(textStatus); //success
+            console.log(jqxhr.status); //200*/
+            console.log('Overscroll load was performed.');
+        });
 
     },
     facebookInited: false,
@@ -303,12 +320,31 @@ app = $.extend(true, {}, app, {
                                  });
             $("#search-results").on("pageshow", function() {
                 $.when(app.promise.search).done(function() {
+                    $("#search-results .global-content").overscroll({direction: 'vertical'});
                     setTimeout(function() {
                         if($(".search-result:visible,.search-result:animated").length==0) {
                             $.mobile.changePage("#search-start");
                         }
                     }, 1000);
                 });
+            });
+
+            $(document).bind('keydown', function(event) {
+                if((event.keyCode == 27) && ($.mobile.activePage.attr('id')=="search-start")) {
+                    event.preventDefault();
+                    var app_ns = (navigator.app) ? navigator.app : navigator.device;
+                    if(navigator.app){
+                        navigator.app.exitApp();
+                    }else if(navigator.device){
+                        navigator.device.exitApp();
+                    }
+                    navigator.notification.confirm("Are you sure you want to exit?", function(btnDex) {
+                        console.log("btnDex: "+ btnDex);
+                        if(btnDex==2) {
+                            app_ns.exitApp();
+                        }
+                    }, "Exit App?", "No, Yes")
+                }
             });
 
             $("#favorites-list").on("pagebeforeshow", app.favoritesList);
@@ -676,7 +712,7 @@ app = $.extend(true, {}, app, {
             }
         }
 
-        if(numResults-app.searchOffset>0) {
+        if(!!numResults && ((numResults-app.searchOffset)>0)) {
 
             if($("#search-results-wrap").hasClass("loadingResults")) {
                 $.when.apply($, app.promise.searchLoad).done(app.loadSearchResults);
@@ -741,7 +777,7 @@ app = $.extend(true, {}, app, {
 
                 if(app.searchOffset < numResults) {
                     // console.log("bind smartscroll");
-                    $("#search-results .global-content").bind("scroll", debounce(function() {
+                    $("#search-results .global-content").bind("scrollstop", /*debounce(*/function() {
                         var scrollTarget = $(".search-results-wrap").height()
                                          - ($("#search-results .global-content").scrollTop());
                         var targetHeight = $("#search-results .global-content").height() + 50 // add 50 for padding;
@@ -757,13 +793,13 @@ app = $.extend(true, {}, app, {
 
                         if(scrollTarget < targetHeight) {
                             $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
-                            $(this).unbind("scroll");
+                            $("#search-results .global-content").unbind("scrollstop");
                             $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
                             $("#search-results .global-content").animate({
                                 scrollTop: $(".search-results-wrap").height()
                             }, "fast", app.loadSearchResults);
                         }
-                    }, 100));
+                    }/*, 100)*/);
                 } else {
                     $("#search-results .search-results-wrap").append(
                         $("<div/>").addClass("search-results-load-more").html("No More Results")
@@ -1185,8 +1221,12 @@ app = $.extend(true, {}, app, {
                     "overflow-y": "scroll"
                 });
             }
-
-            x2if("bottomHeight==0", 500, setBottomHeight);
+            setBottomHeight();
+            setTimeout(function() {
+                if(bottomHeight==0) {
+                    setBottomHeight();
+                }
+            }, 500);
 
             // console.log("fillPetDetails:20");
         });

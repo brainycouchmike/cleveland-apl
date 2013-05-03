@@ -165,7 +165,7 @@ function xn(times, delay, func) {
 }
 
 function x2if(condition, delay, func) {
-    var args = $.makeArray(arguments).slice(2) || [];
+    var args = $.makeArray(arguments).slice(3) || [];
     var that = this.caller;
     func.apply(that, args);
     if(eval(condition)) {
