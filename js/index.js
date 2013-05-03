@@ -202,13 +202,13 @@ app = $.extend(true, {}, app, {
     // Clear search results
     clearSearchResults: function() {
         $(".search-results-wrap").empty();
-        try {
+        /*try {
             if(typeof($.fn.removeOverscroll)!="undefined") {
                 $("#search-results .global-content").removeOverscroll();
             }
         } catch(ex) {
             console.log(ex.toString());
-        }
+        }*/
         app.searchResults = null;
         app.searchOffset  = 0;
         app.searchPerPage = 10;
@@ -237,12 +237,12 @@ app = $.extend(true, {}, app, {
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        $.getScript("js/jquery.overscroll.min.js", function(data, textStatus, jqxhr) {
-            /*console.log(data); //data returned
+        /*$.getScript("js/jquery.overscroll.min.js", function(data, textStatus, jqxhr) {
+            *//*console.log(data); //data returned
             console.log(textStatus); //success
-            console.log(jqxhr.status); //200*/
+            console.log(jqxhr.status); //200*//*
             console.log('Overscroll load was performed.');
-        });
+        });*/
 
     },
     facebookInited: false,
@@ -327,14 +327,14 @@ app = $.extend(true, {}, app, {
             $("#search-results").on("pageshow", function() {
                 $.when(app.promise.search).done(function() {
                     $.when.apply($, app.promise.searchLoad).done(function() {
-                        try {
+                        /*try {
                             if(typeof($.fn.overscroll)!="undefined") {
                                 $("#search-results .global-content").overscroll({direction: 'vertical', showThumbs: false});
                             }
                             console.log("search results overscroll");
                         } catch(ex) {
                             console.log(ex.toString());
-                        }
+                        }*/
                         if($(".search-result:visible,.search-result:animated").length==0) {
                             $.mobile.changePage("#search-start");
                         }

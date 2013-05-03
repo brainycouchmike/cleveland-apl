@@ -11,7 +11,6 @@
         <script type="text/javascript" src="cordova-2.5.0.js"></script>
         <script type="text/javascript" src="js/jquery-2.0.0.js"></script>
         <script type="text/javascript" src="js/jquery-migrate-1.1.1.min.js"></script>
-
         <script type="text/javascript" src="js/jquery.animate-enhanced.min.js"></script>
         <script type="text/javascript">
             var app = app || {};
@@ -338,7 +337,7 @@
         </div>
         <script type="text/javascript">
             try {
-                if(window!=window.top) {
+                /*if(window!=window.top) {
                     window.top.app = app;
                     window.top.iframe = window.window;
                     window.top.updateApp = function() {
@@ -354,12 +353,12 @@
                         })(jQuery);
                     };
                     window.top.updateApp();
-                }
-                console.log(window!=window.top?'App in iFrame':'App in parent frame');
+                }*/
+                /*console.log(window!=window.top?'App in iFrame':'App in parent frame');*/
                 app.initialize();
-                if(window!=window.top){
+                /*if(window!=window.top){
                     app.setReady();
-                }
+                }*/
             } catch(ex) {
                 console.log(ex.toString());
             }
