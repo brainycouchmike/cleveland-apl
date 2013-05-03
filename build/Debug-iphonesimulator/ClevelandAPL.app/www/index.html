@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=initial, target-densitydpi=device-dpi" />
+        <title>Cleveland APL</title>
+        <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <script type="text/javascript" src="cordova-2.5.0.js"></script>
+        <script type="text/javascript" src="js/jquery-2.0.0.js"></script>
+        <script type="text/javascript" src="js/jquery-migrate-1.1.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.animate-enhanced.min.js"></script>
+        <script type="text/javascript">
+            var app = app || {};
+            app.deviceReadyDeferred = $.Deferred();
+            app.jqmReadyDeferred    = $.Deferred();
+            $(document).on("mobileinit", function() {
+                // Set flag for app to know jQuery Mobile is ready
+                app.jqmReadyDeferred.resolve();
+                /**
+                 * Avoid transforms to fix weirdness on the search page
+                 */
+                jQuery.fn.animate.defaults.avoidTransforms = true;
+                jQuery.fn.animate.defaults.useTranslate3d  = true;
+                /**
+                 * Force support of X-Domain requests
+                 */
+                $.support.cors = true;
+                $.mobile.allowCrossDomainPages = true;
+
+                /**
+                 * Set loader defaults
+                 */
+                $.mobile.loader.prototype.options.text = "loading";
+                $.mobile.loader.prototype.options.textVisible = true;
+                $.mobile.loader.prototype.options.theme = "c";
+                $.mobile.loader.prototype.options.html = "";
+            });
+        </script>
+        <script type="text/javascript" src="js/jquery.mobile-1.3.0.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.2.js"></script>
+        <script type="text/javascript" src="js/jquery.ui.touch-punch.js"></script>
+        <script type="text/javascript" src="js/modernizr.js"></script>
+        <script type="text/javascript" src="js/date.format.js"></script>
+        <script type="text/javascript" src="js/jquery.xml2json.js"></script>
+        <script type="text/javascript" src="js/db.js"></script>
+        <script type="text/javascript" src="js/lib.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <!-- Begin comScore Tag -->
+        <script>
+            var _comscore = _comscore || [];
+            _comscore.push({ c1: "2", c2: "6745171" });
+            (function() {
+                var s = document.createElement("script"), el =
+                        document.getElementsByTagName("script")[0]; s.async = true;
+                s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") +
+                        ".scorecardresearch.com/beacon.js";
+                el.parentNode.insertBefore(s, el);
+            })();
+        </script>
+        <!-- End comScore Tag -->
+    </head>
+    <!--onload="if(!app.inited){app.bindDeviceReady();console.log('fallback:bindDeviceReady');}"-->
+    <body>
+    <!-- Begin comScore Tag -->
+    <noscript>
+            <img src="http://b.scorecardresearch.com/p?c1=2&c2=6745171&cv=2.0&cj=1" />
+        </noscript>
+        <!-- End comScore Tag -->
+        <div id="fb-root"></div>
+        <div id="search-start" data-role="page">
+            <header class="global-header" data-role="header">
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <div id="content-dnd-logo"></div>
+                <div id="content-go-btn"><img src="img/btn_go.png" /></div>
+                <div id="content-categories">
+                    <div id="categories-cats" class="content-category top" data-species-id="2">
+                        <div id="cats-title" class="category-title">
+                            <div id="cats-title-text" class="category-title-text">Cats &amp; Kittens</div>
+                        </div>
+                        <div id="cats" class="category">
+                            <div id="cats-heart" class="category-heart"></div>
+                            <div id="cats-logo" class="category-logo"></div>
+                        </div>
+                    </div>
+                    <div id="categories-dogs" class="content-category top" data-species-id="1">
+                        <div id="dogs-title" class="category-title">
+                            <div id="dogs-title-text" class="category-title-text">Dogs &amp; Puppies</div>
+                        </div>
+                        <div id="dogs" class="category">
+                            <div id="dogs-heart" class="category-heart"></div>
+                            <div id="dogs-logo" class="category-logo"></div>
+                        </div>
+                    </div>
+                    <div id="categories-small" class="content-category bottom" data-species-id="5">
+                        <div id="small-title" class="category-title">
+                            <div id="small-title-text" class="category-title-text">Small Animals</div>
+                        </div>
+                        <div id="small" class="category">
+                            <div id="small-heart" class="category-heart"></div>
+                            <div id="small-logo" class="category-logo"></div>
+                        </div>
+                    </div>
+                    <div id="categories-all" class="content-category bottom" data-species-id="0">
+                        <div id="all-title" class="category-title">
+                            <div id="all-title-text" class="category-title-text">All Animals</div>
+                        </div>
+                        <div id="all" class="category">
+                            <div id="all-heart" class="category-heart"></div>
+                            <div id="all-logo" class="category-logo"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon selected" href="#"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
+                    <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
+                </div>
+            </footer>
+            <form id="hidden_search_form" action="http://www.petango.com/webservices/wsadoption.asmx/AdoptableSearch" method="POST"></form>
+        </div>
+        <div id="search-results" data-role="page">
+            <header class="global-header" data-role="header">
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <div class="search-results-template" data-animal-id="__id__">
+                    <div class="search-results-img-wrap">
+                        <img src="__photo__" class="search-results-img" />
+                        <div class="search-results-img-fade"></div>
+                    </div>
+                    <div class="search-results-name">__name__</div>
+                    <div class="search-results-species search-results-detail">
+                        <div class="search-results-label">Category:</div>
+                        <div>__species__</div>
+                    </div>
+                    <div class="search-results-breed search-results-detail">
+                        <div class="search-results-label">Breed:</div>
+                        <div>__breed__</div>
+                    </div>
+                    <div class="search-results-gender search-results-detail">
+                        <div class="search-results-label">Gender:</div>
+                        <div>__gender__</div>
+                    </div>
+                    <div class="search-results-age search-results-detail">
+                        <div class="search-results-label">Age:</div>
+                        <div>__age__</div>
+                    </div>
+                    <div class="search-results-more">view<br>more</div>
+                </div>
+                <div class="search-results-wrap">
+                    <!--
+                    /**
+                     * Search Results Will Be Loaded Here.
+                     */
+                    -->
+                </div>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon selected" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
+                    <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
+                </div>
+            </footer>
+        </div>
+        <div id="detailed-result" data-role="page">
+            <header class="global-header" data-role="header">
+                <a class="detailed-result-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
+                <div class="header-logo"></div>
+                <a class="detailed-result-favorite" href="#" data-role="button" data-icon="star" data-iconpos="right" data-theme="c">favorite</a>
+                <!--<a href="#" data-rel="back" class="header-back-to-search" data-role="none">
+                    <div>«</div>
+                    <span>Back&nbsp;To<br>Search</span>
+                </a>-->
+
+            </header>
+            <div class="global-content" data-role="content">
+                <div class="detailed-result-wrap">
+                    <div class="detailed-result-top">
+                        <div class="detailed-result-img-wrap">
+                            <!-- // Image dynamically loaded here -->
+                        </div>
+                        <div class="detailed-result-img-dots"></div>
+                        <div class="detailed-result-top-info">
+                            <div class="detailed-result-name"></div>
+                            <div class="detailed-result-breed"></div>
+                            <div class="detailed-result-availability"></div>
+                        </div>
+                        <div class="fb-like" data-href="http://www.clevelandapl.org/" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-font="arial"></div>
+                    </div>
+                    <div class="detailed-result-bottom">
+                        <div class="detailed-result-bottom-info">
+                            <a href="http://www.petango.com/" data-role="none" rel="external" data-rel="external" class="detailed-result-petango" onclick="window.open(this.href,'_system'); return false;">
+                                <img src="img/powered-by-petango.gif" class="petango_logo">
+                            </a>
+                            <a class="detailed-result-donate" href="#donate" data-role="button" data-mini="true" data-theme="b">Donate</a>
+                            <div class="detailed-result-gender detailed-result-info"></div>
+                            <div class="detailed-result-color detailed-result-info"></div>
+                            <div class="detailed-result-weight detailed-result-info"></div>
+                            <div class="detailed-result-age detailed-result-info"></div>
+                            <div class="detailed-result-petid detailed-result-info"></div>
+                            <div class="detailed-result-intake-date detailed-result-info"></div>
+                            <div class="detailed-result-misc-details"></div>
+                            <div class="detailed-result-desc detailed-result-info"></div>
+                        </div>
+                        <div class="detailed-result-calls-to-action">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon selected" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
+                    <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
+                </div>
+            </footer>
+        </div>
+        <div id="favorites-list" data-role="page">
+            <header class="global-header" data-role="header" data-add-back-btn="true">
+                <a class="favorites-list-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <div class="favorites-item-template" data-animal-id="__id__">
+                    <div class="favorites-item-img-wrap">
+                        <img src="__photo__" class="favorites-item-img" />
+                        <div class="favorites-item-img-fade"></div>
+                    </div>
+                    <div class="favorites-item-name">__name__</div>
+                    <div class="favorites-item-species favorites-item-detail">
+                        <div class="favorites-item-label">Category:</div>
+                        <div>__species__</div>
+                    </div>
+                    <div class="favorites-item-breed favorites-item-detail">
+                        <div class="favorites-item-label">Breed:</div>
+                        <div>__breed__</div>
+                    </div>
+                    <div class="favorites-item-gender favorites-item-detail">
+                        <div class="favorites-item-label">Gender:</div>
+                        <div>__gender__</div>
+                    </div>
+                    <div class="favorites-item-age favorites-item-detail">
+                        <div class="favorites-item-label">Age:</div>
+                        <div>__age__</div>
+                    </div>
+                    <div class="favorites-item-more">view<br>more</div>
+                </div>
+                <div class="favorites-list-wrap">
+                    
+                </div>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
+                    <a class="footer-icons-favorites footer-icon selected" href="#"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
+                </div>
+            </footer>
+        </div>
+        <div id="donate" data-role="page">
+            <header class="global-header" data-role="header" data-add-back-btn="true">
+                <a class="donate-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <h1>Donate some money, b!</h1>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon selected" href="#"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
+                    <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
+                </div>
+            </footer>
+        </div>
+        <div id="info" data-role="page">
+            <header class="global-header" data-role="header" data-add-back-btn="true">
+                <a class="info-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <h1>Some info, yo.</h1>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon selected" href="#"></a>
+                    <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
+                    <a class="footer-icons-more      footer-icon" href="#more"></a>
+                </div>
+            </footer>
+        </div>
+        <div id="more" data-role="page">
+            <header class="global-header" data-role="header" data-add-back-btn="true">
+                <a class="more-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
+                <div class="header-logo"></div>
+            </header>
+            <div class="global-content" data-role="content">
+                <h1>more menu, what about it?</h1>
+            </div>
+            <footer class="global-footer" data-role="footer">
+                <div class="footer-icons">
+                    <a class="footer-icons-search    footer-icon" href="#search-start"></a>
+                    <a class="footer-icons-donate    footer-icon" href="#donate"></a>
+                    <a class="footer-icons-info      footer-icon" href="#info"></a>
+                    <a class="footer-icons-favorites footer-icon" href="#favorites-list"></a>
+                    <a class="footer-icons-more      footer-icon selected" href="#"></a>
+                </div>
+            </footer>
+        </div>
+        <script type="text/javascript">
+            try {
+                /*if(window!=window.top) {
+                    window.top.app = app;
+                    window.top.updateApp = function() {
+                        (function($){
+                            window.top.$ = function(sel, cont) {
+                                var context = $(window.top.document).find("iframe").contents();
+                                if(cont) {
+                                    context = context.find(cont);
+                                }
+                                return $(sel, context || window.top.document);
+                            }
+                            window.top.$.mobile = $.mobile;
+                        })(jQuery);
+                    };
+                    window.top.updateApp();
+                }
+                console.log(window!=window.top?'App in iFrame':'App in parent frame');*/
+                app.initialize();
+                /*if(window!=window.top){
+                    app.setReady();
+                }*/
+            } catch(ex) {
+                console.log(ex);
+            }
+        </script>
+    </body>
+</html>

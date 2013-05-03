@@ -1,0 +1,989 @@
+TClevelandAPL
+v5
+r0
+t389118585.353079
+cCheck dependencies
+cProcessInfoPlistFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Info.plist ClevelandAPL/ClevelandAPL-Info.plist
+cPhaseScriptExecution "Copy www directory" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Script-304B58A110DAC018002A0835.sh
+cCpResource ClevelandAPL/Resources/icons/icon-72.png build/ClevelandAPL.app/icon-72.png
+cCpResource ClevelandAPL/config.xml build/ClevelandAPL.app/config.xml
+cCpResource ClevelandAPL/Resources/icons/icon.png build/ClevelandAPL.app/icon.png
+cCpResource ClevelandAPL/Resources/icons/icon@2x.png build/ClevelandAPL.app/icon@2x.png
+cCpResource ClevelandAPL/Resources/Capture.bundle build/ClevelandAPL.app/Capture.bundle
+cCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/en.lproj/Localizable.strings ClevelandAPL/Resources/en.lproj/Localizable.strings
+cCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/es.lproj/Localizable.strings ClevelandAPL/Resources/es.lproj/Localizable.strings
+cCompileXIB /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.xib
+cCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/de.lproj/Localizable.strings ClevelandAPL/Resources/de.lproj/Localizable.strings
+cCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/se.lproj/Localizable.strings ClevelandAPL/Resources/se.lproj/Localizable.strings
+cCpResource ClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png build/ClevelandAPL.app/Default-Landscape@2x~ipad.png
+cCpResource ClevelandAPL/Resources/splash/Default-Landscape~ipad.png build/ClevelandAPL.app/Default-Landscape~ipad.png
+cCpResource ClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png build/ClevelandAPL.app/Default-Portrait@2x~ipad.png
+cCpResource ClevelandAPL/Resources/splash/Default-Portrait~ipad.png build/ClevelandAPL.app/Default-Portrait~ipad.png
+cCpResource ClevelandAPL/Resources/splash/Default@2x~iphone.png build/ClevelandAPL.app/Default@2x~iphone.png
+cCpResource ClevelandAPL/Resources/splash/Default~iphone.png build/ClevelandAPL.app/Default~iphone.png
+cCpResource ClevelandAPL/Resources/splash/Default-568h@2x~iphone.png build/ClevelandAPL.app/Default-568h@2x~iphone.png
+cProcessPCH /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch.pth ClevelandAPL/ClevelandAPL-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/main.o /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/AppDelegate.o /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/MainViewController.o /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL normal i386
+cGenerateDSYMFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app.dSYM /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL
+cTouch /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk
+c0000000050EDEAFB0000000000000110
+t1357769467
+s272
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation
+c00000000518131F400000000001EB540
+t1367421428
+s2012480
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/AddressBook.framework/AddressBook
+c00000000518131F200000000000C1030
+t1367421426
+s790576
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/AddressBookUI.framework/AddressBookUI
+c00000000518131F40000000000193640
+t1367421428
+s1652288
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/AssetsLibrary.framework/AssetsLibrary
+c00000000518131F400000000000226E0
+t1367421428
+s141024
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
+c00000000518131F500000000003D4DF0
+t1367421429
+s4017648
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/CFNetwork.framework/CFNetwork
+c00000000518131F50000000000215DB0
+t1367421429
+s2186672
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c00000000518131F50000000000228FE0
+t1367421429
+s2265056
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation
+c00000000518131F5000000000009C590
+t1367421429
+s640400
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/CoreMedia.framework/CoreMedia
+c00000000518131F60000000000085620
+t1367421430
+s546336
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c00000000518131FA00000000003DDFA0
+t1367421434
+s4054944
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer
+c00000000518131FF00000000002DBA50
+t1367421439
+s2996816
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
+c000000005181320100000000000BCC20
+t1367421441
+s773152
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
+c000000005181320300000000001D5750
+t1367421443
+s1922896
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration
+c0000000051813205000000000006CC50
+t1367421445
+s445520
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c00000000518132080000000000AB6230
+t1367421448
+s11231792
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk
+c000000004D5C9B4E0000000000000110
+t1297914702
+s272
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AVFoundation.framework/AVFoundation
+c000000004D5EBEC300000000001340C0
+t1298054851
+s1261760
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AddressBook.framework/AddressBook
+c000000004D54D3440000000000078770
+t1297404740
+s493424
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AddressBookUI.framework/AddressBookUI
+c000000004D5C9BB80000000000168430
+t1297914808
+s1475632
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AssetsLibrary.framework/AssetsLibrary
+c000000004D5EC07B0000000000010740
+t1298055291
+s67392
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/AudioToolbox.framework/AudioToolbox
+c000000004D54CF5D0000000000205F50
+t1297403741
+s2121552
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/CFNetwork.framework/CFNetwork
+c000000004D54CF7C00000000001C41F0
+t1297403772
+s1851888
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c000000004D54CFFA00000000002999B0
+t1297403898
+s2726320
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation
+c000000004D54DEBC00000000000778F0
+t1297407676
+s489712
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/CoreMedia.framework/CoreMedia
+c000000004D5C9AE3000000000006A720
+t1297914595
+s436000
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004D54CFE5000000000029DA70
+t1297403877
+s2742896
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
+c000000004D54CFB80000000000001466
+t1297403832
+s5222
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/MediaPlayer.framework/MediaPlayer
+c000000004D5EBF5300000000001C31B0
+t1298054995
+s1847728
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/MobileCoreServices.framework/MobileCoreServices
+c000000004D54D0BC000000000005C090
+t1297404092
+s376976
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/QuartzCore.framework/QuartzCore
+c000000004D54D4200000000000162C50
+t1297404960
+s1453136
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/SystemConfiguration.framework/SystemConfiguration
+c000000004D54CF0700000000000689C0
+t1297403655
+s428480
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
+c000000004D5615B40000000000000AA1
+t1297487284
+s2721
+
+N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c000000004D5616030000000000766870
+t1297487363
+s7759984
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.h
+c000000005181418600000000000005BD
+t1367425414
+s1469
+i<UIKit/UIKit.h>
+i<Cordova/CDVViewController.h>
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m
+c00000000518141860000000000001230
+t1367425414
+s4656
+i"AppDelegate.h"
+i"MainViewController.h"
+i<Cordova/CDVPlugin.h>
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.h
+c000000005181418600000000000004D2
+t1367425414
+s1234
+i<Cordova/CDVViewController.h>
+i<Cordova/CDVCommandDelegateImpl.h>
+i<Cordova/CDVCommandQueue.h>
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.m
+c0000000051814186000000000000126D
+t1367425414
+s4717
+i"MainViewController.h"
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.xib
+c00000000518141860000000000001759
+t1367425414
+s5977
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/ClevelandAPL-Prefix.pch
+c000000005181418600000000000003C9
+t1367425414
+s969
+i<Foundation/Foundation.h>
+i<UIKit/UIKit.h>
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/Capture.bundle
+c0000000051814186000000000000030E
+t1367425414
+s782
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/de.lproj/Localizable.strings
+c00000000518141860000000000000485
+t1367425414
+s1157
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/en.lproj/Localizable.strings
+c00000000518141860000000000000470
+t1367425414
+s1136
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/es.lproj/Localizable.strings
+c0000000051814186000000000000047D
+t1367425414
+s1149
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon-72.png
+c00000000518141860000000000001350
+t1367425414
+s4944
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon.png
+c00000000518141860000000000000F3E
+t1367425414
+s3902
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon@2x.png
+c00000000518141860000000000001EBD
+t1367425414
+s7869
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/se.lproj/Localizable.strings
+c00000000518141860000000000000471
+t1367425414
+s1137
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-568h@2x~iphone.png
+c000000005181418600000000000074F8
+t1367425414
+s29944
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png
+c00000000518141860000000000012735
+t1367425414
+s75573
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Landscape~ipad.png
+c0000000051814186000000000000817B
+t1367425414
+s33147
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png
+c00000000518141860000000000012171
+t1367425414
+s74097
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Portrait~ipad.png
+c00000000518141860000000000007F9A
+t1367425414
+s32666
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default@2x~iphone.png
+c00000000518141860000000000007323
+t1367425414
+s29475
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default~iphone.png
+c0000000051814186000000000000289A
+t1367425414
+s10394
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/config.xml
+c00000000518141860000000000000B13
+t1367425414
+s2835
+
+N/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/main.m
+c0000000051814186000000000000045E
+t1367425414
+s1118
+i<UIKit/UIKit.h>
+
+N/Users/mike/Projects/ClevelandAPL/ios/CordovaLib/build/Debug-iphonesimulator/libCordova.a
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app.dSYM
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Capture.bundle
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-568h@2x~iphone.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-Landscape@2x~ipad.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-Landscape~ipad.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-Portrait@2x~ipad.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-Portrait~ipad.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default@2x~iphone.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default~iphone.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Info.plist
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/MainViewController.nib
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/PkgInfo
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/config.xml
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/de.lproj/Localizable.strings
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/en.lproj/Localizable.strings
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/es.lproj/Localizable.strings
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/icon-72.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/icon.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/icon@2x.png
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/se.lproj/Localizable.strings
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/AppDelegate.o
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/ClevelandAPL.LinkFileList
+c00000000518143F9000000000000019E
+t1367426041
+s414
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/MainViewController.o
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/main.o
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Script-304B58A110DAC018002A0835.sh
+c00000000518143F9000000000000042B
+t1367426041
+s1067
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app
+t1367425784
+s714
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app.dSYM
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Capture.bundle
+t1367425478
+s782
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/ClevelandAPL
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Default-568h@2x~iphone.png
+t1367425479
+s29944
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Default-Landscape@2x~ipad.png
+t1367425479
+s75573
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Default-Landscape~ipad.png
+t1367425479
+s33147
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Default-Portrait@2x~ipad.png
+t1367425479
+s74097
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Default-Portrait~ipad.png
+t1367425479
+s32666
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Default@2x~iphone.png
+t1367425479
+s29475
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Default~iphone.png
+t1367425479
+s10394
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Info.plist
+t1367425784
+s1047
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/MainViewController.nib
+t1367425479
+s1231
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/PkgInfo
+t2
+s0
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/config.xml
+t1367425478
+s2835
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/de.lproj/Localizable.strings
+t1367425479
+s256
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/en.lproj/Localizable.strings
+t1367425479
+s142
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/es.lproj/Localizable.strings
+t1367425479
+s308
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/icon-72.png
+t1367425478
+s4944
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/icon.png
+t1367425478
+s3902
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/icon@2x.png
+t1367425478
+s7869
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/se.lproj/Localizable.strings
+t1367425479
+s259
+
+N/Users/mike/Projects/ClevelandAPL/ios/build/libCordova.a
+c00000000518143F90000000000348660
+t1367426041
+s3442272
+
+N/var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch.pth
+t2
+s0
+
+N/var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-crjwfevmghrsshfgxouexhhatlwl/ClevelandAPL-Prefix.pch.pth
+t1367425480
+s3353084
+
+NClevelandAPL/ClevelandAPL-Info.plist
+c000000005181418600000000000009C9
+t1367425414
+s2505
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies3945bf797b31b741^e8f7c5797b31b741^---0#1#0#--18"Check dependencies36"C5B0EBDE-BCDD-426A-8499-8E763DBD0151-
+
+CCompileC build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/AppDelegate.o /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s389118848.712830
+e389118849.137374
+r1
+xCompileC
+xbuild/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/AppDelegate.o
+x/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+o/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m:68:25: warning: 'useSplashScreen' is deprecated: Deprecated in Cordova 2.5. Add/Remove the SplashScreen plugin instead of setting this property. [-Wdeprecated-declarations]
+o    self.viewController.useSplashScreen = YES;
+o                        ^
+o/Users/mike/Projects/ClevelandAPL/ios/build/include/Cordova/CDVViewController.h:47:47: note: 'useSplashScreen' declared here
+o@property (nonatomic, readwrite, assign) BOOL useSplashScreen CDV_DEPRECATED(2.5, "Add/Remove the SplashScreen plugin instead of setting this property.");
+o                                              ^
+o1 warning generated.
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection80"Compile /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m69c6b6807b31b741^9d2a23817b31b741^-668"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m:68:25: warning: 'useSplashScreen' is deprecated: Deprecated in Cordova 2.5. Add/Remove the SplashScreen plugin instead of setting this property. [-Wdeprecated-declarations]    self.viewController.useSplashScreen = YES;                        ^/Users/mike/Projects/ClevelandAPL/ios/build/include/Cordova/CDVViewController.h:47:47: note: 'useSplashScreen' declared here@property (nonatomic, readwrite, assign) BOOL useSplashScreen CDV_DEPRECATED(2.5, "Add/Remove the SplashScreen plugin instead of setting this property.");                                              ^1 warning generated.1(36%IDEClangDiagnosticActivityLogMessage2@128"'useSplashScreen' is deprecated: Deprecated in Cordova 2.5. Add/Remove the SplashScreen plugin instead of setting this property.-389118849#18446744073709551615#0#1(2@31"'useSplashScreen' declared here-389118849#18446744073709551615#0#-0#27"com.apple.dt.IDE.diagnostic23%DVTTextDocumentLocation3@92"file://localhost/Users/mike/Projects/ClevelandAPL/ios/CordovaLib/Classes/CDVViewController.h0000000000000000^46#46#46#46#1832#0#14"Semantic Issue--1#27"com.apple.dt.IDE.diagnostic3@88"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m0000000000000000^67#24#67#24#2269#0#12"Deprecations--0#0#0#-19%DVTDocumentLocation4@88"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m0000000000000000^3552"CompileC build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/AppDelegate.o ClevelandAPL/Classes/AppDelegate.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mike/Projects/ClevelandAPL/ios    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=5.0 -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-generated-files.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-own-target-headers.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-all-target-headers.hmap -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-project-headers.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/include -I/Users/mike/Projects/ClevelandAPL/ios/build/usr/local/lib/include -I/Users/mike/Projects/ClevelandAPL/ios/build/UninstalledProducts/include -I/Users/mike/Projects/ClevelandAPL/ios/build -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources/i386 -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources -F/Users/mike/Projects/ClevelandAPL/ios/build -include /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch -MMD -MT dependencies -MF /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/AppDelegate.d --serialize-diagnostics /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/AppDelegate.dia -c /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/AppDelegate.m -o /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/AppDelegate.o36"055CDEAE-9CEC-4CDF-818D-916F9168F609-
+
+CCompileC build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/MainViewController.o /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s389118848.849150
+e389118849.050178
+r1
+xCompileC
+xbuild/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/MainViewController.o
+x/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection87"Compile /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.m6895d9807b31b741^12dc0c817b31b741^---0#0#0#-19%DVTDocumentLocation2@95"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.m0000000000000000^3594"CompileC build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/MainViewController.o ClevelandAPL/Classes/MainViewController.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mike/Projects/ClevelandAPL/ios    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=5.0 -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-generated-files.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-own-target-headers.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-all-target-headers.hmap -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-project-headers.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/include -I/Users/mike/Projects/ClevelandAPL/ios/build/usr/local/lib/include -I/Users/mike/Projects/ClevelandAPL/ios/build/UninstalledProducts/include -I/Users/mike/Projects/ClevelandAPL/ios/build -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources/i386 -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources -F/Users/mike/Projects/ClevelandAPL/ios/build -include /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch -MMD -MT dependencies -MF /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/MainViewController.d --serialize-diagnostics /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/MainViewController.dia -c /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.m -o /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/MainViewController.o36"8C1369C5-F9CB-4BEC-AD7B-D57FE54F7B69-
+
+CCompileC build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/main.o /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s389118848.712175
+e389118848.847526
+r1
+xCompileC
+xbuild/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/main.o
+x/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection65"Compile /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/main.mb1a6b6807b31b741^dbfbd8807b31b741^---0#0#0#-19%DVTDocumentLocation2@73"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/main.m0000000000000000^3494"CompileC build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/main.o ClevelandAPL/main.m normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mike/Projects/ClevelandAPL/ios    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=5.0 -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-generated-files.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-own-target-headers.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-all-target-headers.hmap -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-project-headers.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/include -I/Users/mike/Projects/ClevelandAPL/ios/build/usr/local/lib/include -I/Users/mike/Projects/ClevelandAPL/ios/build/UninstalledProducts/include -I/Users/mike/Projects/ClevelandAPL/ios/build -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources/i386 -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources -F/Users/mike/Projects/ClevelandAPL/ios/build -include /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch -MMD -MT dependencies -MF /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/main.d --serialize-diagnostics /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/main.dia -c /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/main.m -o /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/main.o36"180A83CD-22AA-4BD0-9640-3257AF512AAE-
+
+CCompileXIB /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.xib
+s389118842.297187
+e389118848.126776
+r1
+xCompileXIB
+x/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.xib
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection91"Compiling /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.xib5d344c7a7b31b741^e59c20807b31b741^---0#0#0#-19%DVTDocumentLocation2@97"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.xib0000000000000000^1016"CompileXIB ClevelandAPL/Classes/MainViewController.xib    cd /Users/mike/Projects/ClevelandAPL/ios    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 5.0    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    setenv XCODE_DEVELOPER_USR_PATH /Applications/Xcode.app/Contents/Developer/usr/bin/..    /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/MainViewController.nib /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Classes/MainViewController.xib --sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk36"3DEB25E5-C392-427C-B879-F96DBFDC5D42-
+
+CCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/de.lproj/Localizable.strings ClevelandAPL/Resources/de.lproj/Localizable.strings
+s389118842.423969
+e389118842.456947
+r1
+xCopyStringsFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/de.lproj/Localizable.strings
+xClevelandAPL/Resources/de.lproj/Localizable.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Copy ClevelandAPL/Resources/de.lproj/Localizable.strings11aa6c7a7b31b741^f913757a7b31b741^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/de.lproj/Localizable.strings0000000000000000^686"CopyStringsFile build/ClevelandAPL.app/de.lproj/Localizable.strings ClevelandAPL/Resources/de.lproj/Localizable.strings    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/de.lproj -- ClevelandAPL/Resources/de.lproj/Localizable.strings36"097EEB96-DA26-4E73-B6C8-76AA110E536B-
+
+CCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/en.lproj/Localizable.strings ClevelandAPL/Resources/en.lproj/Localizable.strings
+s389118842.281826
+e389118842.295740
+r1
+xCopyStringsFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/en.lproj/Localizable.strings
+xClevelandAPL/Resources/en.lproj/Localizable.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Copy ClevelandAPL/Resources/en.lproj/Localizable.strings4451487a7b31b741^1bb84b7a7b31b741^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/en.lproj/Localizable.strings0000000000000000^686"CopyStringsFile build/ClevelandAPL.app/en.lproj/Localizable.strings ClevelandAPL/Resources/en.lproj/Localizable.strings    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/en.lproj -- ClevelandAPL/Resources/en.lproj/Localizable.strings36"C372C540-8A74-4C1A-87CC-4CC4FB15296F-
+
+CCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/es.lproj/Localizable.strings ClevelandAPL/Resources/es.lproj/Localizable.strings
+s389118842.292407
+e389118842.421876
+r1
+xCopyStringsFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/es.lproj/Localizable.strings
+xClevelandAPL/Resources/es.lproj/Localizable.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Copy ClevelandAPL/Resources/es.lproj/Localizable.stringsf5f74a7a7b31b741^a5106c7a7b31b741^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/es.lproj/Localizable.strings0000000000000000^686"CopyStringsFile build/ClevelandAPL.app/es.lproj/Localizable.strings ClevelandAPL/Resources/es.lproj/Localizable.strings    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/es.lproj -- ClevelandAPL/Resources/es.lproj/Localizable.strings36"6E3CD385-09F7-4402-9597-0A8100F06EA2-
+
+CCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/se.lproj/Localizable.strings ClevelandAPL/Resources/se.lproj/Localizable.strings
+s389118842.458638
+e389118842.503883
+r1
+xCopyStringsFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/se.lproj/Localizable.strings
+xClevelandAPL/Resources/se.lproj/Localizable.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Copy ClevelandAPL/Resources/se.lproj/Localizable.stringsbc95757a7b31b741^7902817a7b31b741^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/se.lproj/Localizable.strings0000000000000000^686"CopyStringsFile build/ClevelandAPL.app/se.lproj/Localizable.strings ClevelandAPL/Resources/se.lproj/Localizable.strings    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/se.lproj -- ClevelandAPL/Resources/se.lproj/Localizable.strings36"7BC22BA1-5045-43E2-9AC5-A17F699D883F-
+
+CCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/de.lproj/Localizable.strings ClevelandAPL/Resources/de.lproj/Localizable.strings
+s389118279.166841
+e389118279.225441
+r1
+xCopyStringsFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/de.lproj/Localizable.strings
+xClevelandAPL/Resources/de.lproj/Localizable.strings
+lSLF07#2@56"Copy ClevelandAPL/Resources/de.lproj/Localizable.strings389118279#389118279#0(0"0(0#0#89"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/de.lproj/Localizable.strings4494163600#573"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv ICONV /usr/bin/iconv    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-8 --outputencoding binary ClevelandAPL/Resources/de.lproj/Localizable.strings --outdir /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/de.lproj0#
+
+CCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/en.lproj/Localizable.strings ClevelandAPL/Resources/en.lproj/Localizable.strings
+s389118278.554487
+e389118279.166722
+r1
+xCopyStringsFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/en.lproj/Localizable.strings
+xClevelandAPL/Resources/en.lproj/Localizable.strings
+lSLF07#2@56"Copy ClevelandAPL/Resources/en.lproj/Localizable.strings389118278#389118279#0(0"0(0#0#89"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/en.lproj/Localizable.strings4494163600#573"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv ICONV /usr/bin/iconv    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-8 --outputencoding binary ClevelandAPL/Resources/en.lproj/Localizable.strings --outdir /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/en.lproj0#
+
+CCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/es.lproj/Localizable.strings ClevelandAPL/Resources/es.lproj/Localizable.strings
+s389118278.774875
+e389118279.141257
+r1
+xCopyStringsFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/es.lproj/Localizable.strings
+xClevelandAPL/Resources/es.lproj/Localizable.strings
+lSLF07#2@56"Copy ClevelandAPL/Resources/es.lproj/Localizable.strings389118278#389118279#0(0"0(0#0#89"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/es.lproj/Localizable.strings4494163600#573"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv ICONV /usr/bin/iconv    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-8 --outputencoding binary ClevelandAPL/Resources/es.lproj/Localizable.strings --outdir /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/es.lproj0#
+
+CCopyStringsFile /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/se.lproj/Localizable.strings ClevelandAPL/Resources/se.lproj/Localizable.strings
+s389118279.225561
+e389118279.382358
+r1
+xCopyStringsFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/se.lproj/Localizable.strings
+xClevelandAPL/Resources/se.lproj/Localizable.strings
+lSLF07#2@56"Copy ClevelandAPL/Resources/se.lproj/Localizable.strings389118279#389118279#0(0"0(0#0#89"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/se.lproj/Localizable.strings4494163600#573"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv ICONV /usr/bin/iconv    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-8 --outputencoding binary ClevelandAPL/Resources/se.lproj/Localizable.strings --outdir /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/se.lproj0#
+
+CCpResource ClevelandAPL/Resources/Capture.bundle build/ClevelandAPL.app/Capture.bundle
+s389118842.278872
+e389118842.290870
+r1
+xCpResource
+xClevelandAPL/Resources/Capture.bundle
+xbuild/ClevelandAPL.app/Capture.bundle
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection42"Copy build/ClevelandAPL.app/Capture.bundledf87477a7b31b741^70774a7a7b31b741^---0#0#0#-19%DVTDocumentLocation2@91"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Capture.bundle000000000080d041^687"CpResource ClevelandAPL/Resources/Capture.bundle build/ClevelandAPL.app/Capture.bundle    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/Capture.bundle /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"08F91740-E3C7-46DF-8650-AB2FFCEEBC65-
+
+CCpResource ClevelandAPL/Resources/icons/icon-72.png build/ClevelandAPL.app/icon-72.png
+s389118842.261208
+e389118842.274394
+r1
+xCpResource
+xClevelandAPL/Resources/icons/icon-72.png
+xbuild/ClevelandAPL.app/icon-72.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection39"Copy build/ClevelandAPL.app/icon-72.png6b99447a7b31b741^a54c467a7b31b741^---0#0#0#-19%DVTDocumentLocation2@88"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/icon-72.png000000000080d041^690"CpResource ClevelandAPL/Resources/icons/icon-72.png build/ClevelandAPL.app/icon-72.png    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon-72.png /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"76D97E4B-85FE-4511-88DE-5FF24937CFE7-
+
+CCpResource ClevelandAPL/Resources/icons/icon.png build/ClevelandAPL.app/icon.png
+s389118842.273493
+e389118842.276823
+r1
+xCpResource
+xClevelandAPL/Resources/icons/icon.png
+xbuild/ClevelandAPL.app/icon.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection36"Copy build/ClevelandAPL.app/icon.png2025467a7b31b741^cade467a7b31b741^---0#0#0#-19%DVTDocumentLocation2@85"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/icon.png000000000080d041^681"CpResource ClevelandAPL/Resources/icons/icon.png build/ClevelandAPL.app/icon.png    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon.png /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"1DE9BC42-50F0-4217-A6F9-476D467A7BE4-
+
+CCpResource ClevelandAPL/Resources/icons/icon@2x.png build/ClevelandAPL.app/icon@2x.png
+s389118842.276083
+e389118842.279709
+r1
+xCpResource
+xClevelandAPL/Resources/icons/icon@2x.png
+xbuild/ClevelandAPL.app/icon@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection39"Copy build/ClevelandAPL.app/icon@2x.pngebc7467a7b31b741^849c477a7b31b741^---0#0#0#-19%DVTDocumentLocation2@88"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/icon@2x.png000000000080d041^696"CpResource "ClevelandAPL/Resources/icons/icon@2x.png" "build/ClevelandAPL.app/icon@2x.png"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon@2x.png" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"F63DB25D-B853-4763-A2B4-B5A93C461DF5-
+
+CCpResource ClevelandAPL/Resources/splash/Default-568h@2x~iphone.png build/ClevelandAPL.app/Default-568h@2x~iphone.png
+s389118842.534996
+e389118842.538640
+r1
+xCpResource
+xClevelandAPL/Resources/splash/Default-568h@2x~iphone.png
+xbuild/ClevelandAPL.app/Default-568h@2x~iphone.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection54"Copy build/ClevelandAPL.app/Default-568h@2x~iphone.png2b14897a7b31b741^68e6897a7b31b741^---0#0#0#-19%DVTDocumentLocation2@103"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-568h@2x~iphone.png000000000080d041^743"CpResource "ClevelandAPL/Resources/splash/Default-568h@2x~iphone.png" "build/ClevelandAPL.app/Default-568h@2x~iphone.png"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-568h@2x~iphone.png" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"776AFD33-81AA-4F80-B6E7-932E7BAC9D11-
+
+CCpResource ClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png build/ClevelandAPL.app/Default-Landscape@2x~ipad.png
+s389118842.505301
+e389118842.508848
+r1
+xCpResource
+xClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png
+xbuild/ClevelandAPL.app/Default-Landscape@2x~ipad.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection57"Copy build/ClevelandAPL.app/Default-Landscape@2x~ipad.pngc87b817a7b31b741^1c45827a7b31b741^---0#0#0#-19%DVTDocumentLocation2@106"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-Landscape@2x~ipad.png000000000080d041^752"CpResource "ClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png" "build/ClevelandAPL.app/Default-Landscape@2x~ipad.png"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"61AFBC00-FB63-4742-808C-894ED0D287D2-
+
+CCpResource ClevelandAPL/Resources/splash/Default-Landscape~ipad.png build/ClevelandAPL.app/Default-Landscape~ipad.png
+s389118842.510279
+e389118842.513622
+r1
+xCpResource
+xClevelandAPL/Resources/splash/Default-Landscape~ipad.png
+xbuild/ClevelandAPL.app/Default-Landscape~ipad.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection54"Copy build/ClevelandAPL.app/Default-Landscape~ipad.png5dc5827a7b31b741^a67d837a7b31b741^---0#0#0#-19%DVTDocumentLocation2@103"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-Landscape~ipad.png000000000080d041^743"CpResource "ClevelandAPL/Resources/splash/Default-Landscape~ipad.png" "build/ClevelandAPL.app/Default-Landscape~ipad.png"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Landscape~ipad.png" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"4530F8B1-DE95-4D58-9276-AFD5AA0B49BF-
+
+CCpResource ClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png build/ClevelandAPL.app/Default-Portrait@2x~ipad.png
+s389118842.515169
+e389118842.518665
+r1
+xCpResource
+xClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png
+xbuild/ClevelandAPL.app/Default-Portrait@2x~ipad.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Copy build/ClevelandAPL.app/Default-Portrait@2x~ipad.png09fe837a7b31b741^69c8847a7b31b741^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-Portrait@2x~ipad.png000000000080d041^749"CpResource "ClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png" "build/ClevelandAPL.app/Default-Portrait@2x~ipad.png"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"905A85FB-2C0B-4F18-A0B3-70AA22B369DE-
+
+CCpResource ClevelandAPL/Resources/splash/Default-Portrait~ipad.png build/ClevelandAPL.app/Default-Portrait~ipad.png
+s389118842.520084
+e389118842.523777
+r1
+xCpResource
+xClevelandAPL/Resources/splash/Default-Portrait~ipad.png
+xbuild/ClevelandAPL.app/Default-Portrait~ipad.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection53"Copy build/ClevelandAPL.app/Default-Portrait~ipad.png3c4e857a7b31b741^8f17867a7b31b741^---0#0#0#-19%DVTDocumentLocation2@102"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default-Portrait~ipad.png000000000080d041^740"CpResource "ClevelandAPL/Resources/splash/Default-Portrait~ipad.png" "build/ClevelandAPL.app/Default-Portrait~ipad.png"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Portrait~ipad.png" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"5DEF1519-BEA7-4083-8B15-06C8C0427701-
+
+CCpResource ClevelandAPL/Resources/splash/Default@2x~iphone.png build/ClevelandAPL.app/Default@2x~iphone.png
+s389118842.525153
+e389118842.528756
+r1
+xCpResource
+xClevelandAPL/Resources/splash/Default@2x~iphone.png
+xbuild/ClevelandAPL.app/Default@2x~iphone.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection49"Copy build/ClevelandAPL.app/Default@2x~iphone.png3f8e867a7b31b741^b75e877a7b31b741^---0#0#0#-19%DVTDocumentLocation2@98"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default@2x~iphone.png000000000080d041^728"CpResource "ClevelandAPL/Resources/splash/Default@2x~iphone.png" "build/ClevelandAPL.app/Default@2x~iphone.png"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default@2x~iphone.png" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"897E625F-D537-4F72-817B-0F81784157E8-
+
+CCpResource ClevelandAPL/Resources/splash/Default~iphone.png build/ClevelandAPL.app/Default~iphone.png
+s389118842.530134
+e389118842.533505
+r1
+xCpResource
+xClevelandAPL/Resources/splash/Default~iphone.png
+xbuild/ClevelandAPL.app/Default~iphone.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection46"Copy build/ClevelandAPL.app/Default~iphone.pngd2df877a7b31b741^16a5887a7b31b741^---0#0#0#-19%DVTDocumentLocation2@95"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Default~iphone.png000000000080d041^719"CpResource "ClevelandAPL/Resources/splash/Default~iphone.png" "build/ClevelandAPL.app/Default~iphone.png"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default~iphone.png" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"C4866250-D400-4991-BA3E-80767F1929D7-
+
+CCpResource ClevelandAPL/config.xml build/ClevelandAPL.app/config.xml
+s389118842.267224
+e389118842.272019
+r1
+xCpResource
+xClevelandAPL/config.xml
+xbuild/ClevelandAPL.app/config.xml
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection38"Copy build/ClevelandAPL.app/config.xml9085447a7b31b741^25b0457a7b31b741^---0#0#0#-19%DVTDocumentLocation2@87"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/config.xml000000000080d041^655"CpResource ClevelandAPL/config.xml build/ClevelandAPL.app/config.xml    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/config.xml /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"3F4D59E0-191F-4CE3-B3B1-70C6350EBEA3-
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/Capture.bundle ClevelandAPL/Resources/Capture.bundle
+s389118278.552262
+e389118278.774754
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/Capture.bundle
+xClevelandAPL/Resources/Capture.bundle
+lSLF07#2@42"Copy ClevelandAPL/Resources/Capture.bundle389118278#389118278#0(0"0(0#0#75"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/Capture.bundle4494163600#559"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/Capture.bundle /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/Default-568h@2x~iphone.png ClevelandAPL/Resources/splash/Default-568h@2x~iphone.png
+s389118279.393679
+e389118279.453068
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/Default-568h@2x~iphone.png
+xClevelandAPL/Resources/splash/Default-568h@2x~iphone.png
+lSLF07#2@61"Copy ClevelandAPL/Resources/splash/Default-568h@2x~iphone.png389118279#389118279#0(0"0(0#0#94"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-568h@2x~iphone.png4494163600#578"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-568h@2x~iphone.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/Default-Landscape@2x~ipad.png ClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png
+s389118279.382464
+e389118279.406591
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/Default-Landscape@2x~ipad.png
+xClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png
+lSLF07#2@64"Copy ClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png389118279#389118279#0(0"0(0#0#97"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png4494163600#581"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Landscape@2x~ipad.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/Default-Landscape~ipad.png ClevelandAPL/Resources/splash/Default-Landscape~ipad.png
+s389118279.383753
+e389118279.420433
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/Default-Landscape~ipad.png
+xClevelandAPL/Resources/splash/Default-Landscape~ipad.png
+lSLF07#2@61"Copy ClevelandAPL/Resources/splash/Default-Landscape~ipad.png389118279#389118279#0(0"0(0#0#94"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Landscape~ipad.png4494163600#578"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Landscape~ipad.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/Default-Portrait@2x~ipad.png ClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png
+s389118279.385579
+e389118279.435277
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/Default-Portrait@2x~ipad.png
+xClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png
+lSLF07#2@63"Copy ClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png389118279#389118279#0(0"0(0#0#96"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png4494163600#580"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Portrait@2x~ipad.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/Default-Portrait~ipad.png ClevelandAPL/Resources/splash/Default-Portrait~ipad.png
+s389118279.387424
+e389118279.417597
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/Default-Portrait~ipad.png
+xClevelandAPL/Resources/splash/Default-Portrait~ipad.png
+lSLF07#2@60"Copy ClevelandAPL/Resources/splash/Default-Portrait~ipad.png389118279#389118279#0(0"0(0#0#93"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Portrait~ipad.png4494163600#577"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default-Portrait~ipad.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/Default@2x~iphone.png ClevelandAPL/Resources/splash/Default@2x~iphone.png
+s389118279.389810
+e389118279.430542
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/Default@2x~iphone.png
+xClevelandAPL/Resources/splash/Default@2x~iphone.png
+lSLF07#2@56"Copy ClevelandAPL/Resources/splash/Default@2x~iphone.png389118279#389118279#0(0"0(0#0#89"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default@2x~iphone.png4494163600#573"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default@2x~iphone.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/Default~iphone.png ClevelandAPL/Resources/splash/Default~iphone.png
+s389118279.391767
+e389118279.452892
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/Default~iphone.png
+xClevelandAPL/Resources/splash/Default~iphone.png
+lSLF07#2@53"Copy ClevelandAPL/Resources/splash/Default~iphone.png389118279#389118279#0(0"0(0#0#86"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default~iphone.png4494163600#570"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/splash/Default~iphone.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/config.xml ClevelandAPL/config.xml
+s389118278.546847
+e389118278.567187
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/config.xml
+xClevelandAPL/config.xml
+lSLF07#2@28"Copy ClevelandAPL/config.xml389118278#389118278#0(0"0(0#0#61"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/config.xml4494163600#545"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/config.xml /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/icon-72.png ClevelandAPL/Resources/icons/icon-72.png
+s389118278.547769
+e389118278.568399
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/icon-72.png
+xClevelandAPL/Resources/icons/icon-72.png
+lSLF07#2@45"Copy ClevelandAPL/Resources/icons/icon-72.png389118278#389118278#0(0"0(0#0#78"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon-72.png4494163600#562"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon-72.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/icon.png ClevelandAPL/Resources/icons/icon.png
+s389118278.548588
+e389118278.666657
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/icon.png
+xClevelandAPL/Resources/icons/icon.png
+lSLF07#2@42"Copy ClevelandAPL/Resources/icons/icon.png389118278#389118278#0(0"0(0#0#75"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon.png4494163600#559"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CCpResource build/Debug-iphonesimulator/ClevelandAPL.app/icon@2x.png ClevelandAPL/Resources/icons/icon@2x.png
+s389118278.550403
+e389118278.664841
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/ClevelandAPL.app/icon@2x.png
+xClevelandAPL/Resources/icons/icon@2x.png
+lSLF07#2@45"Copy ClevelandAPL/Resources/icons/icon@2x.png389118278#389118278#0(0"0(0#0#78"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon@2x.png4494163600#562"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/Resources/icons/icon@2x.png /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app0#
+
+CGenerateDSYMFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app.dSYM /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL
+s389118849.629289
+e389118849.963714
+r1
+xGenerateDSYMFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app.dSYM
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection74"Generate /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app.dSYM6c43a1817b31b741^abb3f6817b31b741^---0#0#0#-19%DVTDocumentLocation2@81"file://localhost/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app.dSYM000000000080d041^675"GenerateDSYMFile build/ClevelandAPL.app.dSYM build/ClevelandAPL.app/ClevelandAPL    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/dsymutil /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL -o /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app.dSYM36"448D9783-5763-4079-BDB1-9FA8D7E7725F-
+
+CGenerateDSYMFile /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app.dSYM /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/ClevelandAPL
+r0
+
+CLd /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL normal i386
+s389118849.144638
+e389118849.621885
+r1
+xLd
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL
+xnormal
+xi386
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection78"Link /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL8c3025817b31b741^b5349f817b31b741^---0#0#0#--1693"Ld build/ClevelandAPL.app/ClevelandAPL normal i386    cd /Users/mike/Projects/ClevelandAPL/ios    setenv IPHONEOS_DEPLOYMENT_TARGET 5.0    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch i386 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -L/Users/mike/Projects/ClevelandAPL/ios/build -F/Users/mike/Projects/ClevelandAPL/ios/build -filelist /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/ClevelandAPL.LinkFileList -Xlinker -objc_abi_version -Xlinker 2 -weak_framework CoreFoundation -weak_framework UIKit -weak_framework AVFoundation -weak_framework CoreMedia -weak-lSystem -all_load -Obj-C -fobjc-link-runtime -Xlinker -no_implicit_dylibs -mios-simulator-version-min=5.0 -framework AssetsLibrary /Users/mike/Projects/ClevelandAPL/ios/build/libCordova.a -framework Foundation -weak_framework UIKit -framework CoreGraphics -framework AddressBook -framework AddressBookUI -framework AudioToolbox -weak_framework AVFoundation -framework CFNetwork -framework CoreLocation -framework MediaPlayer -framework QuartzCore -framework SystemConfiguration -framework MobileCoreServices -weak_framework CoreMedia -o /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/ClevelandAPL36"A34E0CBA-4A75-49B3-8C40-E6455AC9EAD4-
+
+CLd /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/ClevelandAPL normal i386
+r0
+
+CPhaseScriptExecution "Copy www directory" /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Script-304B58A110DAC018002A0835.sh
+s389118841.806012
+e389118842.230905
+r1
+xPhaseScriptExecution
+xCopy www directory
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Script-304B58A110DAC018002A0835.sh
+o
+oreal	0m0.395s
+ouser	0m0.091s
+osys	0m0.227s
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection44"Run custom shell script 'Copy www directory'b685cf797b31b741^17453b7a7b31b741^-42"real	0m0.395suser	0m0.091ssys	0m0.227s3(21%IDEActivityLogMessage2@14"real	0m0.395s-389118842#1#14#-0#-----2@14"user	0m0.091s-389118842#15#14#-0#-----2@13"sys	0m0.227s-389118842#29#13#-0#-----0#0#0#--20513"PhaseScriptExecution "Copy www directory" build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Script-304B58A110DAC018002A0835.sh    cd /Users/mike/Projects/ClevelandAPL/ios    setenv ACTION build    setenv ALTERNATE_GROUP staff    setenv ALTERNATE_MODE u+w,go-w,a+rX    setenv ALTERNATE_OWNER mike    setenv ALWAYS_SEARCH_USER_PATHS NO    setenv APPLE_INTERNAL_DEVELOPER_DIR /AppleInternal/Developer    setenv APPLE_INTERNAL_DIR /AppleInternal    setenv APPLE_INTERNAL_DOCUMENTATION_DIR /AppleInternal/Documentation    setenv APPLE_INTERNAL_LIBRARY_DIR /AppleInternal/Library    setenv APPLE_INTERNAL_TOOLS /AppleInternal/Developer/Tools    setenv APPLY_RULES_IN_COPY_FILES NO    setenv ARCHS i386    setenv ARCHS_STANDARD_32_BIT i386    setenv ARCHS_UNIVERSAL_IPHONE_OS i386    setenv AVAILABLE_PLATFORMS "iphonesimulator macosx iphoneos"    setenv BUILD_COMPONENTS "headers build"    setenv BUILD_DIR /Users/mike/Projects/ClevelandAPL/ios/build    setenv BUILD_ROOT /Users/mike/Projects/ClevelandAPL/ios/build    setenv BUILD_STYLE     setenv BUILD_VARIANTS normal    setenv BUILT_PRODUCTS_DIR /Users/mike/Projects/ClevelandAPL/ios/build    setenv CACHE_ROOT /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501    setenv CCHROOT /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501    setenv CHMOD /bin/chmod    setenv CHOWN /usr/sbin/chown    setenv CLANG_ENABLE_OBJC_ARC NO    setenv CLANG_WARN_CONSTANT_CONVERSION YES    setenv CLANG_WARN_ENUM_CONVERSION YES    setenv CLANG_WARN_INT_CONVERSION YES    setenv CLANG_WARN__DUPLICATE_METHOD_MATCH YES    setenv CLASS_FILE_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/JavaClasses    setenv CLEAN_PRECOMPS YES    setenv CLONE_HEADERS NO    setenv CODESIGNING_FOLDER_PATH /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app    setenv COMMAND_MODE legacy    setenv COMPOSITE_SDK_DIRS /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/CompositeSDKs    setenv COMPRESS_PNG_FILES YES    setenv CONFIGURATION Debug    setenv CONFIGURATION_BUILD_DIR /Users/mike/Projects/ClevelandAPL/ios/build    setenv CONFIGURATION_TEMP_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator    setenv CONTENTS_FOLDER_PATH ClevelandAPL.app    setenv COPYING_PRESERVES_HFS_DATA NO    setenv COPY_PHASE_STRIP NO    setenv COPY_RESOURCES_FROM_STATIC_FRAMEWORKS YES    setenv CP /bin/cp    setenv CURRENT_ARCH i386    setenv CURRENT_VARIANT normal    setenv DEAD_CODE_STRIPPING NO    setenv DEBUGGING_SYMBOLS YES    setenv DEBUG_INFORMATION_FORMAT dwarf-with-dsym    setenv DEFAULT_COMPILER com.apple.compilers.llvm.clang.1_0    setenv DEPLOYMENT_LOCATION NO    setenv DEPLOYMENT_POSTPROCESSING NO    setenv DERIVED_FILES_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources    setenv DERIVED_FILE_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources    setenv DERIVED_SOURCES_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources    setenv DEVELOPER_APPLICATIONS_DIR /Applications/Xcode.app/Contents/Developer/Applications    setenv DEVELOPER_BIN_DIR /Applications/Xcode.app/Contents/Developer/usr/bin    setenv DEVELOPER_DIR /Applications/Xcode.app/Contents/Developer    setenv DEVELOPER_FRAMEWORKS_DIR /Applications/Xcode.app/Contents/Developer/Library/Frameworks    setenv DEVELOPER_FRAMEWORKS_DIR_QUOTED "\"/Applications/Xcode.app/Contents/Developer/Library/Frameworks\""    setenv DEVELOPER_LIBRARY_DIR /Applications/Xcode.app/Contents/Developer/Library    setenv DEVELOPER_SDK_DIR /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs    setenv DEVELOPER_TOOLS_DIR /Applications/Xcode.app/Contents/Developer/Tools    setenv DEVELOPER_USR_DIR /Applications/Xcode.app/Contents/Developer/usr    setenv DEVELOPMENT_LANGUAGE English    setenv DOCUMENTATION_FOLDER_PATH ClevelandAPL.app/English.lproj/Documentation    setenv DO_HEADER_SCANNING_IN_JAM NO    setenv DSTROOT /tmp/ClevelandAPL.dst    setenv DT_TOOLCHAIN_DIR /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain    setenv DWARF_DSYM_FILE_NAME ClevelandAPL.app.dSYM    setenv DWARF_DSYM_FILE_SHOULD_ACCOMPANY_PRODUCT NO    setenv DWARF_DSYM_FOLDER_PATH /Users/mike/Projects/ClevelandAPL/ios/build    setenv EFFECTIVE_PLATFORM_NAME -iphonesimulator    setenv ENABLE_HEADER_DEPENDENCIES YES    setenv EXCLUDED_INSTALLSRC_SUBDIRECTORY_PATTERNS ".DS_Store .svn .git .hg CVS"    setenv EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES "*.nib *.lproj *.framework *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj"    setenv EXECUTABLES_FOLDER_PATH ClevelandAPL.app/Executables    setenv EXECUTABLE_FOLDER_PATH ClevelandAPL.app    setenv EXECUTABLE_NAME ClevelandAPL    setenv EXECUTABLE_PATH ClevelandAPL.app/ClevelandAPL    setenv FILE_LIST /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects/LinkFileList    setenv FIXED_FILES_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/FixedFiles    setenv FRAMEWORKS_FOLDER_PATH ClevelandAPL.app/Frameworks    setenv FRAMEWORK_FLAG_PREFIX -framework    setenv FRAMEWORK_SEARCH_PATHS "\"/Users/mike/Projects/ClevelandAPL/ios/build\" "    setenv FRAMEWORK_VERSION A    setenv FULL_PRODUCT_NAME ClevelandAPL.app    setenv GCC3_VERSION 3.3    setenv GCC_C_LANGUAGE_STANDARD c99    setenv GCC_DYNAMIC_NO_PIC NO    setenv GCC_INLINES_ARE_PRIVATE_EXTERN YES    setenv GCC_OBJC_LEGACY_DISPATCH YES    setenv GCC_OPTIMIZATION_LEVEL 0    setenv GCC_PFE_FILE_C_DIALECTS "c objective-c c++ objective-c++"    setenv GCC_PRECOMPILE_PREFIX_HEADER YES    setenv GCC_PREFIX_HEADER ClevelandAPL/ClevelandAPL-Prefix.pch    setenv GCC_SYMBOLS_PRIVATE_EXTERN YES    setenv GCC_THUMB_SUPPORT NO    setenv GCC_TREAT_WARNINGS_AS_ERRORS NO    setenv GCC_VERSION com.apple.compilers.llvm.clang.1_0    setenv GCC_VERSION_IDENTIFIER com_apple_compilers_llvm_clang_1_0    setenv GCC_WARN_ABOUT_RETURN_TYPE YES    setenv GCC_WARN_UNINITIALIZED_AUTOS YES    setenv GCC_WARN_UNUSED_VARIABLE YES    setenv GENERATE_MASTER_OBJECT_FILE NO    setenv GENERATE_PKGINFO_FILE YES    setenv GENERATE_PROFILING_CODE NO    setenv GID 20    setenv GROUP staff    setenv HEADERMAP_INCLUDES_FLAT_ENTRIES_FOR_TARGET_BEING_BUILT YES    setenv HEADERMAP_INCLUDES_FRAMEWORK_ENTRIES_FOR_ALL_PRODUCT_TYPES YES    setenv HEADERMAP_INCLUDES_NONPUBLIC_NONPRIVATE_HEADERS YES    setenv HEADERMAP_INCLUDES_PROJECT_HEADERS YES    setenv HEADER_SEARCH_PATHS "\"/Users/mike/Projects/ClevelandAPL/ios/build/include\" \"/Users/mike/Projects/ClevelandAPL/ios/build/usr/local/lib/include\" \"/Users/mike/Projects/ClevelandAPL/ios/build/UninstalledProducts/include\" \"/Users/mike/Projects/ClevelandAPL/ios/build\""    setenv ICONV /usr/bin/iconv    setenv INFOPLIST_EXPAND_BUILD_SETTINGS YES    setenv INFOPLIST_FILE ClevelandAPL/ClevelandAPL-Info.plist    setenv INFOPLIST_OUTPUT_FORMAT binary    setenv INFOPLIST_PATH ClevelandAPL.app/Info.plist    setenv INFOPLIST_PREPROCESS NO    setenv INFOSTRINGS_PATH ClevelandAPL.app/English.lproj/InfoPlist.strings    setenv INSTALL_DIR /tmp/ClevelandAPL.dst/Applications    setenv INSTALL_GROUP staff    setenv INSTALL_MODE_FLAG u+w,go-w,a+rX    setenv INSTALL_OWNER mike    setenv INSTALL_PATH /Applications    setenv INSTALL_ROOT /tmp/ClevelandAPL.dst    setenv IPHONEOS_DEPLOYMENT_TARGET 5.0    setenv JAVAC_DEFAULT_FLAGS "-J-Xms64m -J-XX:NewSize=4M -J-Dfile.encoding=UTF8"    setenv JAVA_APP_STUB /System/Library/Frameworks/JavaVM.framework/Resources/MacOS/JavaApplicationStub    setenv JAVA_ARCHIVE_CLASSES YES    setenv JAVA_ARCHIVE_TYPE JAR    setenv JAVA_COMPILER /usr/bin/javac    setenv JAVA_FOLDER_PATH ClevelandAPL.app/Java    setenv JAVA_FRAMEWORK_RESOURCES_DIRS Resources    setenv JAVA_JAR_FLAGS cv    setenv JAVA_SOURCE_SUBDIR .    setenv JAVA_USE_DEPENDENCIES YES    setenv JAVA_ZIP_FLAGS -urg    setenv JIKES_DEFAULT_FLAGS "+E +OLDCSO"    setenv KEEP_PRIVATE_EXTERNS NO    setenv LD_GENERATE_MAP_FILE NO    setenv LD_MAP_FILE_PATH /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-LinkMap-normal-i386.txt    setenv LD_NO_PIE NO    setenv LEGACY_DEVELOPER_DIR /Applications/Xcode.app/Contents/PlugIns/Xcode3Core.ideplugin/Contents/SharedSupport/Developer    setenv LEX lex    setenv LIBRARY_FLAG_NOSPACE YES    setenv LIBRARY_FLAG_PREFIX -l    setenv LIBRARY_SEARCH_PATHS "\"/Users/mike/Projects/ClevelandAPL/ios/build\" "    setenv LINKER_DISPLAYS_MANGLED_NAMES NO    setenv LINK_FILE_LIST_normal_i386 /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal/i386/ClevelandAPL.LinkFileList    setenv LINK_WITH_STANDARD_LIBRARIES YES    setenv LOCALIZED_RESOURCES_FOLDER_PATH ClevelandAPL.app/English.lproj    setenv LOCAL_ADMIN_APPS_DIR /Applications/Utilities    setenv LOCAL_APPS_DIR /Applications    setenv LOCAL_DEVELOPER_DIR /Library/Developer    setenv LOCAL_LIBRARY_DIR /Library    setenv MACH_O_TYPE mh_execute    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv MAC_OS_X_PRODUCT_BUILD_VERSION 11G63    setenv MAC_OS_X_VERSION_ACTUAL 1075    setenv MAC_OS_X_VERSION_MAJOR 1070    setenv MAC_OS_X_VERSION_MINOR 0705    setenv NATIVE_ARCH i386    setenv NATIVE_ARCH_32_BIT i386    setenv NATIVE_ARCH_64_BIT x86_64    setenv NATIVE_ARCH_ACTUAL x86_64    setenv NO_COMMON YES    setenv OBJC_ABI_VERSION 2    setenv OBJECT_FILE_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects    setenv OBJECT_FILE_DIR_normal /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Objects-normal    setenv OBJROOT /Users/mike/Projects/ClevelandAPL/ios/build    setenv ONLY_ACTIVE_ARCH NO    setenv OPTIMIZATION_LEVEL 0    setenv OS MACOS    setenv OSAC /usr/bin/osacompile    setenv OTHER_LDFLAGS "-weak_framework CoreFoundation -weak_framework UIKit -weak_framework AVFoundation -weak_framework CoreMedia -weak-lSystem -all_load -Obj-C"    setenv PACKAGE_TYPE com.apple.package-type.wrapper.application    setenv PASCAL_STRINGS YES    setenv PATH "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/libexec:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/local/bin:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/usr/bin:/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/usr/local/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/local/bin:/Applications/Xcode.app/Contents/Developer/Tools:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:/Users/mike/Development/android-sdk-macosx/platform-tools"    setenv PATH_PREFIXES_EXCLUDED_FROM_HEADER_DEPENDENCIES "/usr/include /usr/local/include /System/Library/Frameworks /System/Library/PrivateFrameworks /Applications/Xcode.app/Contents/Developer/Headers /Applications/Xcode.app/Contents/Developer/SDKs /Applications/Xcode.app/Contents/Developer/Platforms"    setenv PBDEVELOPMENTPLIST_PATH ClevelandAPL.app/pbdevelopment.plist    setenv PFE_FILE_C_DIALECTS objective-c    setenv PKGINFO_FILE_PATH /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/PkgInfo    setenv PKGINFO_PATH ClevelandAPL.app/PkgInfo    setenv PLATFORM_DEVELOPER_APPLICATIONS_DIR /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications    setenv PLATFORM_DEVELOPER_BIN_DIR /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin    setenv PLATFORM_DEVELOPER_LIBRARY_DIR /Applications/Xcode.app/Contents/PlugIns/Xcode3Core.ideplugin/Contents/SharedSupport/Developer/Library    setenv PLATFORM_DEVELOPER_SDK_DIR /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs    setenv PLATFORM_DEVELOPER_TOOLS_DIR /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Tools    setenv PLATFORM_DEVELOPER_USR_DIR /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr    setenv PLATFORM_DIR /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform    setenv PLATFORM_NAME iphonesimulator    setenv PLATFORM_PREFERRED_ARCH i386    setenv PLATFORM_PRODUCT_BUILD_VERSION 10B141    setenv PLATFORM_VERSION_AVAILABILITY_H_FORMAT 60100    setenv PLIST_FILE_OUTPUT_FORMAT binary    setenv PLUGINS_FOLDER_PATH ClevelandAPL.app/PlugIns    setenv PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR YES    setenv PRECOMP_DESTINATION_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/PrefixHeaders    setenv PRESERVE_DEAD_CODE_INITS_AND_TERMS NO    setenv PRIVATE_HEADERS_FOLDER_PATH ClevelandAPL.app/PrivateHeaders    setenv PRODUCT_NAME ClevelandAPL    setenv PRODUCT_SETTINGS_PATH /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/ClevelandAPL-Info.plist    setenv PRODUCT_TYPE com.apple.product-type.application    setenv PROFILING_CODE NO    setenv PROJECT ClevelandAPL    setenv PROJECT_DERIVED_FILE_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/DerivedSources    setenv PROJECT_DIR /Users/mike/Projects/ClevelandAPL/ios    setenv PROJECT_FILE_PATH /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL.xcodeproj    setenv PROJECT_NAME ClevelandAPL    setenv PROJECT_TEMP_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build    setenv PROJECT_TEMP_ROOT /Users/mike/Projects/ClevelandAPL/ios/build    setenv PUBLIC_HEADERS_FOLDER_PATH ClevelandAPL.app/Headers    setenv RECURSIVE_SEARCH_PATHS_FOLLOW_SYMLINKS YES    setenv REMOVE_CVS_FROM_RESOURCES YES    setenv REMOVE_GIT_FROM_RESOURCES YES    setenv REMOVE_HG_FROM_RESOURCES YES    setenv REMOVE_SVN_FROM_RESOURCES YES    setenv REZ_COLLECTOR_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ResourceManagerResources    setenv REZ_OBJECTS_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ResourceManagerResources/Objects    setenv REZ_SEARCH_PATHS "\"/Users/mike/Projects/ClevelandAPL/ios/build\" "    setenv RUN_CLANG_STATIC_ANALYZER NO    setenv SCAN_ALL_SOURCE_FILES_FOR_INCLUDES NO    setenv SCRIPTS_FOLDER_PATH ClevelandAPL.app/Scripts    setenv SCRIPT_INPUT_FILE_COUNT 0    setenv SCRIPT_OUTPUT_FILE_COUNT 0    setenv SDKROOT /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk    setenv SDK_DIR /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk    setenv SDK_NAME iphonesimulator6.1    setenv SDK_PRODUCT_BUILD_VERSION 10B141    setenv SED /usr/bin/sed    setenv SEPARATE_STRIP NO    setenv SEPARATE_SYMBOL_EDIT NO    setenv SET_DIR_MODE_OWNER_GROUP YES    setenv SET_FILE_MODE_OWNER_GROUP NO    setenv SHALLOW_BUNDLE YES    setenv SHARED_DERIVED_FILE_DIR /Users/mike/Projects/ClevelandAPL/ios/build/DerivedSources    setenv SHARED_FRAMEWORKS_FOLDER_PATH ClevelandAPL.app/SharedFrameworks    setenv SHARED_PRECOMPS_DIR /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders    setenv SHARED_SUPPORT_FOLDER_PATH ClevelandAPL.app/SharedSupport    setenv SKIP_INSTALL NO    setenv SOURCE_ROOT /Users/mike/Projects/ClevelandAPL/ios    setenv SRCROOT /Users/mike/Projects/ClevelandAPL/ios    setenv STRINGS_FILE_OUTPUT_ENCODING binary    setenv STRIP_INSTALLED_PRODUCT YES    setenv STRIP_STYLE all    setenv SUPPORTED_DEVICE_FAMILIES "1 2"    setenv SUPPORTED_PLATFORMS "iphonesimulator iphoneos"    setenv SYMROOT /Users/mike/Projects/ClevelandAPL/ios/build    setenv SYSTEM_ADMIN_APPS_DIR /Applications/Utilities    setenv SYSTEM_APPS_DIR /Applications    setenv SYSTEM_CORE_SERVICES_DIR /System/Library/CoreServices    setenv SYSTEM_DEMOS_DIR /Applications/Extras    setenv SYSTEM_DEVELOPER_APPS_DIR /Applications/Xcode.app/Contents/Developer/Applications    setenv SYSTEM_DEVELOPER_BIN_DIR /Applications/Xcode.app/Contents/Developer/usr/bin    setenv SYSTEM_DEVELOPER_DEMOS_DIR "/Applications/Xcode.app/Contents/Developer/Applications/Utilities/Built Examples"    setenv SYSTEM_DEVELOPER_DIR /Applications/Xcode.app/Contents/Developer    setenv SYSTEM_DEVELOPER_DOC_DIR "/Applications/Xcode.app/Contents/Developer/ADC Reference Library"    setenv SYSTEM_DEVELOPER_GRAPHICS_TOOLS_DIR "/Applications/Xcode.app/Contents/Developer/Applications/Graphics Tools"    setenv SYSTEM_DEVELOPER_JAVA_TOOLS_DIR "/Applications/Xcode.app/Contents/Developer/Applications/Java Tools"    setenv SYSTEM_DEVELOPER_PERFORMANCE_TOOLS_DIR "/Applications/Xcode.app/Contents/Developer/Applications/Performance Tools"    setenv SYSTEM_DEVELOPER_RELEASENOTES_DIR "/Applications/Xcode.app/Contents/Developer/ADC Reference Library/releasenotes"    setenv SYSTEM_DEVELOPER_TOOLS /Applications/Xcode.app/Contents/Developer/Tools    setenv SYSTEM_DEVELOPER_TOOLS_DOC_DIR "/Applications/Xcode.app/Contents/Developer/ADC Reference Library/documentation/DeveloperTools"    setenv SYSTEM_DEVELOPER_TOOLS_RELEASENOTES_DIR "/Applications/Xcode.app/Contents/Developer/ADC Reference Library/releasenotes/DeveloperTools"    setenv SYSTEM_DEVELOPER_USR_DIR /Applications/Xcode.app/Contents/Developer/usr    setenv SYSTEM_DEVELOPER_UTILITIES_DIR /Applications/Xcode.app/Contents/Developer/Applications/Utilities    setenv SYSTEM_DOCUMENTATION_DIR /Library/Documentation    setenv SYSTEM_LIBRARY_DIR /System/Library    setenv TARGETED_DEVICE_FAMILY 1,2    setenv TARGETNAME ClevelandAPL    setenv TARGET_BUILD_DIR /Users/mike/Projects/ClevelandAPL/ios/build    setenv TARGET_NAME ClevelandAPL    setenv TARGET_TEMP_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build    setenv TEMP_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build    setenv TEMP_FILES_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build    setenv TEMP_FILE_DIR /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build    setenv TEMP_ROOT /Users/mike/Projects/ClevelandAPL/ios/build    setenv TEST_AFTER_BUILD NO    setenv TOOLCHAINS com.apple.dt.toolchain.XcodeDefault    setenv UID 501    setenv UNLOCALIZED_RESOURCES_FOLDER_PATH ClevelandAPL.app    setenv UNSTRIPPED_PRODUCT NO    setenv USER mike    setenv USER_APPS_DIR /Users/mike/Applications    setenv USER_LIBRARY_DIR /Users/mike/Library    setenv USE_DYNAMIC_NO_PIC YES    setenv USE_HEADERMAP YES    setenv USE_HEADER_SYMLINKS NO    setenv VALIDATE_PRODUCT NO    setenv VALID_ARCHS i386    setenv VERBOSE_PBXCP NO    setenv VERSIONPLIST_PATH ClevelandAPL.app/version.plist    setenv VERSION_INFO_BUILDER mike    setenv VERSION_INFO_FILE ClevelandAPL_vers.c    setenv VERSION_INFO_STRING "\"@(#)PROGRAM:ClevelandAPL  PROJECT:ClevelandAPL-\""    setenv WRAPPER_EXTENSION app    setenv WRAPPER_NAME ClevelandAPL.app    setenv WRAPPER_SUFFIX .app    setenv XCODE_APP_SUPPORT_DIR /Applications/Xcode.app/Contents/Developer/Library/Xcode    setenv XCODE_PRODUCT_BUILD_VERSION 4H1003    setenv XCODE_VERSION_ACTUAL 0462    setenv XCODE_VERSION_MAJOR 0400    setenv XCODE_VERSION_MINOR 0460    setenv YACC yacc    /bin/sh -c /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/Script-304B58A110DAC018002A0835.sh36"78217CC3-5A6E-4856-8C3F-2DCFF9C3319C-
+
+CProcessInfoPlistFile /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Info.plist ClevelandAPL/ClevelandAPL-Info.plist
+s389118841.789484
+e389118841.797362
+r1
+xProcessInfoPlistFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Info.plist
+xClevelandAPL/ClevelandAPL-Info.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection44"Process ClevelandAPL/ClevelandAPL-Info.plistbb47ca797b31b741^3a21cc797b31b741^---0#0#0#-19%DVTDocumentLocation2@90"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/ClevelandAPL-Info.plist0000000000000000^727"ProcessInfoPlistFile build/ClevelandAPL.app/Info.plist ClevelandAPL/ClevelandAPL-Info.plist    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    builtin-infoPlistUtility ClevelandAPL/ClevelandAPL-Info.plist -genpkginfo /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app/Info.plist36"8B220493-E53D-495A-A9DF-A9786B4ABEC7-
+
+CProcessInfoPlistFile /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Info.plist ClevelandAPL/ClevelandAPL-Info.plist
+s389118584.789532
+e389118584.806467
+r1
+xProcessInfoPlistFile
+x/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Info.plist
+xClevelandAPL/ClevelandAPL-Info.plist
+lSLF07#2@44"Process ClevelandAPL/ClevelandAPL-Info.plist389118584#389118584#0(0"0(0#0#74"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/ClevelandAPL-Info.plist4494049024#566"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    builtin-infoPlistUtility ClevelandAPL/ClevelandAPL-Info.plist -genpkginfo /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app/Info.plist0#
+
+CProcessPCH /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch.pth ClevelandAPL/ClevelandAPL-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s389118848.199648
+e389118848.705092
+r1
+xProcessPCH
+x/var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch.pth
+xClevelandAPL/ClevelandAPL-Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Precompile ClevelandAPL/ClevelandAPL-Prefix.pche06833807b31b741^e980b4807b31b741^---0#0#0#-19%DVTDocumentLocation2@90"file://localhost/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/ClevelandAPL-Prefix.pch0000000000000000^3555"ProcessPCH /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch.pth ClevelandAPL/ClevelandAPL-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/mike/Projects/ClevelandAPL/ios    setenv LANG en_US.US-ASCII    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wreturn-type -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wduplicate-method-match -Wformat -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wenum-conversion -Wno-shorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator6.1.sdk -fexceptions -fasm-blocks -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -g -fvisibility=hidden -Wno-sign-conversion -fobjc-abi-version=2 -fobjc-legacy-dispatch -mios-simulator-version-min=5.0 -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-generated-files.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-own-target-headers.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-all-target-headers.hmap -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-project-headers.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/include -I/Users/mike/Projects/ClevelandAPL/ios/build/usr/local/lib/include -I/Users/mike/Projects/ClevelandAPL/ios/build/UninstalledProducts/include -I/Users/mike/Projects/ClevelandAPL/ios/build -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources/i386 -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources -F/Users/mike/Projects/ClevelandAPL/ios/build --serialize-diagnostics /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch.dia -c /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/ClevelandAPL-Prefix.pch -o /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-ccoscopkuirdsqdgrnmsgorizwav/ClevelandAPL-Prefix.pch.d36"75C60F63-F177-438E-A996-11AA132C8C69-
+
+CProcessPCH /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-crjwfevmghrsshfgxouexhhatlwl/ClevelandAPL-Prefix.pch.pth ClevelandAPL/ClevelandAPL-Prefix.pch normal i386 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s389118279.725132
+e389118280.068439
+r1
+xProcessPCH
+x/var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-crjwfevmghrsshfgxouexhhatlwl/ClevelandAPL-Prefix.pch.pth
+xClevelandAPL/ClevelandAPL-Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF07#2@47"Precompile ClevelandAPL/ClevelandAPL-Prefix.pch389118279#389118280#0(0"0(0#0#74"/Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/ClevelandAPL-Prefix.pch4494163600#2246"    cd /Users/mike/Projects/ClevelandAPL/ios    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/clang -x objective-c-header -arch i386 -fmessage-length=0 -pipe -fdiagnostics-print-source-range-info -std=c99 -Wno-trigraphs -fpascal-strings -O0 -Wreturn-type -Wunused-variable -Wuninitialized -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fasm-blocks -mmacosx-version-min=10.6 -gdwarf-2 -fvisibility=hidden -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-generated-files.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-own-target-headers.hmap -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-all-target-headers.hmap -iquote /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/ClevelandAPL-project-headers.hmap -F/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator -I/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/include -I/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/usr/local/lib/include -I/Users/mike/Projects/ClevelandAPL/ios/build/UninstalledProducts/include -I/Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources/i386 -I/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.build/Debug-iphonesimulator/ClevelandAPL.build/DerivedSources -c /Users/mike/Projects/ClevelandAPL/ios/ClevelandAPL/ClevelandAPL-Prefix.pch -o /var/folders/4h/zdflyzlx6bbfr5r581hq862w0000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ClevelandAPL-Prefix-crjwfevmghrsshfgxouexhhatlwl/ClevelandAPL-Prefix.pch.pth0#
+
+CTouch /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app
+s389118849.972753
+e389118849.981939
+r1
+xTouch
+x/Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection66"Touch /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app9336f9817b31b741^af60fb817b31b741^---0#0#0#--463"Touch build/ClevelandAPL.app    cd /Users/mike/Projects/ClevelandAPL/ios    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/opt/local/bin:/usr/local/git/bin:~/Development/android-sdk-macosx/platform-tools/"    /usr/bin/touch -c /Users/mike/Projects/ClevelandAPL/ios/build/ClevelandAPL.app36"3FB069FA-1508-43C7-96A0-BAD9A8793BC9-
+
+CTouch /Users/mike/Projects/ClevelandAPL/ios/build/Debug-iphonesimulator/ClevelandAPL.app
+r0
+

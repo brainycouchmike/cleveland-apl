@@ -1,0 +1,4 @@
+dyld: Symbol not found: _OBJC_CLASS_$_NSJSONSerialization
+  Referenced from: /Users/mike/Library/Application Support/iPhone Simulator/4.3/Applications/ACB3BDBB-14CE-4B12-88C7-040B792B7880/Cleveland-APL.app/ClevelandAPL
+  Expected in: /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+ in /Users/mike/Library/Application Support/iPhone Simulator/4.3/Applications/ACB3BDBB-14CE-4B12-88C7-040B792B7880/Cleveland-APL.app/ClevelandAPL
