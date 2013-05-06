@@ -3,7 +3,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=initial, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=no,
+        initial-scale=1,
+        maximum-scale=1,
+        minimum-scale=1,
+        width=device-width,
+        <!--height=device-height, -->
+        target-densitydpi=device-dpi" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
         <title>Cleveland APL</title>
         <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.2.custom.min.css" />
         <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
@@ -17,8 +24,6 @@
             app.deviceReadyDeferred = $.Deferred();
             app.jqmReadyDeferred    = $.Deferred();
             $(document).on("mobileinit", function() {
-                // Set flag for app to know jQuery Mobile is ready
-                app.jqmReadyDeferred.resolve();
                 /**
                  * Avoid transforms to fix weirdness on the search page
                  */
@@ -41,6 +46,8 @@
                 } catch(ex) {
                     console.log(ex.toString());
                 }
+                // Set flag for app to know jQuery Mobile is ready
+                app.jqmReadyDeferred.resolve();
             });
         </script>
         <script type="text/javascript" src="js/jquery.mobile-1.3.0.js"></script>
@@ -49,8 +56,8 @@
         <script type="text/javascript" src="js/modernizr.js"></script>
         <script type="text/javascript" src="js/date.format.js"></script>
         <script type="text/javascript" src="js/jquery.xml2json.js"></script>
-        <script type="text/javascript" src="js/db.js"></script>
         <script type="text/javascript" src="js/lib.js"></script>
+        <script type="text/javascript" src="js/db.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <!-- Begin comScore Tag -->
         <script>
@@ -64,15 +71,13 @@
                 el.parentNode.insertBefore(s, el);
             })();
         </script>
+        <noscript>
+            <img src="http://b.scorecardresearch.com/p?c1=2&c2=6745171&cv=2.0&cj=1" />
+        </noscript>
         <!-- End comScore Tag -->
     </head>
     <!--onload="if(!app.inited){app.bindDeviceReady();console.log('fallback:bindDeviceReady');}"-->
     <body>
-    <!-- Begin comScore Tag -->
-    <noscript>
-            <img src="http://b.scorecardresearch.com/p?c1=2&c2=6745171&cv=2.0&cj=1" />
-        </noscript>
-        <!-- End comScore Tag -->
         <div id="fb-root"></div>
         <div id="search-start" data-role="page">
             <header class="global-header" data-role="header">
@@ -208,7 +213,7 @@
                     </div>
                     <div class="detailed-result-bottom">
                         <div class="detailed-result-bottom-info">
-                            <a href="http://www.petango.com/" data-role="none" rel="external" data-rel="external" class="detailed-result-petango" onclick="window.open(this.href,'_system'); return false;">
+                            <a href="http://www.petango.com/" data-role="none" rel="external" data-rel="external" class="detailed-result-petango">
                                 <img src="img/powered-by-petango.gif" class="petango_logo">
                             </a>
                             <a class="detailed-result-donate" href="#donate" data-role="button" data-mini="true" data-theme="b">Donate</a>
@@ -287,7 +292,18 @@
                 <div class="header-logo"></div>
             </header>
             <div class="global-content" data-role="content">
-                <h1>Donate some money, b!</h1>
+                <h1 class="content-inner-heading">Donate</h1>
+                <p class="content-inner-paragraph">
+                    Since we receive no government funding, the Cleveland Animal Protective League relies on generous
+                    financial supporters like you to make a difference in the lives of the animals for whom we shelter,
+                    rescue, and provide assistance.
+                </p>
+                <div class="content-inner-btn">
+                    <a href="https://clevelandapl.ejoinme.org/MyPages/GeneralDonationPage/tabid/159376/Default.aspx"
+                       rel="external"
+                       data-role="button"
+                       data-theme="b">Make a Donation Now</a>
+                </div>
             </div>
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
@@ -305,7 +321,30 @@
                 <div class="header-logo"></div>
             </header>
             <div class="global-content" data-role="content">
-                <h1>Some info, yo.</h1>
+                <h1 class="content-inner-heading">THE CLEVELAND APL HAS BEEN SAVING LIVES SINCE 1913</h1>
+                <p class="content-inner-paragraph">
+                    <span>The Cleveland Animal Protective League is located in the historic Tremont area:</span>
+                    <br/>
+                    <img class="content-inner-img" src="img/apl_front.jpg" alt="Cleveland APL Building Front" >
+                    <span class="content-inner-lfloat">1729 Willey Avenue</span>
+                    <span class="content-inner-lfloat">Cleveland, Ohio, 44113</span>
+                    <span class="content-inner-lfloat">216-771-4616</span>
+                </p>
+                <div class="content-inner-btn">
+                    <a href="http://www.clevelandapl.org/directions/"
+                       rel="external"
+                       data-role="button"
+                       data-theme="c">Click Here for Directions</a>
+                </div>
+                <p class="content-inner-paragraph content-inner-table">
+                    <strong class="content-inner-paragraph-heading">Adoption Center Hours:</strong>
+                    <label class="content-inner-label">Monday&nbsp;&ndash;&nbsp;Friday</label>
+                    <span class="content-inner-value">11am to 6:30pm</span>
+                    <label class="content-inner-label">Saturday</label>
+                    <span class="content-inner-value">10am to 5pm</span>
+                    <label class="content-inner-label">Sunday</label>
+                    <span class="content-inner-value">Noon to 4pm</span>
+                </p>
             </div>
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
@@ -323,7 +362,38 @@
                 <div class="header-logo"></div>
             </header>
             <div class="global-content" data-role="content">
-                <h1>more menu, what about it?</h1>
+                <h1 class="content-inner-heading">More Info</h1>
+
+                <div data-role="controlgroup" class="content-inner-btn">
+                    <a href="http://www.clevelandapl.org/donations-giving/" data-role="button" rel="external" />Donations</a>
+                    <a href="http://www.clevelandapl.org/apl_events/" data-role="button" rel="external">APL Events</a>
+                    <a href="http://www.clevelandapl.org/faqs/" data-role="button" rel="external">FAQ</a>
+                    <a href="http://www.clevelandapl.org/volunteer/" data-role="button" rel="external">Volunteer</a>
+                    <a href="http://www.clevelandapl.org/" data-role="button" rel="external">APL Home Page</a>
+                </div>
+
+                <p class="content-inner-paragraph">
+                    The Cleveland Animal Protective League’s mission is to foster
+                    compassion and end animal suffering. Incorporated in 1913, we are an independent, nonprofit humane
+                    society located in Cleveland’s Tremont neighborhood.
+                </p>
+
+                <p class="content-inner-paragraph">
+                    As a 501(c)(3) agency, we are not funded or controlled by any
+                    government or national animal welfare organization. Our animal shelter, services, and programs are
+                    made available through fundraising, donations, foundation and corporate support, and service fees.
+                    We are committed to 100 percent placement of adoptable animals and envision a time when every
+                    friendly, healthy, homeless animal in our community can be cared for until a new family is
+                    found.
+                </p>
+
+                <p class="content-inner-paragraph">
+                    The Cleveland APL provides shelter to homeless animals relinquished
+                    by their guardians, animals that are rescued from abuse or neglect, and stray or abandoned cats.
+                    Stop in and visit the many animals we help and have available for adoption – make one of our friends
+                    one of your very best friends! The Cleveland APL is where happily ever after begins-for both shelter
+                    pets and people.
+                </p>
             </div>
             <footer class="global-footer" data-role="footer">
                 <div class="footer-icons">
@@ -337,28 +407,7 @@
         </div>
         <script type="text/javascript">
             try {
-                if(window!=window.top) {
-                    window.top.app = app;
-                    window.top.iframe = window.window;
-                    window.top.updateApp = function() {
-                        (function($){
-                            window.top.$ = function(sel, cont) {
-                                var context = $(window.top.document).find("iframe").contents();
-                                if(cont) {
-                                    context = context.find(cont);
-                                }
-                                return $(sel, context || window.top.document);
-                            }
-                            window.top.$.mobile = $.mobile;
-                        })(jQuery);
-                    };
-                    window.top.updateApp();
-                }
-                /*console.log(window!=window.top?'App in iFrame':'App in parent frame');*/
                 app.initialize();
-                if(window!=window.top){
-                    app.setReady();
-                }
             } catch(ex) {
                 console.log(ex.toString());
             }

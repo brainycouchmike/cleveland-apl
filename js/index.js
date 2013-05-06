@@ -152,25 +152,31 @@ app = $.extend(true, {}, app, {
     },
     bindDeviceReady: function() {
         document.addEventListener("deviceReady", app.setReady, false);
+        if(typeof(window.top.ripple)=="function") app.setReady();
     },
     // deviceready Event Handler
     onDeviceReady: function() {
         // console.log({"app.onDeviceReady": this});
-        // $.mobile.loading('hide');
+        // $.mobile.loading("hide");
         /**
          * Specify code to only be run once
          */
+        if(app.inited) return false;
 
         //console.log(app.jqmReadyDeferred.state(), typeof($.mobile), $.mobile, $.mobile.loader);
+        /*$.mobile.loadingBak = $.mobile.loading;
 
-        if(!app.inited) {
-            // Bind Facebook init
-            try {window.fbAsyncInit = app.initFacebook;} catch(ex) {console.log(ex.toString());}
-            try {app.initModules();} catch(ex) {console.log(ex.toString());}
-            try {app.bindEvents();} catch(ex) {console.log(ex.toString());}
-            try {app.resetSearchStart();} catch(ex) {console.log(ex.toString());}
-            try {app.inited = true;} catch(ex) {console.log(ex.toString());}
-        }
+        $.mobile.loading = function(showHide, opts) {
+            $.mobile.loadingBak.apply(this, arguments);
+            console.log("loading fired on " + $.mobile.activePage.attr('id') + " with args: [" + arguments.join(", ") + "]");
+        }*/
+
+        // Bind Facebook init
+        try {window.fbAsyncInit = app.initFacebook;} catch(ex) {console.log(ex.toString());}
+        try {app.initModules();} catch(ex) {console.log(ex.toString());}
+        try {app.bindEvents();} catch(ex) {console.log(ex.toString());}
+        try {app.resetSearchStart();} catch(ex) {console.log(ex.toString());}
+        try {app.inited = true;} catch(ex) {console.log(ex.toString());}
 
     },
     // Reset search start
@@ -193,17 +199,19 @@ app = $.extend(true, {}, app, {
             accept: "#content-dnd-logo",
             drop: app.selectSearchCategory
         });
+
         try { $.mobile.loading('hide'); } catch(ex) { console.log(ex.toString()); }
         setTimeout(function() {
             if($.mobile.activePage.attr("id")=="search-start") {
                 try { $.mobile.loading('hide'); } catch(ex) { console.log(ex.toString()); }
             }
-        }, 500);
+        }, 1000);
     },
     // Clear search results
     clearSearchResults: function() {
         $(".search-results-wrap").empty();
-        $("#search-results .global-content").unbind("scroll.loadMore");
+        $("#search-results .global-content").unbind("scroll");
+        $("#search-results").unbind(".rebindSearchScroll");
         app.searchResults = null;
         app.searchOffset  = 0;
         app.searchPerPage = 10;
@@ -255,7 +263,9 @@ app = $.extend(true, {}, app, {
         } else {
             try {
                 FB.XFBML.parse();
-            } catch(ex) {}
+            } catch(ex) {
+                console.log(ex.toString());
+            }
         }
 
         // Additional initialization code such as adding Event Listeners goes here
@@ -267,6 +277,8 @@ app = $.extend(true, {}, app, {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
+        if(app.inited || $("body").hasClass("eventsBound")) return false;
+        $("body").addClass("eventsBound");
         console.log({
             "onDeviceReady": typeof(this.onDeviceReady),
             "app.inited": app.inited
@@ -280,10 +292,10 @@ app = $.extend(true, {}, app, {
              * Bind Default AJAX before and after loader
              */
             $(document).ajaxSend(function() {
-                $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+                try{$.mobile.loading("show");}catch(ex){console.log(ex.toString());}
             });
             $(document).ajaxComplete(function() {
-                $.mobile.loading('hide');
+                try{$.mobile.loading("hide");}catch(ex){console.log(ex.toString());}
             });
 
             /**
@@ -319,25 +331,42 @@ app = $.extend(true, {}, app, {
                                      $(".footer-icon", this).removeClass("selected").filter(
                                          $(this).jqmData("referrer")=="#favorites-list"?".footer-icons-favorites":".footer-icons-search"
                                      ).addClass("selected");
-                                 });
+                                 })
+                .on("tap", ".global-footer a", function(e) {
+                    e.preventDefault();
+                    var href = $(this).attr("href");
+                    if(href=="#" || !href) return false;
+                    $.mobile.changePage(href, {changeHash: false});
+                });
             $("#search-results").on("pageshow", function() {
-                $.when(app.promise.search).done(function() {
-                    $.when.apply($, app.promise.searchLoad).done(function() {
+                $.when.apply($, app.promise.searchLoad.concat(app.promise.search)).done(function() {
+                    if($(".search-result:visible,.search-result:animated").length==0) {
+                        app.loadSearchResults()
                         if($(".search-result:visible,.search-result:animated").length==0) {
                             $.mobile.changePage("#search-start");
                         }
-                    });
+                    }
+                });
+            }).on("pagehide", function() {
+                $("#search-results .global-content").unbind("scroll");
+                $(this).one("pageshow.rebindSearchScroll", function(e, data) {
+                    $.when.apply($, app.promise.searchLoad.concat(app.promise.search)).done(app.bindSearchOverscroll);
                 });
             });
 
-            $(document).bind('keydown', function(event) {
+            $("[rel='external'],[data-rel='external']").on("tap", function(e) {
+                window.open(this.href,'_system'); return false;
+            });
+
+            $(document).on('keydown', function(event) {
+                console.log("keydown: " + event.keyCode);
                 if((event.keyCode == 27) && ($.mobile.activePage.attr('id')=="search-start")) {
                     event.preventDefault();
                     var app_ns = (navigator.app) ? navigator.app : navigator.device;
-                    if(navigator.app){
-                        navigator.app.exitApp();
-                    }else if(navigator.device){
-                        navigator.device.exitApp();
+                    if(!navigator.notification.confirm) {
+                        navigator.notification.confirm = function(msg, fun, title, btns) {
+                            if(confirm(msg)) (fun)(2);
+                        }
                     }
                     navigator.notification.confirm("Are you sure you want to exit?", function(btnDex) {
                         console.log("btnDex: "+ btnDex);
@@ -361,12 +390,12 @@ app = $.extend(true, {}, app, {
                     $(this).jqmData("referrer", prevId);
                     // console.log("referrer updated: "+ prevId);
                     return true;
-                });//.
-//                on("pagechange ", function(event, data) {
-//                    if(data.state.keepLoading) {
-//                        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
-//                    }
-//                });
+                }).
+                on("pagechange ", function(event, data) {
+                    var thisPage = $(this).attr("id");
+                    var nextPage = data.toPage.attr("id");
+                    console.log("Page change from '#" + thisPage + "' to '#" + nextPage + "'");
+                });
 
             /**
              * Define button bindings
@@ -380,6 +409,8 @@ app = $.extend(true, {}, app, {
                 $.mobile.changePage(target, {
                     reverse: true
                 });
+
+                $.mobile.urlHistory.clearForward();
             });
 
             /*$("[data-rel='back']").on("tap", function(e) {
@@ -459,7 +490,7 @@ app = $.extend(true, {}, app, {
                         $nDot.addClass("selected").attr("src", app.photoDotSrcS);
                 });
 //            console.log(typeof($.mobile), $.mobile, typeof($.mobile.loader), $.mobile.loader);
-            try { $.mobile.loading('hide'); } catch(ex) { console.log(ex.toString()); }
+            try { $.mobile.loading("hide"); } catch(ex) { console.log(ex.toString()); }
 
         })(jQuery);
     },
@@ -516,7 +547,7 @@ app = $.extend(true, {}, app, {
             $(result).appendTo(".favorites-list-wrap");
         }
 
-        $.mobile.loading('hide');
+        $.mobile.loading("hide");
 
         $(".favorites-item").each(function(i) {
             $(this).css({
@@ -641,7 +672,7 @@ app = $.extend(true, {}, app, {
     },
     // Initialize search, select category.
     initSearch: function(ev) {
-        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+        $.mobile.loading("show");
         var species = $(this).jqmData("species");
         $("#hidden_search_form").trigger("submit", [species]);
     },
@@ -661,33 +692,10 @@ app = $.extend(true, {}, app, {
             dataType: "xml",
             type: "POST",
             beforeSend: function() {
-                $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+                $.mobile.loading("show");
                 $.mobile.changePage("#search-results", {keepLoading: true});
             },
             success: function(data) {
-                /*app.searchResults     = [];
-                var defferResultsLoad = $.Deferred();
-                var $searchResults    = $("adoptableSearch", data);
-                var numResults        = $searchResults.length;
-                $.when(app.promise.search, defferResultsLoad).done(function() {
-                    console.log("search results load promise");
-                    console.log(app.searchResults, defferResultsLoad.state(), $searchResults, numResults);
-                    if(app.searchResults!=null) {
-                        app.loadSearchResults();
-                    } else {
-                        $.mobile.changePage("#search-start");
-                    }
-                });
-                console.log("about to iterate over the searchResults");
-                $searchResults.each(function(dex) {
-                    app.searchResults.push(this);
-                    console.log(app.searchResults);
-                    if(dex==(numResults-1)) {
-                        defferResultsLoad.resolve();
-                    }
-                });
-                console.log("after iteration", app.searchResults);*/
-                // console.log(data);
                 app.searchResultsRaw = data;
                 app.searchResults = $.makeArray(data.getElementsByTagName("adoptableSearch"));
                 console.log({
@@ -696,7 +704,7 @@ app = $.extend(true, {}, app, {
                 });
                 if(app.searchResults!=null && app.searchResults.length>0) {
                     try {
-                        app.loadSearchResults(species);
+                        app.loadSearchResults();
                     } catch(ex) {
                         console.log("app.loadSearchResults Error: " + ex.toString());
                     }
@@ -810,59 +818,82 @@ app = $.extend(true, {}, app, {
                     opacity: "1",
                     delay: (10 * (i - app.searchOffset))
                 }, "fast", function() {
-                    $.mobile.loading('hide');
+                    $.mobile.loading("hide");
                 }));
             });
 
-            $.when.apply($, app.promise.searchLoad).done(function() {
 
-                $("#search-result-wrap").removeClass("loadingResults");
+            app.searchOffset = (app.searchResults.length - app.searchOffset < app.searchPerPage ? app.searchResults.length : app.searchOffset + app.searchPerPage);
 
-                app.searchOffset = (numResults - app.searchOffset < app.searchPerPage ? numResults : app.searchOffset + app.searchPerPage);
+            $.when.apply($, app.promise.searchLoad.concat(app.promise.search)).done(app.bindSearchOverscroll);
 
-                /*
-                console.log({
-                    "numResults"   : numResults,
-                    "searchOffset" : app.searchOffset,
-                    "resultsLoaded": $(".search-result").length
-                });
-                */
-
-                if(app.searchOffset < numResults) {
-                    // console.log("bind smartscroll");
-                    $("#search-results .global-content").bind("scroll.loadMore", debounce(function() {
-                        var scrollTarget = $(".search-results-wrap").height()
-                                         - ($("#search-results .global-content").scrollTop());
-                        var targetHeight = $("#search-results .global-content").height() + 50 // add 50 for padding;
-
-                        /*
-                        console.log({
-                            "scrollStats": {
-                                "scrollTarget": scrollTarget,
-                                "targetHeight": targetHeight
-                            }
-                        });
-                        */
-
-                        if(scrollTarget < targetHeight) {
-                            $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
-                            $("#search-results .global-content").unbind("scroll.loadMore");
-                            $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
-                            $("#search-results .global-content").animate({
-                                scrollTop: $(".search-results-wrap").height()
-                            }, "fast", app.loadSearchResults);
-                        }
-                    }, 100));
-                } else {
-                    $("#search-results .search-results-wrap").append(
-                        $("<div/>").addClass("search-results-load-more").html("No More Results")
-                    );
-                }
-            });
         } else {
             console.log("no search results",app.searchResults);
             $("#search-results .search-results-wrap").append(
                 $("<div/>").addClass("search-results-load-more").html("No Search Results")
+            );
+        }
+    },
+    // Load more search results (handle overscroll on results page)
+    bindSearchOverscroll: function() {
+
+        $("#search-result-wrap").removeClass("loadingResults");
+        $("#search-results .search-results-load-more").slideUp("fast", $(".search-results-load-more").remove);
+
+        var scrollEvents = $("#search-results .global-content").data("events");
+        try {
+            if(scrollEvents && scrollEvents.scroll) {
+                if(scrollEvents.scroll.length) {
+                    return false;
+                }
+            }
+        } catch(ex) {
+            console.log(ex.toString());
+        }
+
+        /*
+         console.log({
+         "numResults"   : numResults,
+         "searchOffset" : app.searchOffset,
+         "resultsLoaded": $(".search-result").length
+         });
+         */
+
+        if(app.searchResults===null) {
+            if(!$(".search-result:visible").length) {
+                $.when($.mobile.changePage("#search-start")).done(function() {
+                    $.mobile.urlHistory.stack.pop();
+                });
+            }
+        } else
+        if(app.searchOffset < app.searchResults.length) {
+            // console.log("bind smartscroll");
+            $("#search-results .global-content").bind("scroll.loadMore", debounce(function() {
+                var scrollTarget = $(".search-results-wrap").height()
+                    - ($("#search-results .global-content").scrollTop());
+                var targetHeight = $("#search-results .global-content").height() + 50 // add 50 for padding;
+
+                /*
+                 console.log({
+                 "scrollStats": {
+                 "scrollTarget": scrollTarget,
+                 "targetHeight": targetHeight
+                 }
+                 });
+                 */
+
+                if(scrollTarget < targetHeight) {
+                    $.mobile.loading("show");
+                    $("#search-results .global-content").unbind("scroll.loadMore");
+                    $("<div/>").addClass("search-results-load-more").html("Loading More...").appendTo(".search-results-wrap");
+                    $("#search-results .global-content").animate({
+                        scrollTop: $(".search-results-wrap").height()
+                    }, "fast", app.loadSearchResults);
+                }
+            }, 100));
+        } else {
+            $("#search-results .search-results-wrap").append(
+                $("<div/>").addClass("search-results-load-more").html("No More Results")
             );
         }
     },
@@ -872,12 +903,20 @@ app = $.extend(true, {}, app, {
             petId = $this.jqmData("animal-id"),
             finished = false;
         if(!petId) return false;
-        $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+        var headerFadeout = $("#detailed-result .global-header > a, #detailed-result .detailed-result-wrap").fadeOut(0).promise();
+        $.mobile.loading("show");
         $this.addClass("active").delay(1000).removeClass("active");
-        $.mobile.changePage("#detailed-result",{loadPetDetails:true});
-        $("#detailed-result").addClass("AJAXing");
-        $("#detailed-result .global-header > a").fadeOut(0);
-        $("#detailed-result .detailed-result-wrap").fadeOut(0);
+        $("#detailed-result").addClass("AJAXing").find(".global-header a[data-rel='back']").one("tap.sudoBack",function(e) {
+            var target = $("#detailed-result").jqmData("referrer");
+            if(!target) return false;
+            e.preventDefault();
+            e.stopPropagation();
+            $.mobile.changePage(target, {changeHash: false});
+            return false;
+        }).end().one("pagebeforechange", function() {
+            $(this).find(".global-header a[data-rel='back']").unbind(".sudoBack");
+        });
+        var orgPage = $.mobile.activePage.attr("id");
         app.promise.detail = $.ajax({
             url: app.searchDetailsURI,
             data: {
@@ -887,10 +926,11 @@ app = $.extend(true, {}, app, {
             dataType: "xml",
             type: "post",
             beforeSend: function() {
-                $.mobile.loading( 'show', { theme: "c", text: "loading", textVisible: true});
+                $.mobile.loading("show");
             },
             success: function(xml) {
                 app.petDetails = $("adoptableDetails", xml);
+                app.promise.detailLoad = $.Deferred();
                 app.fillPetDetails();
                 $("#detailed-result").removeClass("AJAXing");
             },
@@ -901,7 +941,6 @@ app = $.extend(true, {}, app, {
                     "finished": finished,
                     "$this": $this
                 });
-                // $.mobile.loading( 'show', { theme: "c", text: "error, redirecting", textVisible: true});
                 if(textError=="parsererror" && (errorDetail.message.match(/^Invalid\sXML\:/).length)) {
                     $("#detailed-result .detailed-result-wrap").after(
                         $("<div/>").addClass("detailed-result-error").html(
@@ -912,7 +951,10 @@ app = $.extend(true, {}, app, {
                     $("#detailed-result .global-header a[data-rel='back']").fadeIn("fast");
                     app.db.removeFavorite(petId);
                 } else {
-                    $.mobile.back();
+                    if($.mobile.activePage.attr('id')!=orgPage) {
+                        $.mobile.changePage("#"+orgPage);
+                        $.mobile.urlHistory.clearForward();
+                    }
                 }
             }
         }).promise();
@@ -962,7 +1004,9 @@ app = $.extend(true, {}, app, {
             if(petId in app.db.getFavorites()) {
                 app.favoritePet(null, petId);
             }
-        } catch(ex) {}
+        } catch(ex) {
+            console.log(ex.toString());
+        }
 
         /**
          * Set Pet Id as a data property of the #detailed-result page
@@ -1248,7 +1292,7 @@ app = $.extend(true, {}, app, {
                     FB.XFBML.parse();
                 } catch(e) {
                     app.initFacebook(function() {
-                        try{FB.XFBML.parse();}catch(e){}
+                        try{FB.XFBML.parse();}catch(e){console.log(e.toString());}
                     });
                 }
             } else {
@@ -1263,40 +1307,38 @@ app = $.extend(true, {}, app, {
         // console.log("fillPetDetails:15");
 
 
-        $("#detailed-result .global-header > a").fadeIn("fast");
 
         // console.log("fillPetDetails:16");
 
-        $("#detailed-result .detailed-result-wrap").fadeIn("fast", function() {
+        $.mobile.changePage("#detailed-result",{loadPetDetails:true, changeHash: false});
 
-            $.mobile.loading('hide');
+        $("#detailed-result .global-header > a,#detailed-result .detailed-result-wrap").fadeIn("fast", function() {
 
-            var bottomHeight = 0;
+            app.promise.detailLoad.resolve();
 
-            // console.log("fillPetDetails:19");
-            var setBottomHeight = function() {
+            app.detailedResultBottomFix();
 
-                bottomHeight = $("#detailed-result .global-footer").offset().top - ($("#detailed-result .detailed-result-top").offset().top + $("#detailed-result .detailed-result-top").height());
-
-                $(".detailed-result-bottom").css({
-                    "height"  : bottomHeight + "px",
-                    "overflow-x": "hidden",
-                    "overflow-y": "scroll"
-                });
-            }
-            setBottomHeight();
-            setTimeout(function() {
-                if(bottomHeight==0) {
-                    setBottomHeight();
-                }
-            }, 500);
-
-            // console.log("fillPetDetails:20");
+            $.mobile.loading("hide");
         });
 
 
         // console.log("fillPetDetails:17");
 
+    },
+    detailedResultBottomFix: function() {
+        var bottomHeight = $("#detailed-result .global-footer").offset().top - ($("#detailed-result .detailed-result-top").offset().top + $("#detailed-result .detailed-result-top").height());
+
+        if(bottomHeight===0) {
+            bottomHeight = "auto";
+        } else {
+            bottomHeight = bottomHeight + "px";
+        }
+
+        $(".detailed-result-bottom").css({
+            "height"  : bottomHeight,
+            "overflow-x": "hidden",
+            "overflow-y": "scroll"
+        });
     },
     updateFavoriteButton: function(highlighted) {
         console.log("updating favorite button. highlighted argument is: " + (highlighted ? "true" : "false"));

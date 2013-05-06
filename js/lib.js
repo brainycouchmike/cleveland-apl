@@ -3,6 +3,31 @@
  */
 
 /**
+ * Fix for ripple testing.
+ */
+
+if(window!=window.top && (typeof(window.top.ripple)=="function")) {
+    window.top.updateApp = function() {
+        console.log("Update Ripple App");
+        window.top.app = app;
+        window.top.iframe = window.window;
+        (function($){
+            window.top.$ = function(sel, cont) {
+                var context = $(window.top.document).find("iframe").contents();
+                if(cont) {
+                    context = context.find(cont);
+                }
+                return $(sel, context || window.top.document);
+            }
+            for(var prop in $) {
+                window.top.$[prop] = $[prop];
+            }
+        })(jQuery);
+    };
+    window.addEventListener("load", window.top.updateApp, false);
+}
+
+/**
  * Object Prototypes
  */
 
@@ -187,13 +212,9 @@ function stacktrace() {
     return st2(arguments.callee.caller);
 }
 
-
 /**
- * Some jQuery stuff
+ * jQuery stuff
  */
-var $_;
-(function($, $_) {
-    $_ = function(selector, context) {
+;(function($) {
 
-    };
-})(jQuery, $_);
+})(jQuery);
