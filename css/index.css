@@ -163,8 +163,7 @@ body {
 .global-header > a[data-role="button"][data-icon="arrow-l"],
 .global-header > a[data-rel='back'] {
     top: 35% !important;
-    /*margin-left: 5% !important;
-    margin-right: 20% !important;*/
+    left: 3% !important;
 }
 
 .global-content {
@@ -627,8 +626,7 @@ body {
 
 #favorites-list .global-header .favorites-list-back {
     top: 35% !important;
-    /*margin-left: 5% !important;
-    margin-right: 20% !important;*/
+    left: 3% !important;
 }
 
 /* Pet Details */
@@ -637,13 +635,11 @@ body {
     top: 35% !important;
 }
 .detailed-result-back {
-    /*margin-left: 5% !important;
-    margin-right: 20% !important;*/
+    left: 3% !important;
 }
 
 .detailed-result-favorite {
-    /*margin-right: 5% !important;
-    margin-left: 20% !important;*/
+    right: 3% !important;
 }
 
 #detailed-result .detailed-result-loading {
