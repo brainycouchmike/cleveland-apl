@@ -155,8 +155,8 @@ body {
 }
 
 .global-header > a[data-role="button"] {
-    min-width: 20% !important;
-    max-width: 30%;
+    min-width: 28% !important;
+    width: 28%;
     text-transform: lowercase;
 }
 
@@ -389,7 +389,7 @@ body {
 .footer-icons {
     height: 100%;
     overflow: hidden;
-    margin: 0 10%;
+    /*margin: 0 10%;*/
     text-align: center;
 }
 
