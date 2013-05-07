@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "org.clevelandapl.app"
-        version   = "0.0.1">
+        version   = "0.1.0">
 
     <name>Cleveland APL</name>
 
@@ -55,20 +55,20 @@
     -->
 
     <!-- Define app icon for each platform. -->
-    <icon src="img/app_logo.png" />
-    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="ldpi" />
-    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="mdpi" />
-    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="hdpi" />
-    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="xhdpi" />
-    <icon src="img/app_logo.png"   gap:platform="blackberry" />
-    <icon src="img/app_logo.png"   gap:platform="blackberry" gap:state="hover"/>
-    <icon src="img/app_logo.png"   gap:platform="ios"        width="57" height="57" />
-    <icon src="img/app_logo.png"   gap:platform="ios"        width="72" height="72" />
-    <icon src="img/app_logo.png"   gap:platform="ios"        width="114" height="114" />
-    <icon src="img/app_logo.png"   gap:platform="ios"        width="144" height="144" />
-    <icon src="img/app_logo.png"   gap:platform="webos" />
-    <icon src="img/app_logo.png"   gap:platform="winphone" />
-    <icon src="img/app_logo.png"   gap:platform="winphone"   gap:role="background" />
+    <icon src="img/Icon@2x.png" />
+    <icon src="img/Icon@2x.png"   gap:platform="android"    gap:density="ldpi" />
+    <icon src="img/Icon@2x.png"   gap:platform="android"    gap:density="mdpi" />
+    <icon src="img/Icon@2x.png"   gap:platform="android"    gap:density="hdpi" />
+    <icon src="img/Icon@2x.png"   gap:platform="android"    gap:density="xhdpi" />
+    <icon src="img/Icon@2x.png"   gap:platform="blackberry" />
+    <icon src="img/Icon@2x.png"   gap:platform="blackberry" gap:state="hover"/>
+    <icon src="img/Icon@2x.png"   gap:platform="ios"        width="57" height="57" />
+    <icon src="img/Icon@2x.png"   gap:platform="ios"        width="72" height="72" />
+    <icon src="img/Icon@2x.png"   gap:platform="ios"        width="114" height="114" />
+    <icon src="img/Icon@2x.png"   gap:platform="ios"        width="144" height="144" />
+    <icon src="img/Icon@2x.png"   gap:platform="webos" />
+    <icon src="img/Icon@2x.png"   gap:platform="winphone" />
+    <icon src="img/Icon@2x.png"   gap:platform="winphone"   gap:role="background" />
 
     <!-- Define app splash screen for each platform. -->
     <gap:splash src="img/splash.png"  gap:platform="android" gap:density="ldpi" />
