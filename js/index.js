@@ -305,11 +305,20 @@ app = $.extend(true, {}, app, {
             $("#search-start").on("pagebeforeshow", app.resetSearchStart);
             $("#detailed-result").on("pagehide", app.clearDetailedResult)
                                  .on("pagebeforeshow", function(ev, data) {
-                                     $("#detailed-result .global-header > a").fadeOut("fast");
+                                     $("#detailed-result .global-header > a").fadeOut(0);
                                  })
                                  .on("pageshow", function(e, data) {
-                                     $.when(app.promise.detail).done(function() {
-                                         setTimeout(function() {
+                                     $.when(app.promise.detail, app.promise.detailLoad).done(function() {
+                                         try {
+                                             if (app.getPetDetail("ID") in app.db.getFavorites()) {
+                                                 app.updateFavoriteButton(true);
+                                             } else {
+                                                 app.updateFavoriteButton(false);
+                                             }
+                                         } catch (ex) {
+                                             app.updateFavoriteButton(false);
+                                         }
+                                         /*setTimeout(function() {
                                              if($(".detailed-result-wrap:visible,.detailed-result-wrap:animated").length==0) {
                                                  app.fillPetDetails(); //$.mobile.navigate("#search-start");
                                              } else {
@@ -326,7 +335,7 @@ app = $.extend(true, {}, app, {
                                                  }
                                                  $("#detailed-result .global-header > a").fadeIn("fast");
                                              }
-                                         }, 1000);
+                                         }, 1000);*/
                                      });
                                      $(".footer-icon", this).removeClass("selected").filter(
                                          $(this).jqmData("referrer")=="#favorites-list"?".footer-icons-favorites":".footer-icons-search"
@@ -1330,7 +1339,7 @@ app = $.extend(true, {}, app, {
 
         // console.log("fillPetDetails:16");
 
-        $.mobile.changePage("#detailed-result",{loadPetDetails:true, changeHash: false});
+        $.mobile.changePage("#detailed-result",{loadPetDetails:true, changeHash: true});
 
         $("#detailed-result .global-header > a,#detailed-result .detailed-result-wrap").fadeIn("fast", function() {
 
