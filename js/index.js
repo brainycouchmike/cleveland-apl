@@ -306,7 +306,8 @@ var app = app || {};
                 $("#search-start").on("pagebeforeshow", app.resetSearchStart);
                 $("#detailed-result").on("pagehide", app.clearDetailedResult)
                     .on("pagebeforeshow", function (ev, data) {
-                        $("#detailed-result .global-header > a").fadeOut(0);
+                        $("#detailed-result .detailed-result-back").hide();
+                        $("#detailed-result .detailed-result-favorite").hide();
                     })
                     .on("pageshow", function (e, data) {
                         $.when(app.promise.detail, app.promise.detailLoad).done(function () {
@@ -319,28 +320,14 @@ var app = app || {};
                             } catch (ex) {
                                 app.updateFavoriteButton(false);
                             }
-                            /*setTimeout(function() {
-                             if($(".detailed-result-wrap:visible,.detailed-result-wrap:animated").length==0) {
-                             app.fillPetDetails(); //$.mobile.navigate("#search-start");
-                             } else {
-                             if(!$("#detailed-result .global-header > a").is(":visible")) {
-                             try {
-                             if (app.getPetDetail("ID") in app.db.getFavorites()) {
-                             app.updateFavoriteButton(true);
-                             } else {
-                             app.updateFavoriteButton(false);
-                             }
-                             } catch (ex) {
-                             app.updateFavoriteButton(false);
-                             }
-                             }
-                             $("#detailed-result .global-header > a").fadeIn("fast");
-                             }
-                             }, 1000);*/
+
+                            if(!$("#detailed-result .detailed-result-back").is(":visible") || !$("#detailed-result .detailed-result-favorite").is(":visible")) {
+                                $("#detailed-result .detailed-result-back").fadeIn("fast");
+                                $("#detailed-result .detailed-result-favorite").fadeIn("fast");
+                            }
                         });
-                        if(!$("#detailed-result .global-header > a").is(":visible")) $("#detailed-result .global-header > a").fadeIn("fast");
                         $(".footer-icon", this).removeClass("selected").filter(
-                            $(this).jqmData("referrer") == "#favorites-list" ? ".footer-icons-favorites" : ".footer-icons-search"
+                            data.prevPage.attr("id") == "favorites-list" ? ".footer-icons-favorites" : ".footer-icons-search"
                         ).addClass("selected");
                     });
                 $("#search-results").on("pageshow", function() {
@@ -478,7 +465,7 @@ var app = app || {};
                 });
 
                 $(".detailed-result-img-wrap").
-                    on("click swipeleft", function() {
+                    on("click swipe", function() {
                         var $this = $(this);
                         if($this.jqmData("animating")) return false;
                         $this.jqmData("animating", true);
@@ -867,7 +854,7 @@ var app = app || {};
                 petId = $this.jqmData("animal-id"),
                 finished = false;
             if(!petId) return false;
-            var headerFadeout = $("#detailed-result .global-header > a, #detailed-result .detailed-result-wrap").fadeOut(0).promise();
+            var headerFadeout = $("#detailed-result .detailed-result-wrap").fadeOut(0).promise();
             $.mobile.loading("show");
             $this.addClass("active").delay(1000).removeClass("active");
             $("#detailed-result").addClass("AJAXing").one("pageload", function() {
@@ -1278,7 +1265,10 @@ var app = app || {};
 
             $.mobile.changePage("#detailed-result",{loadPetDetails:true, changeHash: true});
 
-            $("#detailed-result .global-header > a,#detailed-result .detailed-result-wrap").fadeIn("fast", function() {
+            $("#detailed-result .detailed-result-wrap").fadeIn("fast", function() {
+
+                $("#detailed-result .detailed-result-back").fadeIn("fast");
+                $("#detailed-result .detailed-result-favorite").fadeIn("fast");
 
                 app.promise.detailLoad.resolve();
 
@@ -1311,7 +1301,7 @@ var app = app || {};
             highlighted = typeof(highlighted)!="undefined" ? highlighted : false;
             var theme = highlighted ? 'e' : 'c';
             $('#detailed-result .detailed-result-favorite')
-                .delay(500)
+                //.delay(500)
                 .removeClass(
                     'ui-btn-up-a ui-btn-up-b ui-btn-up-c ui-btn-up-d ui-btn-up-e ' +
                     'ui-btn-hover-a ui-btn-hover-b ui-btn-hover-c ui-btn-hover-d ui-btn-hover-e ' +
