@@ -1272,7 +1272,7 @@ var app = app || {};
 
                 app.promise.detailLoad.resolve();
 
-                app.detailedResultBottomFix();
+                /*app.detailedResultBottomFix();*/
 
                 $.mobile.loading("hide");
             });
@@ -1282,16 +1282,16 @@ var app = app || {};
 
         },
         detailedResultBottomFix: function() {
-            var bottomHeight = $("#detailed-result .global-footer").offset().top - ($("#detailed-result .detailed-result-top").offset().top + $("#detailed-result .detailed-result-top").height());
+            /*var bottomHeight = $("#detailed-result .global-footer").offset().top - ($("#detailed-result .detailed-result-top").offset().top + $("#detailed-result .detailed-result-top").height());
 
             if(bottomHeight===0) {
                 bottomHeight = "auto";
             } else {
                 bottomHeight = bottomHeight + "px";
-            }
+            }*/
 
             $(".detailed-result-bottom").css({
-                "height"  : bottomHeight,
+                "height"  : "64.88%",
                 "overflow-x": "hidden",
                 "overflow-y": "scroll"
             });

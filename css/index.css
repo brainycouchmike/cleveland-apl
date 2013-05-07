@@ -732,6 +732,12 @@ body {
     bottom: 5%;
 }
 
+.detailed-result-bottom {
+    height  : 64.88%;
+    overflow-x: hidden;
+    overflow-y: scroll
+}
+
 .detailed-result-bottom-info {
     padding: 1em 0.5em;
 }
