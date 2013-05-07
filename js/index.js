@@ -400,7 +400,7 @@ app = $.extend(true, {}, app, {
             /**
              * Define button bindings
              */
-            $(".search-results-wrap,.favorites-list-wrap").on("tap", ".search-result,.favorites-item", app.loadPetDetails);
+            $(".search-results-wrap,.favorites-list-wrap").on("click", ".search-result,.favorites-item", app.loadPetDetails);
 
             $("#detailed-result a[data-rel='back']").on("tap", function(e) {
                 var target = $.mobile.activePage.jqmData("referrer");
@@ -438,7 +438,20 @@ app = $.extend(true, {}, app, {
                 }
             });
 
-            $(".global-footer").on("tap", ".footer-icons-search", app.resetSearchStart);
+            $(".global-footer").on("click", ".footer-icon", function(e) {
+                e.preventDefault();
+                var pages = {
+                    "#search-start": true,
+                    "#donate": false,
+                    "#info": false,
+                    "#favorites-list": true,
+                    "#more": false
+                }
+                if($.mobile.activePage.attr("id")!=this.href.slice(1) && this.href!="#") {
+                    $.mobile.changePage(this.href, {changeHash: pages[this.href]});
+                }
+                if(this.href=="#search-start") app.resetSearchStart();
+            });
 
             $("#search-start .category").on("tap", function(e) {
                 if($("#search-start").hasClass("selectingCategory")) return false;
