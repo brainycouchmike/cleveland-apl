@@ -438,7 +438,7 @@ app = $.extend(true, {}, app, {
                 }
             });
 
-            $(".global-footer").on("click", ".footer-icon", function(e) {
+            $(".global-footer").on("tap", ".footer-icon", function(e) {
                 e.preventDefault();
                 var pages = {
                     "#search-start": true,
@@ -446,11 +446,18 @@ app = $.extend(true, {}, app, {
                     "#info": false,
                     "#favorites-list": true,
                     "#more": false
+                };
+                var page  = $.mobile.activePage.attr("id");
+                var href  = $(this).attr("href");
+                var href2 = href.slice(1);
+                /*console.log($.mobile.activePage.attr("id"));
+                console.log(this.href);
+                console.log(this.href.slice(1));
+                console.log($(this).attr("href"));*/
+                if(page!=href2 && href!="#") {
+                    $.mobile.changePage(href, {changeHash: pages[href]});
                 }
-                if($.mobile.activePage.attr("id")!=this.href.slice(1) && this.href!="#") {
-                    $.mobile.changePage(this.href, {changeHash: pages[this.href]});
-                }
-                if(this.href=="#search-start") app.resetSearchStart();
+                if(href=="#search-start") app.resetSearchStart();
             });
 
             $("#search-start .category").on("tap", function(e) {
