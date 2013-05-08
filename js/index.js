@@ -417,10 +417,15 @@ var app = app || {};
                     var isFav = $page.jqmData("favorite");
                     if(!petId) return false;
                     if(isFav) {
-                        // console.log("pet is favorited, time to un-favorite.");
-                        app.unfavoritePet(e, petId);
+                        if(window.isRipple) return app.unfavoritePet(e, petId);
+                        navigator.notification.confirm("Are you sure you want to remove this pet from your favorites?", function(btnDex) {
+                            console.log("btnDex: "+ btnDex);
+                            if(btnDex==2) {
+                                app.unfavoritePet(e, petId);
+                            }
+                        }, "Remove Pet?", "No, Yes");
+
                     } else {
-                        // console.log("pet is un-favorited, time to favorite.");
                         app.favoritePet(e, petId);
                     }
                 });
@@ -1272,29 +1277,10 @@ var app = app || {};
 
                 app.promise.detailLoad.resolve();
 
-                /*app.detailedResultBottomFix();*/
-
                 $.mobile.loading("hide");
             });
 
 
-            // console.log("fillPetDetails:17");
-
-        },
-        detailedResultBottomFix: function() {
-            /*var bottomHeight = $("#detailed-result .global-footer").offset().top - ($("#detailed-result .detailed-result-top").offset().top + $("#detailed-result .detailed-result-top").height());
-
-            if(bottomHeight===0) {
-                bottomHeight = "auto";
-            } else {
-                bottomHeight = bottomHeight + "px";
-            }*/
-
-            $(".detailed-result-bottom").css({
-                "height"  : "64.88%",
-                "overflow-x": "hidden",
-                "overflow-y": "scroll"
-            });
         },
         updateFavoriteButton: function(highlighted) {
             console.log("updating favorite button. highlighted argument is: " + (highlighted ? "true" : "false"));
@@ -1320,7 +1306,7 @@ var app = app || {};
         },
         unfavoritePet: function(event, petId) {
             app.db.removeFavorite(petId);
-            x2(500, app.updateFavoriteButton, false);
+            app.updateFavoriteButton(false);
         }
     });
 

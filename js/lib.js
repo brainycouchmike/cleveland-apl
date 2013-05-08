@@ -5,7 +5,7 @@
 /**
  * Fix for ripple testing.
  */
-
+window.isRipple = false;
 if(window!=window.top && (typeof(window.top.ripple)=="function")) {
     window.top.updateApp = function() {
         console.log("Update Ripple App");
@@ -25,6 +25,7 @@ if(window!=window.top && (typeof(window.top.ripple)=="function")) {
         })(jQuery);
     };
     window.addEventListener("load", window.top.updateApp, false);
+    window.isRipple = true;
 }
 
 /**
