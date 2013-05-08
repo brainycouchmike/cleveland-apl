@@ -874,4 +874,8 @@ body {
         margin-left: -25% !important;
     }
 
+    .pre-image-break {
+        display: none;
+    }
+
 }
