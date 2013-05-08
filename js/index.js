@@ -159,6 +159,7 @@ var app = app || {};
         onDeviceReady: function() {
             // console.log({"app.onDeviceReady": this});
             // $.mobile.loading("hide");
+
             /**
              * Specify code to only be run once
              */
@@ -178,7 +179,62 @@ var app = app || {};
             try {app.bindEvents();} catch(ex) {console.log(ex.toString());}
             try {app.resetSearchStart();} catch(ex) {console.log(ex.toString());}
             try {app.inited = true;} catch(ex) {console.log(ex.toString());}
+            try {
+                if(!app.connection.initialStatusEventFired) {
+                    console.log("app.connection.initalStatusEventFired is FALSE!");
+                    app.connection.initialStatusEventFired = true;
+                    app.connection.initialStatus = app.connection.test();
+                    if(!app.connection.initialStatus) app.connection.handle.offline();
+                } else {
+                    console.log("app.connection.initalStatusEventFired is true!");
+                }
+            } catch(ex) {console.log(ex.toString());}
 
+        },
+        // Connection related aspects of the app
+        connection: {
+            initialStatusEventFired: false,
+            initialStatus: false,
+            test: function(text) {
+                text = typeof(text)!="undefined"? text : false;
+                var conStatus = navigator.connection.type;
+                var connected = !!($.inArray(conStatus, app.connection.states.connected)!=-1);
+                if(text) return (connected ? "Connected" : "Not Connected");
+                return connected;
+            },
+            states: {
+                connected: [
+                    "cellular",
+                    "2g",
+                    "3g",
+                    "4g",
+                    "ethernet",
+                    "wifi"
+                ],
+                disconnected: [
+                    "unknown",
+                    "none"
+                ]
+            },
+            handle: {
+                online: function(e) {
+                    console.log("omg, online");
+                    if(!app.connection.initialStatusEventFired && (typeof(e)!="undefined" && e.type=="online")) {
+                        app.initialStatus = app.connection.test();
+                        return (app.connection.initialStatusEventFired = true);
+                    }
+                    $.mobile.changePage("#search-start");
+                    app.resetSearchStart();
+                },
+                offline: function() {
+                    console.log("omg, offline");
+                    if(!app.connection.initialStatusEventFired && (typeof(e)!="undefined" && e.type=="offline")) {
+                        app.initialStatus = app.connection.test();
+                        return (app.connection.initialStatusEventFired = true);
+                    }
+                    $.mobile.changePage("#no-connection", {changeHash: false});
+                }
+            }
         },
         // Reset search start
         resetSearchStart: function() {
@@ -299,9 +355,47 @@ var app = app || {};
                     try{$.mobile.loading("hide");}catch(ex){console.log(ex.toString());}
                 });
 
+                $(document).on("searchbutton", function(e) {
+                    e.preventDefault();
+                    if($.mobile.activePage.attr('id')!="search-start") {
+                        $.mobile.changePage("#search-start");
+                    }
+                    if($.mobile.activePage.attr("id")=="no-connection") {
+                        e.preventDefault();
+                        return false;
+                    } else {
+                        app.resetSearchStart();
+                    }
+                });
+
+                $(document).on("backbutton", function() {
+                    if($.mobile.activePage.attr("id")=="search-start") {
+                        var App = navigator.app || navigator.device;
+                        if(!App) return false;
+                        navigator.notification.confirm("Are you sure you want to exit?", function(btnDex) {
+                            if(btnDex=2) {
+                                App.exitApp();
+                            }
+                        }, "Exit App?", "No,Yes");
+                    } else
+                    if($.mobile.activePage.attr("id")=="no-connection") {
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+
+                $(document).on("offline", app.connection.handle.offline);
+                $(document).on("online", app.connection.handle.online);
+
                 /**
                  * Bind page state actions
                  */
+                $("#no-connection").on("pagebeforechange", function(e) {
+                    if($.mobile.activePage.attr('id')=="no-connection") {
+                        if(!app.connection.test()) return (e.preventDefault() && false);
+                    }
+                });
+
                 $("#hidden_search_form").on("submit", app.procSearch);
                 $("#search-start").on("pagebeforeshow", app.resetSearchStart);
                 $("#detailed-result").on("pagehide", app.clearDetailedResult)
@@ -424,7 +518,6 @@ var app = app || {};
                                 app.unfavoritePet(e, petId);
                             }
                         }, "Remove Pet?", "No, Yes");
-
                     } else {
                         app.favoritePet(e, petId);
                     }
