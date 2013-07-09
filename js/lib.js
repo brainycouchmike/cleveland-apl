@@ -3,6 +3,32 @@
  */
 
 /**
+ * Fix for ripple testing.
+ */
+window.isRipple = false;
+if(window!=window.top && (typeof(window.top.ripple)=="function")) {
+    window.top.updateApp = function() {
+        console.log("Update Ripple App");
+        window.top.app = app;
+        window.top.iframe = window.window;
+        (function($){
+            window.top.$ = function(sel, cont) {
+                var context = $(window.top.document).find("iframe").contents();
+                if(cont) {
+                    context = context.find(cont);
+                }
+                return $(sel, context || window.top.document);
+            }
+            for(var prop in $) {
+                window.top.$[prop] = $[prop];
+            }
+        })(jQuery);
+    };
+    window.addEventListener("load", window.top.updateApp, false);
+    window.isRipple = true;
+}
+
+/**
  * Object Prototypes
  */
 
@@ -165,7 +191,7 @@ function xn(times, delay, func) {
 }
 
 function x2if(condition, delay, func) {
-    var args = $.makeArray(arguments).slice(2) || [];
+    var args = $.makeArray(arguments).slice(3) || [];
     var that = this.caller;
     func.apply(that, args);
     if(eval(condition)) {
@@ -179,12 +205,17 @@ function xnif(condition, times, delay, func) {
 
 }
 
-/**
- * Some jQuery stuff
- */
-var $_;
-(function($, $_) {
-    $_ = function(selector, context) {
+function stacktrace() {
+    function st2(f) {
+        return !f ? [] :
+            st2(f.caller).concat([f.toString().split('(')[0].substring(9) + '(' + f.arguments.join(',') + ')']);
+    }
+    return st2(arguments.callee.caller);
+}
 
-    };
-})(jQuery, $_);
+/**
+ * jQuery stuff
+ */
+;(function($) {
+
+})(jQuery);

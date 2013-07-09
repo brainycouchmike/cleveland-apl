@@ -82,7 +82,15 @@ function DB() {
     }
 
     this.save = function() {
-        return window.localStorage.setItem(Db.dbName, JSON.stringify(_obj));
+        var retval = false;
+        try {
+            window.localStorage.setItem(Db.dbName, JSON.stringify(_obj));
+            retval = true;
+        } catch(ex) {
+            console.log("DB.save: " + ex.toString());
+            retval = false;
+        }
+        return retval;
     };
 
     if(!this.inited) {

@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "org.clevelandapl.app"
-        version   = "0.0.1">
+        version   = "0.1.0">
 
     <name>Cleveland APL</name>
 
@@ -36,10 +36,10 @@
     <preference name="orientation"                value="portrait" />       <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
-    <preference name="webviewbounce"              value="true" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
+    <preference name="webviewbounce"              value="false" />           <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
     <preference name="prerendered-icon"           value="false" />           <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
     <preference name="stay-in-webview"            value="false" />          <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
-    <preference name="ios-statusbarstyle"         value="black-opaque" />   <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
+    <preference name="ios-statusbarstyle"         value="black-translucent" />   <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
     <preference name="detect-data-types"          value="true" />           <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
     <preference name="exit-on-suspend"            value="false" />          <!-- ios: if set to true, app will terminate when home button is pressed -->
     <preference name="show-splash-screen-spinner" value="true" />           <!-- ios: if set to false, the spinner won't appear on the splash screen during app loading -->
@@ -55,20 +55,20 @@
     -->
 
     <!-- Define app icon for each platform. -->
-    <icon src="img/app_logo.png" />
-    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="ldpi" />
-    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="mdpi" />
-    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="hdpi" />
-    <icon src="img/app_logo.png"   gap:platform="android"    gap:density="xhdpi" />
-    <icon src="img/app_logo.png"   gap:platform="blackberry" />
-    <icon src="img/app_logo.png"   gap:platform="blackberry" gap:state="hover"/>
-    <icon src="img/app_logo.png"   gap:platform="ios"        width="57" height="57" />
-    <icon src="img/app_logo.png"   gap:platform="ios"        width="72" height="72" />
-    <icon src="img/app_logo.png"   gap:platform="ios"        width="114" height="114" />
-    <icon src="img/app_logo.png"   gap:platform="ios"        width="144" height="144" />
-    <icon src="img/app_logo.png"   gap:platform="webos" />
-    <icon src="img/app_logo.png"   gap:platform="winphone" />
-    <icon src="img/app_logo.png"   gap:platform="winphone"   gap:role="background" />
+    <icon src="img/Icon@2x.png" />
+    <icon src="img/Icon@2x.png"   gap:platform="android"    gap:density="ldpi" />
+    <icon src="img/Icon@2x.png"   gap:platform="android"    gap:density="mdpi" />
+    <icon src="img/Icon@2x.png"   gap:platform="android"    gap:density="hdpi" />
+    <icon src="img/Icon@2x.png"   gap:platform="android"    gap:density="xhdpi" />
+    <icon src="img/Icon@2x.png"   gap:platform="blackberry" />
+    <icon src="img/Icon@2x.png"   gap:platform="blackberry" gap:state="hover"/>
+    <icon src="img/Icon@2x.png"   gap:platform="ios"        width="57" height="57" />
+    <icon src="img/Icon@2x.png"   gap:platform="ios"        width="72" height="72" />
+    <icon src="img/Icon@2x.png"   gap:platform="ios"        width="114" height="114" />
+    <icon src="img/Icon@2x.png"   gap:platform="ios"        width="144" height="144" />
+    <icon src="img/Icon@2x.png"   gap:platform="webos" />
+    <icon src="img/Icon@2x.png"   gap:platform="winphone" />
+    <icon src="img/Icon@2x.png"   gap:platform="winphone"   gap:role="background" />
 
     <!-- Define app splash screen for each platform. -->
     <gap:splash src="img/splash.png"  gap:platform="android" gap:density="ldpi" />
