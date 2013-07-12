@@ -120,6 +120,21 @@ body {
     z-index: 999;
 }
 
+.header-logo > a {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    left: 50%;
+    margin-left: -15%;
+}
+
+.click-region-gif {
+    width: 100%;
+    height: 100%;
+}
+
 .header-logo {
     position: absolute;
     left: 0;
@@ -760,6 +775,11 @@ body {
     -ms-interpolation-mode: nearest-neighbor;
 }
 
+.detailed-result-adoption-info {
+    margin-top: 10px;
+}
+
+.detailed-result-share,
 .detailed-result-donate {
     float: right;
     position: relative;
@@ -810,7 +830,12 @@ body {
 .content-inner-img {
     float: left;
     margin-left: 5%;
-    max-width: 49%;
+    max-width: 90%;
+}
+
+.content-inner-lfloat > a {
+    color: #333 !important;
+    text-decoration: underline;
 }
 
 .content-inner-table {
@@ -869,8 +894,8 @@ body {
     .content-inner-img {
         margin: 5% auto;
         position: relative;
-        width: 50%;
-        left: 50%;
+        width: 90%;
+        left: 30%;
         margin-left: -25% !important;
     }
 

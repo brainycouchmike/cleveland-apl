@@ -8,8 +8,10 @@
         <title>Cleveland APL</title>
         <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.2.custom.min.css" />
         <link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <script type="text/javascript" src="cordova-2.5.0.js"></script>
+        <link rel="stylesheet" href="css/index.css" />
+        <!--<script type="text/javascript" src="cordova-2.5.0.js"></script>-->
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="childbrowser.js"></script>
         <script type="text/javascript" src="js/jquery-2.0.0.js"></script>
         <script type="text/javascript" src="js/jquery-migrate-1.1.1.min.js"></script>
         <script type="text/javascript" src="js/jquery.animate-enhanced.min.js"></script>
@@ -75,7 +77,11 @@
         <div id="fb-root"></div>
         <div id="search-start" data-role="page">
             <header class="global-header" data-role="header">
-                <div class="header-logo"></div>
+                <div class="header-logo">
+                    <a href="http://clevelandapl.com/" rel="external">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+                    </a>
+                </div>
             </header>
             <div class="global-content" data-role="content">
                 <div id="content-dnd-logo"></div>
@@ -135,7 +141,11 @@
         <div id="search-results" data-role="page">
             <header class="global-header" data-role="header">
                 <a href="#search-start" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c" data-direction="reverse">Back</a>
-                <div class="header-logo"></div>
+                <div class="header-logo">
+                    <a href="http://clevelandapl.com/" rel="external">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+                    </a>
+                </div>
             </header>
             <div class="global-content" data-role="content">
                 <div class="search-results-template" data-animal-id="__id__">
@@ -183,7 +193,11 @@
         <div id="detailed-result" data-role="page">
             <header class="global-header" data-role="header">
                 <a class="detailed-result-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
-                <div class="header-logo"></div>
+                <div class="header-logo">
+                    <a href="http://clevelandapl.com/" rel="external">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+                    </a>
+                </div>
                 <a class="detailed-result-favorite" href="#" data-role="button" data-icon="star" data-iconpos="right" data-theme="c">favorite</a>
                 <!--<a href="#" data-rel="back" class="header-back-to-search" data-role="none">
                     <div>«</div>
@@ -210,15 +224,31 @@
                             <a href="http://www.petango.com/" data-role="none" rel="external" data-rel="external" class="detailed-result-petango">
                                 <img src="img/petango_logo_smaller.png" class="petango_logo">
                             </a>
-                            <a class="detailed-result-donate" href="#donate" data-role="button" data-mini="true" data-theme="b">Donate</a>
+                            <a class="detailed-result-donate"
+                               href="https://clevelandapl.ejoinme.org/MyPages/GeneralDonationPage/tabid/159376/Default.aspx"
+                               data-role="button"
+                               data-mini="true"
+                               rel="external"
+                               data-theme="b">Donate</a>
+                            <a class="detailed-result-share"
+                               href="#"
+                               data-role="button"
+                               data-mini="true"
+                               data-theme="b">Share</a>
                             <div class="detailed-result-gender detailed-result-info"></div>
                             <div class="detailed-result-color detailed-result-info"></div>
                             <div class="detailed-result-weight detailed-result-info"></div>
                             <div class="detailed-result-age detailed-result-info"></div>
                             <div class="detailed-result-petid detailed-result-info"></div>
                             <div class="detailed-result-intake-date detailed-result-info"></div>
-                            <div class="detailed-result-misc-details"></div>
+                            <!--<div class="detailed-result-misc-details"></div>-->
                             <div class="detailed-result-desc detailed-result-info"></div>
+                            <a class="detailed-result-adoption-info"
+                               href="http://clevelandapl.com/"
+                               data-role="button"
+                               data-mini="true"
+                               rel="external"
+                               data-theme="b">Adoption&nbsp;Info</a>
                         </div>
                         <div class="detailed-result-calls-to-action">
 
@@ -236,10 +266,24 @@
                 </div>
             </footer>
         </div>
+        <div id="share-dialog" data-role="page" class="share-dialog">
+            <div data-role="content" data-theme="a">
+                <h3>Share Pet</h3>
+                <a href="#" data-role="button" data-theme="b">Email</a>
+                <a href="#" data-role="button" data-theme="b">Share on Facebook</a>
+                <a href="#" data-role="button" data-theme="b">Share on Twitter</a>
+                <a href="#" data-role="button" data-rel="back" data-theme="a">Cancel</a>
+            </div>
+        </div>
+
         <div id="favorites-list" data-role="page">
             <header class="global-header" data-role="header" data-add-back-btn="true">
                 <a class="favorites-list-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
-                <div class="header-logo"></div>
+                <div class="header-logo">
+                    <a href="http://clevelandapl.com/" rel="external">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+                    </a>
+                </div>
             </header>
             <div class="global-content" data-role="content">
                 <div class="favorites-item-template" data-animal-id="__id__">
@@ -267,7 +311,7 @@
                     <div class="favorites-item-more">view<br>more</div>
                 </div>
                 <div class="favorites-list-wrap">
-                    
+
                 </div>
             </div>
             <footer class="global-footer" data-role="footer">
@@ -283,13 +327,17 @@
         <div id="donate" data-role="page">
             <header class="global-header" data-role="header" data-add-back-btn="true">
                 <a class="donate-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
-                <div class="header-logo"></div>
+                <div class="header-logo">
+                    <a href="http://clevelandapl.com/" rel="external">
+                        <img class="click-region-gif" src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+                    </a>
+                </div>
             </header>
             <div class="global-content" data-role="content">
                 <h1 class="content-inner-heading">Donate</h1>
                 <p class="content-inner-paragraph">
                     Since we receive no government funding, the Cleveland Animal Protective League relies on generous
-                    financial supporters like you to make a difference in the lives of the animals for whom we shelter,
+                    friends like you to make a difference in the lives of the animals for whom we shelter,
                     rescue, and provide assistance.
                 </p>
                 <div class="content-inner-btn">
@@ -312,23 +360,30 @@
         <div id="info" data-role="page">
             <header class="global-header" data-role="header" data-add-back-btn="true">
                 <a class="info-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
-                <div class="header-logo"></div>
+                <div class="header-logo">
+                    <a href="http://clevelandapl.com/" rel="external">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+                    </a>
+                </div>
             </header>
             <div class="global-content" data-role="content">
-                <h1 class="content-inner-heading">THE CLEVELAND APL HAS BEEN SAVING LIVES SINCE 1913</h1>
+                <h1 class="content-inner-heading">THE CLEVELAND APL HAS BEEN CREATING HAPPILY EVER AFTERS IN NORTHEAST OHIO SINCE 1913</h1>
                 <p class="content-inner-paragraph">
-                    <span>The Cleveland Animal Protective League is located in the historic Tremont area:</span>
+                    <span>The Cleveland Animal Protective League is located in the historic Tremont area.</span>
                     <br/>
                     <br class="pre-image-break"/>
                     <img class="content-inner-img" src="img/apl_front.jpg" alt="Cleveland APL Building Front" >
-                    <span class="content-inner-lfloat">1729 Willey Avenue</span>
+                    <span class="content-inner-lfloat"><a href="http://maps.google.com/maps?q=1729%20Willey%20Avenue%2C%20Cleveland%2C%20Ohio%2C%2044113;&z=15" rel="external" target="_system">1729 Willey Avenue</a></span>
                     <br/>
-                    <span class="content-inner-lfloat">Cleveland, Ohio, 44113</span>
+                    <span class="content-inner-lfloat"><a href="http://maps.google.com/maps?q=1729%20Willey%20Avenue%2C%20Cleveland%2C%20Ohio%2C%2044113;&z=15" rel="external" target="_system">Cleveland, Ohio, 44113</a></span>
                     <br/>
-                    <span class="content-inner-lfloat">216-771-4616</span>
+                    <span class="content-inner-lfloat"><a href="tel:216-771-4616" rel="external">216-771-4616</a></span>
                 </p>
                 <div class="content-inner-btn">
-                    <a href="http://www.clevelandapl.org/directions/"
+                    <!-- old link --------
+                    http://www.clevelandapl.org/directions/
+                    ------------------ -->
+                    <a href="http://maps.google.com/maps?q=1729%20Willey%20Avenue%2C%20Cleveland%2C%20Ohio%2C%2044113;&z=15"
                        rel="external"
                        data-role="button"
                        data-theme="c">Click Here for Directions</a>
@@ -356,7 +411,11 @@
         <div id="more" data-role="page">
             <header class="global-header" data-role="header" data-add-back-btn="true">
                 <a class="more-back" href="#" data-rel="back" data-role="button" data-icon="arrow-l" data-iconpos="left" data-theme="c">Back</a>
-                <div class="header-logo"></div>
+                <div class="header-logo">
+                    <a href="http://clevelandapl.com/" rel="external">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+                    </a>
+                </div>
             </header>
             <div class="global-content" data-role="content">
                 <h1 class="content-inner-heading">More Info</h1>
@@ -404,7 +463,11 @@
         </div>
         <div id="no-connection" data-role="page">
             <header class="global-header" data-role="header" data-add-back-btn="true">
-                <div class="header-logo"></div>
+                <div class="header-logo">
+                    <a href="http://clevelandapl.com/" rel="external">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+                    </a>
+                </div>
             </header>
             <div class="global-content" data-role="content">
                 <h1 class="content-inner-heading">No Connection</h1>

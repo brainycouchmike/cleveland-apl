@@ -554,6 +554,44 @@ var app = app || {};
                     app.selectSearchCategory.apply($(this),[e,ui]);
                 });
 
+                $("#more .content-inner-btn").on("tap", "a", function(e) {
+                    try {
+                        if(window.plugins && window.plugins.childBrowser) {
+                            if(window.plugins.childBrowser.showWebPage) {
+                                e.preventDefault();
+                                var location = $(this).attr("href");
+                                console.log("Attempting to open childBrowser with location: " + location);
+                                window.plugins.childBrowser.showWebPage(location, { showLocationBar: true });
+                                return false;
+                            }
+                        } else {
+                            console.log("childBrowser plugin not available.")
+                        }
+                    } catch(ex) {
+                        return true;
+                    }
+                    return true;
+                });
+
+                $(".detailed-result-adoption-info,.detailed-result-donate").on("tap", function(e) {
+                    try {
+                        if(window.plugins && window.plugins.childBrowser) {
+                            if(window.plugins.childBrowser.showWebPage) {
+                                e.preventDefault();
+                                var location = $(this).attr("href");
+                                console.log("Attempting to open childBrowser with location: " + location);
+                                window.plugins.childBrowser.showWebPage(location, { showLocationBar: true });
+                                return false;
+                            }
+                        } else {
+                            console.log("childBrowser plugin not available.")
+                        }
+                    } catch(ex) {
+                        return true;
+                    }
+                    return true;
+                });
+
                 /**
                  * Other misc event bindings
                  */
@@ -1283,7 +1321,7 @@ var app = app || {};
 
             /**
              * Fill out misc other optional data
-             */
+             *\/
             try {
                 var miscDetails = {
                     houseTrained:     app.getPetDetail("houseTrained") == "Yes" ? "House Trianed" : null,
@@ -1305,6 +1343,7 @@ var app = app || {};
             } catch(ex) {
                 $(".detailed-result-misc-details").empty();
             }
+             */
 
             // console.log("fillPetDetails:13");
 
