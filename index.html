@@ -75,6 +75,9 @@
     <!--onload="if(!app.inited){app.bindDeviceReady();console.log('fallback:bindDeviceReady');}"-->
     <body>
         <div id="fb-root"></div>
+        <audio id="click-sound" preload="auto">
+            <source src="mp3/click_sound.mp3" type="audio/mpeg"/>
+        </audio>
         <div id="search-start" data-role="page">
             <header class="global-header" data-role="header">
                 <div class="header-logo">
@@ -250,9 +253,6 @@
                                rel="external"
                                data-theme="b">Adoption&nbsp;Info</a>
                         </div>
-                        <div class="detailed-result-calls-to-action">
-
-                        </div>
                     </div>
                 </div>
             </div>
@@ -272,7 +272,7 @@
                 <a href="#" data-role="button" data-theme="b">Email</a>
                 <a href="#" data-role="button" data-theme="b">Share on Facebook</a>
                 <a href="#" data-role="button" data-theme="b">Share on Twitter</a>
-                <a href="#" data-role="button" data-rel="back" data-theme="a">Cancel</a>
+                <a href="#" data-role="button" data-theme="a" id="share-dialog-close">Cancel</a>
             </div>
         </div>
 
@@ -421,11 +421,11 @@
                 <h1 class="content-inner-heading">More Info</h1>
 
                 <div data-role="controlgroup" class="content-inner-btn">
-                    <a href="http://www.clevelandapl.org/donations-giving/" data-role="button" rel="external" />Donations</a>
-                    <a href="http://www.clevelandapl.org/apl_events/" data-role="button" rel="external">APL Events</a>
-                    <a href="http://www.clevelandapl.org/faqs/" data-role="button" rel="external">FAQ</a>
-                    <a href="http://www.clevelandapl.org/volunteer/" data-role="button" rel="external">Volunteer</a>
-                    <a href="http://www.clevelandapl.org/" data-role="button" rel="external">APL Home Page</a>
+                    <span href="http://www.clevelandapl.org/donations-giving/" data-role="button" rel="external" />Donations</span>
+                    <span href="http://www.clevelandapl.org/apl_events/" data-role="button" rel="external">APL Events</span>
+                    <span href="http://www.clevelandapl.org/faqs/" data-role="button" rel="external">FAQ</span>
+                    <span href="http://www.clevelandapl.org/volunteer/" data-role="button" rel="external">Volunteer</span>
+                    <span href="http://www.clevelandapl.org/" data-role="button" rel="external">APL Home Page</span>
                 </div>
 
                 <p class="content-inner-paragraph">

@@ -48,7 +48,7 @@ body {
 
 
 /* Footer Fix */
-[data-role=page] {
+[data-role=page]:not(.share-dialog) {
     height: 100% !important;
     position: relative !important;
     overflow-y: hidden !important;
@@ -108,6 +108,12 @@ body {
     /*padding-bottom: 5px;*/
     overflow:hidden;
     position: relative;
+}
+
+#click-sound {
+    width: 0;
+    height: 0;
+    visibility: hidden;
 }
 
 /* Portrait layout (default) */
@@ -776,7 +782,8 @@ body {
 }
 
 .detailed-result-adoption-info {
-    margin-top: 10px;
+    clear: both;
+    margin: 10px 5% auto;
 }
 
 .detailed-result-share,
@@ -788,6 +795,10 @@ body {
     right: 5%;
 }
 
+.detailed-result-share {
+    margin-bottom: 10px;
+}
+
 .detailed-result-info {
     font: bold 1.1em Arial;
     padding: 0.25em;
@@ -795,6 +806,10 @@ body {
 
 .detailed-result-misc-details {
     margin: 0.5em 1em;
+}
+
+.detailed-result-desc {
+    min-height: 10px;
 }
 
 .detailed-result-error {
@@ -903,4 +918,41 @@ body {
         display: none;
     }
 
+}
+
+/* Share Dialog
+********************/
+
+.ui-dialog { z-index: 99999; }
+
+.ui-dialog .ui-dialog-contain { margin-top: 0 }
+
+.ui-dialog {
+    top: 0px !important;
+    width: 102% !important;
+    left: -1% !important;
+    margin: 0 0 auto 0 !important;
+    height: 100% !important;
+}
+
+.ui-dialog-titlebar {
+    display: none;
+}
+
+#share-dialog {
+    width: 100% !important;
+    margin: 0 0 auto 0 !important;
+    padding: 0 !important;
+    background: #222 !important;
+}
+
+#share-dialog a {
+    color: #FFF;
+}
+
+#share-dialog h3 {
+    width: 100%;
+    font-size: 150%;
+    text-align: center;
+    font-variant: small-caps;
 }

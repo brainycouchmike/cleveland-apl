@@ -54,6 +54,7 @@ var app = app || {};
             noCats:         "A",
             noKids:         "A"
         },
+        clickSound: null,
         petDetails: null,
         // database global
         db: null,
@@ -189,6 +190,7 @@ var app = app || {};
                     console.log("app.connection.initalStatusEventFired is true!");
                 }
             } catch(ex) {console.log(ex.toString());}
+            try {app.clickSound = $("#click-sound")[0];} catch(ex) {console.log(ex.toString());}
 
         },
         // Connection related aspects of the app
@@ -238,6 +240,15 @@ var app = app || {};
         },
         // Reset search start
         resetSearchStart: function() {
+            //stop click sound if playing
+            try {
+                if(app.clickSound) {
+                    app.clickSound.pause();
+                    app.clickSound.currentTime = 0;
+                }
+            } catch(ex) {
+                console.log("clickSound exception: " + ex.toString());
+            }
             // console.log("resetSearchStart");
             $("#content-dnd-logo").switchClass("cats dogs small all", null,"fast", function() {
                 $(this).removeAttr("class").removeAttr("style");
@@ -441,7 +452,24 @@ var app = app || {};
                 });
 
                 $("[rel='external'],[data-rel='external']").on("tap", function(e) {
-                    window.open(this.href,'_system'); return false;
+                    try {
+                        var location = $(this).attr("href");
+                        if(location.slice(0,3)=="tel") return true;
+                        if(location.slice(0,6)=="mailto") return true;
+                        e.preventDefault();
+                        if(window.plugins && window.plugins.childBrowser) {
+                            if(window.plugins.childBrowser.showWebPage) {
+                                console.log("Attempting to open childBrowser with location: " + location);
+                                window.plugins.childBrowser.showWebPage(location, { showLocationBar: true });
+                                return false;
+                            }
+                        } else {
+                            console.log("childBrowser plugin not available.");
+                            window.open(this.href,'_system'); return false;
+                        }
+                    } catch(ex) {
+                        console.log("external link exception: " + ex.toString());
+                    }
                 });
 
                 /*$(document).on('keydown', function(event) {
@@ -510,6 +538,7 @@ var app = app || {};
                     var petId = $page.jqmData("pet-id");
                     var isFav = $page.jqmData("favorite");
                     if(!petId) return false;
+                    app.clickSound.play();
                     if(isFav) {
                         if(window.isRipple) return app.unfavoritePet(e, petId);
                         navigator.notification.confirm("Are you sure you want to remove this pet from your favorites?", function(btnDex) {
@@ -540,10 +569,13 @@ var app = app || {};
                     console.log(this.href.slice(1));
                     console.log($(this).attr("href"));*/
                     if(page!=href2 && href!="#") {
+                        app.clickSound.play();
                         $.mobile.changePage(href, {changeHash: pages[href]});
                     }
                     if(href=="#search-start") app.resetSearchStart();
                 });
+
+                $("#search-start .global-footer").on("tap", ".footer-icon[href='#']", app.resetSearchStart);
 
                 $("#search-start .category").on("tap", function(e) {
                     if($("#search-start").hasClass("selectingCategory")) return false;
@@ -554,7 +586,7 @@ var app = app || {};
                     app.selectSearchCategory.apply($(this),[e,ui]);
                 });
 
-                $("#more .content-inner-btn").on("tap", "a", function(e) {
+                $("#more .content-inner-btn span").on("tap", function(e) {
                     try {
                         if(window.plugins && window.plugins.childBrowser) {
                             if(window.plugins.childBrowser.showWebPage) {
@@ -573,7 +605,7 @@ var app = app || {};
                     return true;
                 });
 
-                $(".detailed-result-adoption-info,.detailed-result-donate").on("tap", function(e) {
+                /*$(".detailed-result-adoption-info,.detailed-result-donate").on("tap", function(e) {
                     try {
                         if(window.plugins && window.plugins.childBrowser) {
                             if(window.plugins.childBrowser.showWebPage) {
@@ -590,18 +622,28 @@ var app = app || {};
                         return true;
                     }
                     return true;
-                });
+                });*/
 
                 /**
                  * Other misc event bindings
                  */
+                /*$("#share-dialog-close").on("click", function(e) {
+                    $("#detailed-result,.detailed-result-wrap").show();
+                    app.loadPetDetails();
+                    $("#share-dialog").dialog("close");
+                });*/
+
+                /*$("#detailed-result-share").on("click", function(e) {
+                    $("#share-dialog")
+                });*/
+
                 $(".detailed-result-img-wrap,.search-results-img-wrap").on("error",".detailed-result-img,.search-results-img", function() {
                     $("img",this).attr('src','http://sms.petpoint.com/sms3/emails/images/Photo-Not-Available-'+($("img",this).attr('data-species')||'other')+'.gif');
                     return false;
                 });
 
                 $(".detailed-result-img-wrap").
-                    on("click swipe", function() {
+                    on("swipe", function() {
                         var $this = $(this);
                         if($this.jqmData("animating")) return false;
                         $this.jqmData("animating", true);
@@ -631,7 +673,24 @@ var app = app || {};
                         var $nDot = $dots.eq(nxPos);
                             $sDot.removeClass("selected").attr("src", app.photoDotSrc);
                             $nDot.addClass("selected").attr("src", app.photoDotSrcS);
+                    }).on("click", function(e) {
+                        try {
+                            if(window.plugins && window.plugins.childBrowser) {
+                                if(window.plugins.childBrowser.showWebPage) {
+                                    var sauce = $(this).find("img.selected").attr('src');
+                                    if(sauce.validURL()) {
+                                        window.plugins.childBrowser.showWebPage(sauce, {
+                                            showLocationBar: false,
+                                            showAddress: false
+                                        });
+                                    }
+                                }
+                            }
+                        } catch(ex) {
+                            consoel.log("Image expand exception: " + ex.toString());
+                        }
                     });
+
     //            console.log(typeof($.mobile), $.mobile, typeof($.mobile.loader), $.mobile.loader);
                 try { $.mobile.loading("hide"); } catch(ex) { console.log(ex.toString()); }
 
@@ -734,6 +793,8 @@ var app = app || {};
                     left: 0.595 * docX
                 }
             };
+            // Play click sound
+            app.clickSound.play();
             // Animate the logo thing.
             logo.
                 draggable({
@@ -990,6 +1051,7 @@ var app = app || {};
                 petId = $this.jqmData("animal-id"),
                 finished = false;
             if(!petId) return false;
+            app.clickSound.play();
             var headerFadeout = $("#detailed-result .detailed-result-wrap").fadeOut(0).promise();
             $.mobile.loading("show");
             $this.addClass("active").delay(1000).removeClass("active");
@@ -1355,7 +1417,7 @@ var app = app || {};
                 if (desc) {
                     $(".detailed-result-desc").show().html(desc.replace(/[\n\r]/g, "<br/>"));
                 } else {
-                    $(".detailed-result-desc").hide().html('');
+                    $(".detailed-result-desc").hide().html('').show();
                 }
             } catch (ex) {
                 $(".detailed-result-desc").hide().html('');
