@@ -451,12 +451,15 @@ var app = app || {};
                     });
                 });
 
-                $("[rel='external'],[data-rel='external']").on("tap", function(e) {
+                $("[rel='external'],[data-rel='external']").on("click", function(e) {
                     try {
+                        var $this = $(this).length == 1 ? $(this) : ($(this).length == 0 ? false : $(this)[0]);
+                        if(!$this) return false;
                         var location = $(this).attr("href");
-                        if(location.slice(0,3)=="tel") return true;
-                        if(location.slice(0,6)=="mailto") return true;
+                        if(location.slice(0,3)=="tel") return (console.log("telephone link: " + location) || true);
+                        if(location.slice(0,6)=="mailto") return (console.log("email link: " +location) || true);
                         e.preventDefault();
+                        e.stopPropagation();
                         if(window.plugins && window.plugins.childBrowser) {
                             if(window.plugins.childBrowser.showWebPage) {
                                 console.log("Attempting to open childBrowser with location: " + location);
